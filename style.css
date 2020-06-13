@@ -30,6 +30,8 @@ svg {
 
 #preview-wrapper {
     border: 3px solid;
+    width: 120px;
+    height: 120px;
 }
 
 #preview {
@@ -64,12 +66,12 @@ svg {
     border: solid green;
 }
 
-.price {
+.price-wrapper {
     position: relative;
     width: 30%;
   }
   
-.price > i {
+.price-wrapper > i {
     position: absolute;
     display: block;
     transform: translate(0, -50%);
@@ -80,7 +82,7 @@ svg {
     font-style: normal;
 }
 
-.price > input {
+.price-wrapper > input {
     padding-left: 20px;
 }
 

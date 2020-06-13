@@ -22,19 +22,3 @@ function defaultPreview() {
   context.textAlign = "center";
   context.fillText('Preview', width / 2, height / 2);
 }
-
-function savePreviewAsBlob() {
-  let canvas = document.getElementById("preview");
-  canvas.toBlob(function (blob) {
-    let img = document.createElement('img'),
-      url = URL.createObjectURL(blob);
-
-    img.onload = function () {
-      // no longer need to read the blob so it's revoked
-      URL.revokeObjectURL(url);
-    };
-
-    img.src = url;
-    document.body.appendChild(img);
-  });
-} 
