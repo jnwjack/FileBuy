@@ -7,12 +7,14 @@ function generatePreview(file) {
 
   let canvas = document.getElementById("preview");
   let context = canvas.getContext("2d");
-  image.onload = function() {
-    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+  image.onload = function () {
+    if(isImage(file)) {
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    }
   }
 
   reader.readAsDataURL(file);
-  if(!canvas.className.includes("blur")){
+  if(isImage(file) && !canvas.className.includes("blur")){
     canvas.className += "blur";
   }
 }
@@ -23,14 +25,13 @@ function dropHandler(ev) {
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();
 
-  if (ev.dataTransfer.items) {
-    // Use DataTransferItemList interface to access the file(s)
-    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
-      // If dropped items aren't files, reject them
-      if (ev.dataTransfer.items[i].kind === "file") {
-        var file = ev.dataTransfer.items[i].getAsFile();
-        generatePreview(file);
-      }
+  if (ev.dataTransfer.files) {
+    if (ev.dataTransfer.files.length > 1) {
+      alert("Only upload 1 file");
+    } else {
+      let fileElement = document.getElementById("file");
+      fileElement.files = ev.dataTransfer.files;
+      generatePreview(ev.dataTransfer.files[0]);
     }
   }
 }

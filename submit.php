@@ -1,6 +1,6 @@
 <?php
 
-$preview = serialize($_FILES["preview"]);
+$preview = serialize($_POST["preview"]);
 $file = serialize($_POST["file"]);
 $email = $_POST["email"];
 $price = $_POST["price"];

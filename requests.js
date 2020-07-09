@@ -1,6 +1,5 @@
 function savePreviewAsBlob() {
   let canvas = document.getElementById("preview");
-  let convertedImage = {};
   
   return new Promise(function(resolve, reject) {
     canvas.toBlob(function (blob) {
@@ -8,6 +7,12 @@ function savePreviewAsBlob() {
     });
   });
 } 
+
+function savePreviewAsBase64() {
+  let canvas = document.getElementById("preview");
+  
+  return canvas.toDataURL("image/jpeg", 0.05);
+}
 
 function createListing(event) {
   event.preventDefault();
@@ -31,26 +36,53 @@ function createListing(event) {
     return false;
   }
 
-  console.log(file);
-  let blobTest = URL.createObjectURL(file);
-  console.log(blobTest);
-
   let readerPromise = new Promise((resolve, reject) => {
     let reader = new FileReader();
     reader.onload = function() {
       resolve(reader.result);
     }
     reader.readAsDataURL(file);
-  })
+  });
 
   readerPromise.then(function(fileData) {
-    let previewPromise = savePreviewAsBlob();
-    previewPromise.then(function(preview) {
+    //let previewPromise = savePreviewAsBlob();
+    let previewb64 = savePreviewAsBase64();
+
+    let formData = new FormData();
+    formData.append("email", email);
+    formData.append("price", price);
+    formData.append("preview", previewb64);
+    formData.append("file", fileData);
+
+    console.log("previewb64", previewb64);
+    console.log("filedata", fileData);
+
+    fetch("submit.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("result", JSON.stringify(result, null, 2));
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+
+    }, function(err) {
+      console.log(err);
+  });
+
+
+
+    /*previewPromise.then(function(preview) {
       let formData = new FormData();
       formData.append("email", email);
       formData.append("price", price);
       formData.append("preview", preview);
       formData.append("file", fileData);
+
+      console.log("file before sending:", fileData);
   
       fetch("submit.php", {
         method: "POST",
@@ -58,7 +90,7 @@ function createListing(event) {
       })
       .then(response => response.json())
       .then(result => {
-        alert("JSON.stringify(result, null, 2)");
+        console.log("result", JSON.stringify(result, null, 2));
       })
       .catch(error => {
         console.log("Error:", error);
@@ -67,7 +99,7 @@ function createListing(event) {
     }, function(err) {
       console.log(err);
     });
-  });
+  });*/
 
   return true;
 }
