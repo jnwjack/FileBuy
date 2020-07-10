@@ -63,7 +63,7 @@ function createListing(event) {
     })
     .then(response => response.json())
     .then(result => {
-      console.log("result", JSON.stringify(result, null, 2));
+      alert("localhost/listing/" + JSON.stringify(result, null, 2));
     })
     .catch(error => {
       console.error("Error:", error);
@@ -72,34 +72,6 @@ function createListing(event) {
     }, function(err) {
       console.log(err);
   });
-
-
-
-    /*previewPromise.then(function(preview) {
-      let formData = new FormData();
-      formData.append("email", email);
-      formData.append("price", price);
-      formData.append("preview", preview);
-      formData.append("file", fileData);
-
-      console.log("file before sending:", fileData);
-  
-      fetch("submit.php", {
-        method: "POST",
-        body: formData
-      })
-      .then(response => response.json())
-      .then(result => {
-        console.log("result", JSON.stringify(result, null, 2));
-      })
-      .catch(error => {
-        console.log("Error:", error);
-      });
-  
-    }, function(err) {
-      console.log(err);
-    });
-  });*/
 
   return true;
 }

@@ -9,7 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Ensures optimal rendering on mobile devices. -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="common.css">
 </head>
 
 <body onload="defaultPreview();">
@@ -55,10 +56,14 @@
             </canvas>
           </div>
           <button type="submit">Create Listing</button>
+          <canvas id="blobtesting" width="120" height="120">
+            Preview2
+          </canvas>
         </div>
       </form>
   </div>
-
+  
+  <script src="util.js"></script>
   <script src="filedrop.js"></script>
   <script src="preview.js"></script>
   <script src="requests.js"></script>

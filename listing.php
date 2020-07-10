@@ -49,6 +49,8 @@
       "id" => $row["id"]
     );
     $json = json_encode($convertedArray);
+
+    $file = unserialize($row["file"]);
   ?>
 
   <script src="../util.js"></script>
@@ -72,27 +74,42 @@
       createOrder: function(data, actions) {
         // This function sets up the details of the transaction, including the amount and line item details.
         let price = listingData["price"];
-        return actions.order.create({
+        let createdOrder = actions.order.create({
           purchase_units: [{
             amount: {
-                  currency_code: 'USD',
-                  value: price
-              },
+              currency_code: 'USD',
+              value: price
+            },
             description: 'Purchase Unit test description'
           }]
         });
+        console.log("createdOrder", createdOrder);
+        return createdOrder;
       },
       onApprove: function(data, actions) {
         // This function captures the funds from the transaction.
         return actions.order.capture().then(function(details) {
           // This function shows a transaction success message to your buyer.
           alert('Transaction completed by ' + details.payer.name.given_name);
-          let response = <?php echo "'$file'" ?>;
-          
-          let link = document.createElement("a");
-          link.download = "download";
-          link.href = response;
-          link.click();
+          let formData = new FormData();
+          formData.append("listing", listingData["id"]);
+          formData.append("order", details.id);
+          console.log("order details", details);
+
+          fetch("../download.php", {
+            method: "POST",
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            let link = document.createElement("a");
+            link.download = "download";
+            link.href = result;
+            link.click();
+          })
+          .catch(error => {
+            console.error("Error:", error);
+          });
         });
       }
     }).render('#paypal-button-container');
