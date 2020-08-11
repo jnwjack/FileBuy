@@ -1,6 +1,8 @@
 function defaultPreview() {
-  let canvas = document.getElementById("preview");
-  let context = canvas.getContext("2d");
+  let canvas = document.getElementById('preview');
+  let context = canvas.getContext('2d');
+
+  canvas.className = '';
   context.font = '22px serif';
 
   let width = canvas.width;
@@ -19,6 +21,6 @@ function defaultPreview() {
 
   context.fillStyle = 'rgb(0, 0, 0)';
   context.textBaseline = 'middle';
-  context.textAlign = "center";
+  context.textAlign = 'center';
   context.fillText('Preview', width / 2, height / 2);
 }

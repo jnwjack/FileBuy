@@ -4,3 +4,10 @@ function isImage(file) {
   }
   return false;
 }
+
+function isEmailAddress(string) {
+  if(string && string.match("^[^@]+@[^@]+\.[^@]+$")) {
+    return true;
+  }
+  return false;
+}

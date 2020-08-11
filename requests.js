@@ -24,6 +24,13 @@ function createListing(event) {
     return false;
   }
 
+  console.log(email);
+
+  if(!isEmailAddress(email)) {
+    alert("Error: Invalid Email");
+    return false;
+  }
+
   let price = document.getElementById("price").value;
   if(isNaN(price) || price === ""){
     alert("Error: Invalid Price");
@@ -64,6 +71,9 @@ function createListing(event) {
     .then(response => response.json())
     .then(result => {
       alert("localhost/listing/" + JSON.stringify(result, null, 2));
+      let form = document.getElementById("form");
+      form.reset();
+      defaultPreview();
     })
     .catch(error => {
       console.error("Error:", error);
