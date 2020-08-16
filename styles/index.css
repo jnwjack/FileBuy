@@ -28,6 +28,31 @@ svg {
     vertical-align: middle;
 }
 
+#card {
+    bottom: 0;
+    width: 400px;
+    position: fixed;
+    z-index: 9999;
+    background: whitesmoke;
+    transition: top 1s;
+    
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.card-disabled {
+    height: 0px;
+    top: 0;
+}
+
+.card-active {
+    height: 200px;
+    top: 25%;
+}
+
 .price-wrapper {
     position: relative;
     width: 30%;
