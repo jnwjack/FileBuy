@@ -24,8 +24,6 @@ function createListing(event) {
     return false;
   }
 
-  console.log(email);
-
   if(!isEmailAddress(email)) {
     alert("Error: Invalid Email");
     return false;
@@ -60,9 +58,6 @@ function createListing(event) {
     formData.append("price", price);
     formData.append("preview", previewb64);
     formData.append("file", fileData);
-
-    console.log("previewb64", previewb64);
-    console.log("filedata", fileData);
 
     fetch("php/submit.php", {
       method: "POST",
