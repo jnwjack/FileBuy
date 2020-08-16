@@ -88,7 +88,6 @@
           let formData = new FormData();
           formData.append('listing', listingData['id']);
           formData.append('order', details.id);
-          console.log('order details', details);
 
           fetch('../php/download.php', {
             method: 'POST',
