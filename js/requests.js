@@ -64,16 +64,17 @@ function createListing(event) {
     console.log("previewb64", previewb64);
     console.log("filedata", fileData);
 
-    fetch("submit.php", {
+    fetch("php/submit.php", {
       method: "POST",
       body: formData
     })
     .then(response => response.json())
     .then(result => {
-      alert("localhost/listing/" + JSON.stringify(result, null, 2));
+      let linkString = "localhost/listing/" + JSON.stringify(result, null, 2)
       let form = document.getElementById("form");
       form.reset();
       defaultPreview();
+      activateCard(linkString);
     })
     .catch(error => {
       console.error("Error:", error);

@@ -9,8 +9,8 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <!-- Ensures optimal rendering on mobile devices. -->
   <meta http-equiv='X-UA-Compatible' content='IE=edge' /> <!-- Optimal Internet Explorer compatibility -->
-  <link rel='stylesheet' type='text/css' href='../listing.css'>
-  <link rel='stylesheet' type='text/css' href='../common.css'>
+  <link rel='stylesheet' type='text/css' href='../styles/listing.css'>
+  <link rel='stylesheet' type='text/css' href='../styles/common.css'>
 </head>
     
 <body>
@@ -31,8 +31,8 @@
     </div>
   </div>
   <?php
-    $username = 'root';
-    $password = 'root';
+    $username = "REPLACE_WITH_USERNAME";
+    $password = "REPLACE_WITH_PASSWORD";
     
     $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
     array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -51,7 +51,7 @@
     $json = json_encode($convertedArray);
   ?>
 
-  <script src='../util.js'></script>
+  <script src='../js/util.js'></script>
   <script src='https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ'></script>
   <script> 
     const listingData = <?php echo $json; ?>;
@@ -73,7 +73,7 @@
         // This function sets up the details of the transaction, including the amount and line item details.
         let formData = new FormData();
         formData.append('listing', listingData['id']);
-        const response = await fetch('../order.php', {
+        const response = await fetch('../php/order.php', {
           method: 'POST',
           body: formData
         });
@@ -91,7 +91,7 @@
           formData.append('order', details.id);
           console.log('order details', details);
 
-          fetch('../download.php', {
+          fetch('../php/download.php', {
             method: 'POST',
             body: formData
           })

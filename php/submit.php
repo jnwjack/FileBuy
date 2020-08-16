@@ -6,8 +6,8 @@ $email = $_POST["email"];
 $price = $_POST["price"];
 $id = random_int(0, 50000);
 
-$username = "root";
-$password = "root";
+$username = "REPLACE_WITH_USERNAME";
+$password = "REPLACE_WITH_PASSWORD";
 
 $db = new PDO("mysql:host=localhost;dbname=file_buy", $username, $password,
         array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));

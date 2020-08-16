@@ -1,7 +1,7 @@
 <?php
 
-  $username = 'root';
-  $password = 'root';
+  $username = "REPLACE_WITH_USERNAME";
+  $password = "REPLACE_WITH_PASSWORD";
 
   $access_token = 'A21AAGMHmgWmTDqaYC6m6bDJYGzF3Wc_h8czrur4SE-XzAoNsz1tkp6afH3yKt4eBqi5-4L7FyqygfjoVKkVXWGihots5s9yg';
 
