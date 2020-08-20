@@ -14,9 +14,8 @@
 </head>
 
 <body onload='defaultPreview();'>
-  <div id='card' class='card-disabled'>
-  </div>
-  <div id='content'>
+  <div id='card' class='card-disabled'></div>
+  <div id='content' onclick='cardActive() && disableCard();'>
     <form id='form' class='h-stack align-center' onsubmit='createListing(event);'>
       <div class='v-stack'>
         <div id='filedrop' class='justify-center align-center' ondrop='dropHandler(event);'

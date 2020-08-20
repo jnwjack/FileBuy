@@ -1,7 +1,7 @@
 <?php
 
-  $username = "REPLACE_WITH_USERNAME";
-  $password = "REPLACE_WITH_PASSWORD";
+  $username = "root";
+  $password = "root";
 
   $access_token = '***REMOVED***';
 
