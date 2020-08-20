@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 input {
     height: 30px;
 }
@@ -18,12 +22,6 @@ svg {
     height: 300px;
 }
 
-#content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #preview {
     vertical-align: middle;
 }
@@ -35,12 +33,14 @@ svg {
     z-index: 9999;
     background: whitesmoke;
     transition: top 1s;
-    
+
+    display: flex;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-disabled {
