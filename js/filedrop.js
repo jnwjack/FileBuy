@@ -42,6 +42,8 @@ function dragOverHandler(ev) {
 function selectHandler(element) {
   let file = element.files[0];
   if(!file) {
+    console.log("hey");
+    defaultPreview();
     return false;
   }
 
