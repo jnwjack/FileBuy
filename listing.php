@@ -41,6 +41,12 @@
     $statement->execute();
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
+    if(!$row) {
+      // must be changed to actual url root later
+      header('Location: /error');
+      die();
+    }
+
     $convertedArray = array(
       'preview' => unserialize($row['preview']),
       'email' => $row['email'],
