@@ -12,6 +12,9 @@ function activateCard(text) {
     elementArray.forEach((input) => {
         input.disabled = true;
     });
+
+    let fileInput = document.getElementById('file');
+    fileInput.className = 'inputfile';
 }
 
 function disableCard() {
@@ -28,6 +31,9 @@ function disableCard() {
     elementArray.forEach((input) => {
         input.disabled = false;
     });
+
+    let fileInput = document.getElementById('file');
+    fileInput.className = 'inputfile hoverable';
 }
 
 function cardActive() {

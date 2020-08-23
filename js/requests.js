@@ -40,6 +40,8 @@ function createListing(event) {
     alert("Error: No File");
     return false;
   }
+  let name = file.name;
+  let size = file.size;
 
   let readerPromise = new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -58,6 +60,8 @@ function createListing(event) {
     formData.append("price", price);
     formData.append("preview", previewb64);
     formData.append("file", fileData);
+    formData.append("name", name);
+    formData.append("size", size);
 
     fetch("php/submit.php", {
       method: "POST",

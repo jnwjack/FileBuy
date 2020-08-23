@@ -18,6 +18,7 @@
     <div class='h-stack align-center'>
       <div class='v-stack'>
         <div id='filename'>File Preview</div>
+        <div id='size'></div>
         <div id='preview-wrapper'>
           <canvas id='preview' width='120' height='120'>
             Preview
@@ -36,7 +37,7 @@
     $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
     array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
-    $statement = $db->prepare('SELECT preview, email, price, id FROM listings WHERE id=:id');
+    $statement = $db->prepare('SELECT preview, email, price, id, name, size FROM listings WHERE id=:id');
     $statement->bindValue(':id',$_GET['listing'],PDO::PARAM_INT);
     $statement->execute();
     $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -51,7 +52,9 @@
       'preview' => unserialize($row['preview']),
       'email' => $row['email'],
       'price' => $row['price'],
-      'id' => $row['id']
+      'id' => $row['id'],
+      'name' => $row['name'],
+      'size' => $row['size']
     );
     $json = json_encode($convertedArray);
   ?>
@@ -72,6 +75,8 @@
 
     document.getElementById('price').textContent += listingData['price'];
     document.getElementById('seller-email').textContent += listingData['email'];
+    document.getElementById('filename').textContent = listingData['name'];
+    document.getElementById('size').textContent = formatBytes(listingData['size']);
 
     paypal.Buttons({
       createOrder: async function(data, actions) {

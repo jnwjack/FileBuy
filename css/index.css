@@ -129,7 +129,7 @@ svg {
 }
 
 .inputfile:focus + label,
-.inputfile + label:hover {
+.inputfile.hoverable + label:hover {
     background-color: blue;
     background-color: rgb(128, 217, 200);
 }
