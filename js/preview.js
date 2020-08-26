@@ -24,3 +24,19 @@ function defaultPreview() {
   context.textAlign = 'center';
   context.fillText('Preview', width / 2, height / 2);
 }
+
+function savePreviewAsBase64() {
+  let canvas = document.getElementById("preview");
+  
+  return canvas.toDataURL("image/jpeg", 0.05);
+}
+
+function savePreviewAsBlob() {
+  let canvas = document.getElementById("preview");
+  
+  return new Promise(function(resolve, reject) {
+    canvas.toBlob(function (blob) {
+      resolve(blob);
+    });
+  });
+} 

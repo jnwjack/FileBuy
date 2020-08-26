@@ -1,19 +1,3 @@
-function savePreviewAsBlob() {
-  let canvas = document.getElementById("preview");
-  
-  return new Promise(function(resolve, reject) {
-    canvas.toBlob(function (blob) {
-      resolve(blob);
-    });
-  });
-} 
-
-function savePreviewAsBase64() {
-  let canvas = document.getElementById("preview");
-  
-  return canvas.toDataURL("image/jpeg", 0.05);
-}
-
 function createListing(event) {
   event.preventDefault();
 
@@ -84,4 +68,26 @@ function createListing(event) {
   });
 
   return true;
+}
+
+function requestDownload(listing, orderID) {
+  alert('in requestDownload')
+  let formData = new FormData();
+  formData.append('listing', listing);
+  formData.append('order', orderID);
+
+  fetch('../php/download.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(result => {
+    let link = document.createElement('a');
+    link.download = 'download';
+    link.href = result;
+    link.click();
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }

@@ -10,6 +10,7 @@
   <!-- Ensures optimal rendering on mobile devices. -->
   <meta http-equiv='X-UA-Compatible' content='IE=edge' /> <!-- Optimal Internet Explorer compatibility -->
   <link rel='stylesheet' type='text/css' href='../css/common.css'>
+  <link rel='stylesheet' type='text/css' href='../css/listing.css'>
 </head>
     
 <body>
@@ -28,6 +29,9 @@
         <div id='seller-email'>Seller: </div>
       </div>
       <div id='paypal-button-container' class='justify-center'></div>
+      <div id='download-button-container'>
+        <button id='download-button'>Download</button>
+      </div>
     </div>
   </div>
   <?php
@@ -37,7 +41,7 @@
     $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
     array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
-    $statement = $db->prepare('SELECT preview, email, price, id, name, size FROM listings WHERE id=:id');
+    $statement = $db->prepare('SELECT preview, email, price, id, name, size, complete FROM listings WHERE id=:id');
     $statement->bindValue(':id',$_GET['listing'],PDO::PARAM_INT);
     $statement->execute();
     $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -54,12 +58,14 @@
       'price' => $row['price'],
       'id' => $row['id'],
       'name' => $row['name'],
-      'size' => $row['size']
+      'size' => $row['size'],
+      'complete' => $row['complete']
     );
     $json = json_encode($convertedArray);
   ?>
 
   <script src='../js/util.js'></script>
+  <script src='../js/requests.js'></script>
   <script src='https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ'></script>
   <script> 
     const listingData = <?php echo $json; ?>;
@@ -78,45 +84,34 @@
     document.getElementById('filename').textContent = listingData['name'];
     document.getElementById('size').textContent = formatBytes(listingData['size']);
 
-    paypal.Buttons({
-      createOrder: async function(data, actions) {
-        // This function sets up the details of the transaction, including the amount and line item details.
-        let formData = new FormData();
-        formData.append('listing', listingData['id']);
-        const response = await fetch('../php/order.php', {
-          method: 'POST',
-          body: formData
-        });
-        const orderId = await response.text();
+    if(!listingData['complete']) {
+      console.log('order is not complete');
+      document.getElementById('download-button-container').className = 'invisible';
 
-        return orderId;
-      },
-      onApprove: function(data, actions) {
-        // This function captures the funds from the transaction.
-        return actions.order.capture().then(function(details) {
-          // This function shows a transaction success message to your buyer.
-          alert('Transaction completed by ' + details.payer.name.given_name);
+      paypal.Buttons({
+        createOrder: async function(data, actions) {
+          // This function sets up the details of the transaction, including the amount and line item details.
           let formData = new FormData();
           formData.append('listing', listingData['id']);
-          formData.append('order', details.id);
-
-          fetch('../php/download.php', {
+          const response = await fetch('../php/order.php', {
             method: 'POST',
             body: formData
-          })
-          .then(response => response.json())
-          .then(result => {
-            let link = document.createElement('a');
-            link.download = 'download';
-            link.href = result;
-            link.click();
-          })
-          .catch(error => {
-            console.error('Error:', error);
           });
-        });
-      }
-    }).render('#paypal-button-container');
+          const orderId = await response.text();
+
+          return orderId;
+        },
+        onApprove: function(data, actions) {
+          // This function captures the funds from the transaction.
+          return actions.order.capture().then(function(details) {
+            requestDownload(listingData['id'], details.id);
+          });
+        }
+      }).render('#paypal-button-container');
+    } else {
+      document.getElementById('download-button').onclick = () => requestDownload(listingData['id'], '0');
+    }
+
     //This function displays Smart Payment Buttons on your web page.
   </script>
 </body>
