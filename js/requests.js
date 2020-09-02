@@ -1,4 +1,6 @@
 function createListing(event) {
+  fetch("php/delete.php").then(response => console.log('done with delete.php'));
+
   event.preventDefault();
 
   let email = document.getElementById("email").value;
@@ -71,7 +73,6 @@ function createListing(event) {
 }
 
 function requestDownload(listing, orderID) {
-  alert('in requestDownload')
   let formData = new FormData();
   formData.append('listing', listing);
   formData.append('order', orderID);
