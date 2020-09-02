@@ -6,7 +6,7 @@
   $access_token = 'TOKEN';
 
   $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
-  array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+      array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
   $statement = $db->prepare('SELECT price FROM listings WHERE id=:id');
   $statement->bindValue(':id',$_POST['listing'],PDO::PARAM_INT);
