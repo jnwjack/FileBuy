@@ -25,7 +25,8 @@
     $decoded_paypal_data = json_decode($paypal_data);
   
     if($decoded_paypal_data->status != 'COMPLETED') {
-      echo 'FAILURE: ORDER NOT COMPLETE';
+      http_response_code(500);
+      echo 'FAILURE: Order not complete';
     }
     else {
       $file = unserialize($row['file']);
@@ -41,7 +42,8 @@
     }
   }
   else {
-    echo 'FAILURE: INVALID ORDER';
+    http_response_code(400);
+    echo 'FAILURE: Invalid order';
   }
 
 ?>

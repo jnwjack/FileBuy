@@ -85,7 +85,6 @@
     document.getElementById('size').textContent = formatBytes(listingData['size']);
 
     if(!listingData['complete']) {
-      console.log('order is not complete');
       document.getElementById('download-button-container').className = 'invisible';
 
       paypal.Buttons({
