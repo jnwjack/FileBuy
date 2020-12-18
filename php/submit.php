@@ -1,5 +1,13 @@
 <?php
 
+  /* submit.php
+
+    This script is run when the user posts a listing for their file.
+
+    It creates a listing in the database.
+
+  */
+
   $preview = serialize($_POST["preview"]);
   $file = serialize($_POST["file"]);
   $email = $_POST["email"];

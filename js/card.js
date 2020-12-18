@@ -1,3 +1,8 @@
+/* activateCard(text)
+
+  Makes the card visible and displays the listing link.  Blurs the background
+
+*/
 function activateCard(text) {
     let card = document.getElementById('card');
     card.className = 'card-active';
@@ -17,6 +22,12 @@ function activateCard(text) {
     fileInput.className = 'inputfile';
 }
 
+
+/* disableCard(text)
+
+  Makes the card invisible and unblurs the background.
+
+*/
 function disableCard() {
     let card = document.getElementById('card');
     card.className = 'card-disabled';

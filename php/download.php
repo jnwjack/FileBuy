@@ -1,5 +1,15 @@
 <?php
 
+  /* download.php
+
+    This script is run when a user completes a payment for a file or when they click the download
+    button and the file has already been paid for.
+
+    It checks if the PayPal order is complete.  If sets the 'complete' flag to 1 if it is not already
+    and the payment was successful.  If 'complete' is equal to 1, the file has already been paid for.
+
+  */
+
   $username = "root";
   $password = "root";
 

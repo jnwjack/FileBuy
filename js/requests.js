@@ -1,6 +1,4 @@
 function createListing(event) {
-  fetch("php/delete.php").then(response => console.log('done with delete.php'));
-
   event.preventDefault();
 
   let email = document.getElementById("email").value;
@@ -55,7 +53,8 @@ function createListing(event) {
     })
     .then(response => response.json())
     .then(result => {
-      let linkString = "localhost/listing/" + JSON.stringify(result, null, 2)
+      let currentUrl = document.location.href;
+      let linkString = `${currentUrl}listing/` + JSON.stringify(result, null, 2)
       let form = document.getElementById("form");
       form.reset();
       defaultPreview();
