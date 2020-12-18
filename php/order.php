@@ -1,5 +1,13 @@
 <?php
 
+  /* order.php
+
+    This script is called when a user clicks the "Pay with PayPal" button and sets up an order.
+
+    A paypal order is created and the order ID is saved in the database.
+  
+  */
+
   $username = "root";
   $password = "root";
 

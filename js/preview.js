@@ -1,3 +1,8 @@
+/* defaultPreveiew
+
+  Generates black and white checkerboard pattern inside the preview box.
+
+*/
 function defaultPreview() {
   let canvas = document.getElementById('preview');
   let context = canvas.getContext('2d');
@@ -25,12 +30,26 @@ function defaultPreview() {
   context.fillText('Preview', width / 2, height / 2);
 }
 
+/* savePreviewAsBase64()
+
+  Called at listing creation.  Converts file in preview box
+  to base64 stirng.
+
+*/
 function savePreviewAsBase64() {
   let canvas = document.getElementById("preview");
   
   return canvas.toDataURL("image/jpeg", 0.05);
 }
 
+/* savePreviewAsBlob()
+
+  Called at listing creation.  Converts file in preview box
+  to blob object.
+
+  NO LONGER USED
+
+*/
 function savePreviewAsBlob() {
   let canvas = document.getElementById("preview");
   

@@ -1,5 +1,13 @@
 <?php
 
+  /* delete.php
+
+    This script is run every 30 minutes via a cron job.
+
+    It deletes every listing that is older than 6 hours
+
+  */
+
   $username = "root";
   $password = "root";
 

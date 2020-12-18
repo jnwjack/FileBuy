@@ -35,6 +35,12 @@
     </div>
   </div>
   <?php
+    /* listing.php
+
+      Fetches information for the listing via the supplied listing ID.
+
+    */
+
     $username = "root";
     $password = "root";
     
@@ -67,7 +73,13 @@
   <script src='../js/util.js'></script>
   <script src='../js/requests.js'></script>
   <script src='https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ'></script>
-  <script> 
+  <script>
+    /* 
+
+      Display the fetched listing information on the page
+
+    */
+  
     const listingData = <?php echo $json; ?>;
     let image = new Image();
     image.src = listingData['preview'];

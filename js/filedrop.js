@@ -1,3 +1,8 @@
+/* generatePreview(file)
+
+  Inserts the image into the preview box and blurs the image.
+
+*/
 function generatePreview(file) {
   let reader = new FileReader();
   let image = new Image();
@@ -19,6 +24,11 @@ function generatePreview(file) {
   }
 }
 
+/* dropHandler(ev)
+
+  Called when a file is dragged into the 'drag file here' zone.
+
+*/
 function dropHandler(ev) {
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();
@@ -34,15 +44,25 @@ function dropHandler(ev) {
   }
 }
 
+/* dragOverHandler(ev)
+
+  Prevents file from being opened when the file is dragged over 
+  the 'drag file here' zone.
+
+*/
 function dragOverHandler(ev) {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
 }
 
+/* selectHandler(element)
+
+  Called when file is selected via the 'file upload' button.
+
+*/
 function selectHandler(element) {
   let file = element.files[0];
   if(!file) {
-    console.log("hey");
     defaultPreview();
     return false;
   }
