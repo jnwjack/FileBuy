@@ -1,3 +1,5 @@
 # FileBuy - Work In Progress
 
-This is a web application that allows users to list files for potential buyers to purchase and download. Upon listing a file, the user is given a link they can send to the buyer. Purchases are completed with PayPal. This application is written in vanilla JavaScript and PHP.
+The web app is a simple way for artists to sell files. A user uploads an image and receives a link to the listing for that file.  They can then share the link with someone else, who can go to the link and pay for it (via Paypal) and then download the file. Files stay listed for 6 hours, and once they have been paid for anyone with the link can download it. 
+
+The idea of this project is to help freelance artists with the sale of art. Freelancers typically sell their art in insecure ways. For example, an artist will communicate with a client over Instagram or Discord.  Then once a transaction is agreed upon, they will send the client the image, who will then pay the artist (or vice-versa).  This leaves room for one party to scam another, either by accepting payment and abandoning the project or by accepting the finished work and not paying. The purpose of this application is to have the payment of the artist and the delivery of the file occur at the same time, so one cannot happen without the other.
