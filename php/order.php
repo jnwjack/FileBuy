@@ -11,7 +11,7 @@
   $username = "root";
   $password = "root";
 
-  $access_token = 'TOKEN';
+  $access_token = 'A21AAKtGZAdq-8LAf8HNCbgOzEkxCwPzZbSXePW3kbKfGxfjPHEDcSd9I9pdnpXkckRiWXVBkZJARqRkXRnp988hDbKADLR6Q';
 
   $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
       array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));

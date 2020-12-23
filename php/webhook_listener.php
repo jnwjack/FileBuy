@@ -11,7 +11,7 @@
   $username = "root";
   $password = "root";
 
-  $access_token = 'TOKEN';
+  $access_token = 'A21AAKtGZAdq-8LAf8HNCbgOzEkxCwPzZbSXePW3kbKfGxfjPHEDcSd9I9pdnpXkckRiWXVBkZJARqRkXRnp988hDbKADLR6Q';
 
   $data = json_decode(file_get_contents('php://input'), true);
   $resource = $data['resource'];
