@@ -7,3 +7,4 @@ info
 !*.secret
 auth/CLIENT_ID
 auth/CLIENT_SECRET
+keys/*
