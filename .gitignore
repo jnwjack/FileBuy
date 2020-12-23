@@ -3,3 +3,7 @@
 *.png
 *.gif
 info
+.gitsecret/keys/random_seed
+!*.secret
+auth/CLIENT_ID
+auth/CLIENT_SECRET
