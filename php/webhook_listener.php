@@ -1,5 +1,6 @@
 <?php
 
+  require_once('paypal_request.php');
   /* webhook_listener.php
 
     This script is called upon a completed payment from the buyer to file buy.
@@ -10,8 +11,6 @@
 
   $username = "root";
   $password = "root";
-
-  $access_token = '***REMOVED***';
 
   $data = json_decode(file_get_contents('php://input'), true);
   $resource = $data['resource'];
@@ -57,15 +56,15 @@
     
       curl_setopt($ch, CURLOPT_POST, 1);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json',
-        "Authorization: Bearer $access_token"
-      ));
       curl_setopt($ch, CURLOPT_POSTFIELDS, $json_curl_data);
-      $payout_response = curl_exec($ch);
+      // curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      //   'Content-Type: application/json',
+      //   "Authorization: Bearer $access_token"
+      // ));
+      $payout_response = makePayPalCall($ch);
       $decoded_paypal_data = json_decode($payout_response);
       
-      if(!$decoded_paypal_data) {
+      if(!$payout_response) {
         http_response_code(500);
         die('FAILURE: Order not complete');
       }
