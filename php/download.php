@@ -1,4 +1,5 @@
 <?php
+  require_once('paypal_request.php');
 
   /* download.php
 
@@ -13,8 +14,6 @@
   $username = "root";
   $password = "root";
 
-  $access_token = 'A21AAKtGZAdq-8LAf8HNCbgOzEkxCwPzZbSXePW3kbKfGxfjPHEDcSd9I9pdnpXkckRiWXVBkZJARqRkXRnp988hDbKADLR6Q';
-
   $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
   array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
@@ -27,14 +26,9 @@
   if($order_id == $_POST['order'] || $row['complete'] == 1) {
     $ch = curl_init("https://api.sandbox.paypal.com/v2/checkout/orders/$order_id");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-      'Content-Type: application/json',
-      "Authorization: Bearer $access_token"
-    ));
-    $paypal_data = curl_exec($ch);
-    $decoded_paypal_data = json_decode($paypal_data);
+    $paypal_response = makePayPalCall($ch);
   
-    if($decoded_paypal_data->status != 'COMPLETED') {
+    if($paypal_response->status != 'COMPLETED') {
       http_response_code(500);
       echo 'FAILURE: Order not complete';
     }
