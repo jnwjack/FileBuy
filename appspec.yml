@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/bitnami/htdoc
+    destination: /opt/bitnami/apache/htdocs
 hooks:
   AfterInstall:
     - location: deploy/after_install.sh
