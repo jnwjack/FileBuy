@@ -41,7 +41,7 @@
 
     */
 
-    require_once('database_request.php');
+    require_once('php/database_request.php');
 
     $db = getDatabaseObject();
 
