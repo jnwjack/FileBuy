@@ -30,7 +30,7 @@ function isEmailAddress(string) {
 
 */
 function formatBytes(number, unitIndex = 0) {
-  units = ['bytes', 'KB', 'GB']
+  units = ['bytes', 'KB', 'MB']
   if(number < 1000 || unitIndex === 3) {
     return number.toString(10) + ' ' + units[unitIndex];
   }
