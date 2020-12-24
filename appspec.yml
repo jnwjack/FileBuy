@@ -2,4 +2,4 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/bitnami/test/FileBuy
+    destination: /home/bitnami/htdoc
