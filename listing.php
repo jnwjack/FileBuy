@@ -41,11 +41,9 @@
 
     */
 
-    $username = "root";
-    $password = "root";
-    
-    $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
-    array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    require_once('database_request.php');
+
+    $db = getDatabaseObject();
 
     $statement = $db->prepare('SELECT preview, email, price, id, name, size, complete FROM listings WHERE id=:id');
     $statement->bindValue(':id',$_GET['listing'],PDO::PARAM_INT);

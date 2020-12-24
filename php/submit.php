@@ -8,6 +8,8 @@
 
   */
 
+  require_once('database_request.php');
+
   $preview = serialize($_POST["preview"]);
   $file = serialize($_POST["file"]);
   $email = $_POST["email"];
@@ -16,11 +18,7 @@
   $size = $_POST["size"];
   $id = random_int(0, 50000);
 
-  $username = "root";
-  $password = "root";
-
-  $db = new PDO("mysql:host=localhost;dbname=file_buy", $username, $password,
-      array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $db = getDatabaseObject();
 
   $statement = $db->prepare("INSERT INTO listings(preview,file,email,price,id,name,size)
               VALUES(:preview,:file,:email,:price,:id,:name,:size);");

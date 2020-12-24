@@ -1,6 +1,5 @@
 <?php
 
-  require_once('paypal_request.php');
   /* webhook_listener.php
 
     This script is called upon a completed payment from the buyer to file buy.
@@ -9,16 +8,15 @@
   
   */
 
-  $username = "root";
-  $password = "root";
+  require_once('paypal_request.php');
+  require_once('database_request.php');
 
   $data = json_decode(file_get_contents('php://input'), true);
   $resource = $data['resource'];
   $order_id = $resource['id'];
   $status = $resource['status'];
 
-  $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
-    array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $db = getDatabaseObject();
 
   $statement = $db->prepare('SELECT email, price, complete, id FROM listings WHERE order_id=:order_id');
   $statement->bindValue(':order_id',$order_id,PDO::PARAM_STR);

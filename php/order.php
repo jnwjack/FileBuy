@@ -1,6 +1,5 @@
 <?php
 
-  require_once('paypal_request.php');
   /* order.php
 
     This script is called when a user clicks the "Pay with PayPal" button and sets up an order.
@@ -9,11 +8,10 @@
   
   */
 
-  $username = "root";
-  $password = "root";
+  require_once('paypal_request.php');
+  require_once('database_request.php');
 
-  $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
-      array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $db = getDatabaseObject();
 
   $statement = $db->prepare('SELECT email, price FROM listings WHERE id=:id');
   $statement->bindValue(':id',$_POST['listing'],PDO::PARAM_INT);
