@@ -12,11 +12,11 @@
 
   */
   function getDatabaseObject() {
-    $username_filename = "{$_SERVER['HOME']}/dbuser";
+    $username_filename = '/etc/dbuser';
     $username_file = fopen($username_filename, 'r');
     $username = fread($username_file, filesize($username_filename));
 
-    $password_filename = "{$_SERVER['HOME']}/dbpwd";
+    $password_filename = '/etc/dbpwd';
     $password_file = fopen($username_filename, 'r');
     $password = fread($password_file, filesize($password_filename));
 
