@@ -17,7 +17,7 @@
     $username = fread($username_file, filesize($username_filename));
 
     $password_filename = '/etc/dbpwd';
-    $password_file = fopen($username_filename, 'r');
+    $password_file = fopen($password_filename, 'r');
     $password = fread($password_file, filesize($password_filename));
 
     $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
