@@ -8,11 +8,9 @@
 
   */
 
-  $username = "root";
-  $password = "root";
+  require_once('database_request.php');
 
-  $db = new PDO('mysql:host=localhost;dbname=file_buy', $username, $password,
-    array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $db = getDatabaseObject();
 
   $statement = $db->prepare('SELECT * FROM listings');
   $statement->execute();
