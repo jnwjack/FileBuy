@@ -6,5 +6,5 @@ files:
 hooks:
   AfterInstall:
     - location: deploy/after_install.sh
-    timeout: 300
-    runas: root
+      timeout: 300
+      runas: root
