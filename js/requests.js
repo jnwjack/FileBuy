@@ -71,7 +71,7 @@ function createListing(event) {
   return true;
 }
 
-function requestDownload(listing, orderID) {
+function requestDownload(listing, orderID, filename) {
   let formData = new FormData();
   formData.append('listing', listing);
   formData.append('order', orderID);
@@ -83,7 +83,7 @@ function requestDownload(listing, orderID) {
   .then(response => response.json())
   .then(result => {
     let link = document.createElement('a');
-    link.download = 'download';
+    link.download = filename || 'download';
     link.href = result;
     link.click();
   })

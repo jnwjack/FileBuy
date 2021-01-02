@@ -24,10 +24,11 @@ function defaultPreview() {
     }
   }
 
-  context.fillStyle = 'rgb(0, 0, 0)';
-  context.textBaseline = 'middle';
-  context.textAlign = 'center';
-  context.fillText('Preview', width / 2, height / 2);
+  // context.fillStyle = 'rgb(0, 0, 0)';
+  // context.textBaseline = 'middle';
+  // context.textAlign = 'center';
+  // context.font = '3rem sans-serif';
+  // context.fillText('Preview', width / 2, height / 2);
 }
 
 /* savePreviewAsBase64()
@@ -58,4 +59,16 @@ function savePreviewAsBlob() {
       resolve(blob);
     });
   });
-} 
+}
+
+/* enablePreviewCard
+
+  Makes preview card in center of screen visible (mobile only).
+
+*/
+function enablePreviewCard() {
+  let previewCard = document.getElementById("preview-card");
+  if(previewCard.className.indexOf('disabled') !== -1) {
+    previewCard.className = "";
+  }
+}
