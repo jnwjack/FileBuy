@@ -1,0 +1,50 @@
+<head>
+  <title>File Buy</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Ensures optimal rendering on mobile devices. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
+  <link rel="stylesheet" type="text/css" href="css/index2.css">
+</head>
+
+<html>
+  <body onload="defaultPreview();">
+    <div id="preview-card" class="disabled">
+      <div class="preview-wrapper">
+        <canvas id="preview">
+          Preview
+        </canvas>
+      </div>
+    </div>
+    <div id="content">
+      <div class="section">
+        <input type="file" id="file" class="file-button hoverable"/>
+        <label for="file">
+          <object id="upload-svg" data="images/upload.svg" height="30%"></object>
+          Choose a file
+        </label>
+      </div>
+      <div class="section">
+        <div class="price-wrapper">
+          <input type="number" id="price" min="0" max="10000" step="0.01" placeholder="5.00">
+          <i>$</i>
+        </div>
+        <input type="text" placeholder="PayPal Email" />
+        <input type="text" placeholder="Confirm Email" />
+      </div>
+      <div class="section">
+        <div class="button-row">
+          <button onclick="enablePreviewCard();">
+            Show Preview
+          </button>
+          <button>
+            Post Listing
+          </button> 
+        </div>
+      </div>
+    </div>
+
+    <script src="js/preview.js"></script>
+  </body>
+</html>

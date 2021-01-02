@@ -113,12 +113,12 @@
         onApprove: function(data, actions) {
           // This function captures the funds from the transaction.
           return actions.order.capture().then(function(details) {
-            requestDownload(listingData['id'], details.id);
+            requestDownload(listingData['id'], details.id, listingData['name']);
           });
         }
       }).render('#paypal-button-container');
     } else {
-      document.getElementById('download-button').onclick = () => requestDownload(listingData['id'], '0');
+      document.getElementById('download-button').onclick = () => requestDownload(listingData['id'], '0', listingData['name']);
     }
 
     //This function displays Smart Payment Buttons on your web page.
