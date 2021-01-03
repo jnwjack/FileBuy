@@ -58,7 +58,7 @@ function createListing(event) {
       let form = document.getElementById("content");
       form.reset();
       defaultPreview();
-      activateCard(linkString);
+      activateResultCard(linkString);
     })
     .catch(error => {
       console.error("Error:", error);

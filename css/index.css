@@ -1,115 +1,139 @@
-html, body {
-    height: 100%;
+* {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
 }
 
-input {
-    height: 30px;
+input[type="text"], input[type="number"] {
+  font-size: 1.25em;
+  color: #646054;
 }
 
-input[type=text] {
-    padding-left: 10px;
-    padding-right: 10px;
+::placeholder {
+  color: #BFBAB0;
 }
 
-svg {
-    fill: currentColor;
+body {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-#filedrop {
-    border: dotted green;
-    display: flex;
-    width: 700px;
-    height: 300px;
+#content {
+  padding: 4rem;
+  width: 100%;
+  max-width: 45rem;
+  min-width: 23rem;
+  max-height: 100%;
 }
 
-#preview {
-    vertical-align: middle;
+.section {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
 }
 
-#card {
-    bottom: 0;
-    width: 400px;
-    position: fixed;
-    z-index: 9999;
-    background: whitesmoke;
-    transition: top 1s;
-
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 0px 10px #9aa5a2;
+.section > * {
+  height: 2.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.card-disabled {
-    height: 0px;
-    top: 0;
-}
-
-.card-active {
-    height: 200px;
-    top: 25%;
+.button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .price-wrapper {
-    position: relative;
-    width: 30%;
-  }
-  
+  position: relative;
+}
+
 .price-wrapper > i {
-    position: absolute;
-    display: block;
-    transform: translate(0, -50%);
-    top: 50%;
-    pointer-events: none;
-    width: 25px;
-    text-align: center;
-    font-style: normal;
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+  font-style: normal;
 }
 
 .price-wrapper > input {
-    padding-left: 20px;
+  padding-left: 20px;
+  width: 100%;
+  height: 100%;
 }
 
-.label-wrapper {
-    display: inline-flex;
-    align-items: center;
-    width: 50%;
+#preview {
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
 }
 
-.label-wrapper > span {
-    margin-right: 10px;
-    min-width: 50px;
+.preview-wrapper {
+  border: 3px solid;
+  width: 16rem;
+  height: 16rem;
 }
 
-.w-50p {
-    width: 50%;
+/*
+
+  Cards
+----------------------------------------------
+*/
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 3rem;
+  position: fixed;
+  z-index: 9999;
+  background: #E3DDE1;
+  box-shadow: 0px 0px 10px #9aa5a2;
 }
 
-.w-100p {
-    width: 100%;
+.card > * {
+  margin-bottom: 1rem;
 }
 
-.justify-space-between {
-    justify-content: space-between;
+.card > button {
+  height: 2rem;
 }
 
-.justify-start {
-    justify-content: flex-start;
+#preview-card {
+  top: 50%;
+  transform: translateY(-50%);
+  transition: opacity 0.6s;
 }
 
-.justify-center {
-    justify-content: center;
+#preview-card.disabled {
+  visibility: hidden;
+  opacity: 0;
 }
 
-.align-start {
-    align-items: flex-start;
+#result-card {
+  transition: top 1s;
+  top: 25%;
 }
 
-.inputfile {
+#result-card.disabled {
+  top: 0;
+  visibility: hidden;
+}
+
+/*
+----------------------------------------------
+*/
+
+.file-button {
 	width: 0.1px;
 	height: 0.1px;
 	opacity: 0;
@@ -118,18 +142,22 @@ svg {
 	z-index: -1;
 }
 
-.inputfile + label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: gray;
-    display: inline-block;
-    background-color: rgb(140, 237, 219);
-    padding: 5px;
-    border-radius: 10px;
+.file-button + label {
+  font-size: 2em;
+  font-weight: 700;
+  color: #726e60;
+  display: inline-block;
+  background-color: #8EDBE1;
+  padding: 5px;
+
+  width: 100%;
+  height: 6rem;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 6rem;
 }
 
-.inputfile:focus + label,
-.inputfile.hoverable + label:hover {
-    background-color: blue;
-    background-color: rgb(128, 217, 200);
+.file-button:focus + label,
+.file-button.hoverable + label:hover {
+    background-color: #66ced6;
 }
