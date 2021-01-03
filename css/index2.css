@@ -1,14 +1,19 @@
 * {
   box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
 }
 
 input[type="text"], input[type="number"] {
   font-size: 1.25em;
-  color: #4c5b61;
+  color: #646054;
 }
 
 ::placeholder {
-  color: #949b96;
+  color: #BFBAB0;
+}
+
+footer {
+  background: #fdfffc;
 }
 
 body {
@@ -17,11 +22,11 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background: #c5c5c5;
+  background: #E3DDE1
 }
 
 button {
-  width: 30%;
+  width: 40%;
   text-align: center;
 }
 
@@ -89,10 +94,11 @@ button {
 
 #preview-card {
   display: flex;
+  flex-direction: column;
 
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 0px 10px #9aa5a2;
+  box-shadow: 0px 0px 10px #726e60;
 
   top: 50%;
   transform: translateY(-50%);
@@ -100,9 +106,17 @@ button {
   padding: 3rem;
   position: fixed;
   z-index: 9999;
-  background: #829191;
+  background: #E3DDE1;
 
   transition: opacity 0.6s;
+}
+
+#preview-card > * {
+  margin-bottom: 1rem;
+}
+
+#preview-card > button {
+  height: 2rem;
 }
 
 #preview-card.disabled {
@@ -122,9 +136,9 @@ button {
 .file-button + label {
   font-size: 2em;
   font-weight: 700;
-  color: #949b96;
+  color: #726e60;
   display: inline-block;
-  background-color: #4c5b61;
+  background-color: #8EDBE1;
   padding: 5px;
 
   width: 100%;
@@ -136,5 +150,5 @@ button {
 
 .file-button:focus + label,
 .file-button.hoverable + label:hover {
-    background-color: #2C423F;
+    background-color: #66ced6;
 }

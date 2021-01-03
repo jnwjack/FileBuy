@@ -6,20 +6,27 @@
   <!-- Ensures optimal rendering on mobile devices. -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
   <link rel="stylesheet" type="text/css" href="css/index2.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
 </head>
 
 <html>
-  <body onload="defaultPreview();">
+  <body onload="defaultPreview()">
     <div id="preview-card" class="disabled">
       <div class="preview-wrapper">
         <canvas id="preview">
           Preview
         </canvas>
       </div>
+      <button onclick="disablePreviewCard()">
+        Close
+      </button>
     </div>
     <div id="content">
       <div class="section">
-        <input type="file" id="file" class="file-button hoverable"/>
+        <input type="file" id="file" class="file-button hoverable" onchange="selectHandler(this)"/>
         <label for="file">
           <object id="upload-svg" data="images/upload.svg" height="30%"></object>
           Choose a file
@@ -36,7 +43,7 @@
       </div>
       <div class="section">
         <div class="button-row">
-          <button onclick="enablePreviewCard();">
+          <button onclick="enablePreviewCard()">
             Show Preview
           </button>
           <button>
@@ -47,5 +54,7 @@
     </div>
 
     <script src="js/preview.js"></script>
+    <script src="js/filedrop.js"></script>
+    <script src="js/util.js"></script>
   </body>
 </html>
