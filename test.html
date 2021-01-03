@@ -27,7 +27,7 @@
     </div>
     <form id="content" onsubmit="createListing(event)">
       <div class="section">
-        <input type="file" id="file" class="file-button hoverable" onchange="selectHandler(this)"/>
+        <input type="file" id="file" class="file-button hoverable" accept="image/*" onchange="selectHandler(this)"/>
         <label for="file">
           <object id="upload-svg" data="images/upload.svg" height="30%"></object>
           Choose a file
@@ -44,7 +44,7 @@
       </div>
       <div class="section">
         <div class="button-row">
-          <button onclick="enablePreviewCard()">
+          <button type="button" onclick="enablePreviewCard()">
             Show Preview
           </button>
           <button type="submit">

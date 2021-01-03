@@ -3,6 +3,10 @@
   font-family: 'Nunito', sans-serif;
 }
 
+html {
+  background: #E3DDE1;
+}
+
 input[type="text"], input[type="number"] {
   font-size: 1.25em;
   color: #646054;
@@ -22,7 +26,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background: #E3DDE1
 }
 
 button {
