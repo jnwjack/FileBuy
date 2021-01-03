@@ -1,52 +1,12 @@
-/* * {
-    font-family: Avenir, 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
+html {
+  background: #E3DDE1;
 }
 
-#content {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100%;
+button {
+  width: 40%;
+  text-align: center;
 }
-
-#preview-wrapper {
-    border: 3px solid;
-    width: 120px;
-    height: 120px;
-}
-
-.v-stack {
-    display: flex;
-    flex-direction: column;
-}
-.v-stack > * {
-    margin-bottom: 15px;
-}
-
-.h-stack {
-    display: flex;
-    flex-direction: row;
-}
-.h-stack > *:not(:last-child) {
-    padding-right: 15px;
-} */
 
 .blur {
     filter: blur(2px);
 }
-/* 
-.border-red {
-    border: solid red;
-}
-
-.border-blue {
-    border: solid blue;
-}
-
-.border-green {
-    border: solid green;
-}
-
-.align-center {
-    align-items: center;
-} */

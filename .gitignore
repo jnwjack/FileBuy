@@ -8,3 +8,4 @@ info
 auth/CLIENT_ID
 auth/CLIENT_SECRET
 keys/*
+*.old
