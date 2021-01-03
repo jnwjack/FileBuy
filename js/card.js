@@ -19,7 +19,7 @@ function activateCard(text) {
     });
 
     let fileInput = document.getElementById('file');
-    fileInput.className = 'inputfile';
+    fileInput.className = 'file-button';
 }
 
 
@@ -44,7 +44,7 @@ function disableCard() {
     });
 
     let fileInput = document.getElementById('file');
-    fileInput.className = 'inputfile hoverable';
+    fileInput.className = 'file-button hoverable';
 }
 
 function cardActive() {

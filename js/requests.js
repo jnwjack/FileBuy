@@ -55,7 +55,7 @@ function createListing(event) {
     .then(result => {
       let currentUrl = document.location.href;
       let linkString = `${currentUrl}listing/` + JSON.stringify(result, null, 2)
-      let form = document.getElementById("form");
+      let form = document.getElementById("content");
       form.reset();
       defaultPreview();
       activateCard(linkString);

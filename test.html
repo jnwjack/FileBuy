@@ -13,7 +13,8 @@
 </head>
 
 <html>
-  <body onload="defaultPreview()">
+  <body onload="defaultPreview()" onclick="cardActive() && disableCard()">
+    <div id='card' class='card-disabled'></div>
     <div id="preview-card" class="disabled">
       <div class="preview-wrapper">
         <canvas id="preview">
@@ -24,7 +25,7 @@
         Close
       </button>
     </div>
-    <div id="content">
+    <form id="content" onsubmit="createListing(event)">
       <div class="section">
         <input type="file" id="file" class="file-button hoverable" onchange="selectHandler(this)"/>
         <label for="file">
@@ -37,16 +38,16 @@
           <input type="number" id="price" min="0" max="10000" step="0.01" placeholder="5.00">
           <i>$</i>
         </div> -->
-        <input type="number" id="price" min="0" max="10000" step="0.01" placeholder="5.00">
-        <input type="text" placeholder="PayPal Email" />
-        <input type="text" placeholder="Confirm Email" />
+        <input id="price" type="number" id="price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <input id="email" type="text" placeholder="PayPal Email" />
+        <input id="confirm" type="text" placeholder="Confirm Email" />
       </div>
       <div class="section">
         <div class="button-row">
           <button onclick="enablePreviewCard()">
             Show Preview
           </button>
-          <button>
+          <button type="submit">
             Post Listing
           </button> 
         </div>
@@ -56,5 +57,7 @@
     <script src="js/preview.js"></script>
     <script src="js/filedrop.js"></script>
     <script src="js/util.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/card.js"></script>
   </body>
 </html>
