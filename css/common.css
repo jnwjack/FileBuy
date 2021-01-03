@@ -1,4 +1,4 @@
-* {
+/* * {
     font-family: Avenir, 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
@@ -29,12 +29,12 @@
 }
 .h-stack > *:not(:last-child) {
     padding-right: 15px;
-}
+} */
 
 .blur {
     filter: blur(2px);
 }
-
+/* 
 .border-red {
     border: solid red;
 }
@@ -49,4 +49,4 @@
 
 .align-center {
     align-items: center;
-}
+} */
