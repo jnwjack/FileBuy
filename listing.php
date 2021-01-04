@@ -14,8 +14,7 @@
 </head>
     
 <body>
-  <div>Listing Page!</div>
-  <div id='content'>
+  <!-- <div id='content'>
     <div class='h-stack align-center'>
       <div class='v-stack'>
         <div id='filename'>File Preview</div>
@@ -32,6 +31,13 @@
       <div id='download-button-container'>
         <button id='download-button'>Download</button>
       </div>
+    </div>
+  </div> -->
+  <div id="content">
+    <div class="content-part preview-wrapper">
+      <canvas id="preview">
+        Preview
+      </canvas>
     </div>
   </div>
   <?php

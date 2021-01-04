@@ -12,41 +12,16 @@ input[type="text"], input[type="number"] {
   color: #BFBAB0;
 }
 
-body {
-  width: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-#content {
-  padding: 4rem;
-  width: 100%;
-  max-width: 45rem;
-  min-width: 23rem;
-  max-height: 100%;
-}
-
-.section {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.section > * {
-  height: 2.5rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .button-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.preview-wrapper {
+  border: 3px solid;
+  width: 16rem;
+  height: 16rem;
 }
 
 .price-wrapper {
@@ -68,18 +43,6 @@ body {
   padding-left: 20px;
   width: 100%;
   height: 100%;
-}
-
-#preview {
-  vertical-align: middle;
-  width: 100%;
-  height: 100%;
-}
-
-.preview-wrapper {
-  border: 3px solid;
-  width: 16rem;
-  height: 16rem;
 }
 
 /*
