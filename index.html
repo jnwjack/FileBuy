@@ -17,6 +17,9 @@
 </head>
 
 <body onload="defaultPreview()">
+  <div id="header">
+    <img id="logo" src="images/logo.png" />
+  </div>
   <!--Cards-->
   <div id="result-card" class="card disabled">
     <p id="result-card-text"></p>
@@ -37,14 +40,14 @@
 
   <!--Content-->
   <form id="content" onsubmit="createListing(event)">
-    <div class="section">
+    <div class="content-part">
       <input type="file" id="file" class="file-button hoverable" accept="image/*" onchange="selectHandler(this)"/>
       <label for="file">
         <object id="upload-svg" data="images/upload.svg" height="30%"></object>
         Choose a file
       </label>
     </div>
-    <div class="section">
+    <div class="content-part">
       <div class="price-wrapper">
         <input type="number" id="price" min="0" max="10000" step="0.01" placeholder="5.00">
         <i>$</i>
@@ -52,7 +55,7 @@
       <input id="email" type="text" placeholder="PayPal Email" />
       <input id="confirm" type="text" placeholder="Confirm Email" />
     </div>
-    <div class="section">
+    <div class="content-part">
       <div class="button-row">
         <button type="button" onclick="activateCard('preview-card')">
           Show Preview
