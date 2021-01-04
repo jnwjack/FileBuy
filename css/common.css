@@ -13,11 +13,12 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  overflow: hidden;
 }
 
 #content {
   /* Margin to account for header */
-  margin-top: 6rem;
+  margin-top: 4rem;
   padding: 4rem;
   width: 100%;
   max-width: 45rem;
@@ -47,14 +48,43 @@ body {
 }
 
 #header {
-  padding: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   background-color: #66ced6;
   position: fixed;
   width: 100%;
+  z-index: 5;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #logo {
   height: 6rem;
+}
+
+#burger-svg {
+  height: 2rem;
+  width: 4rem;
+}
+
+#burger-menu {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+
+  left: 0;
+  transition: left 0.5s;
+  z-index: 6;
+}
+
+#burger-menu.disabled {
+  left: 100%;
 }
 
 .blur {
