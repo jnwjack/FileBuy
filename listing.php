@@ -11,6 +11,8 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge' /> <!-- Optimal Internet Explorer compatibility -->
   <link rel='stylesheet' type='text/css' href='../css/common.css'>
   <link rel='stylesheet' type='text/css' href='../css/listing.css'>
+
+  <link rel='icon' href='favicon.ico?' type='image/x-icon'>
 </head>
     
 <body>

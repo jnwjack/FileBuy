@@ -7,6 +7,11 @@ button {
   text-align: center;
 }
 
+p {
+  display: flex;
+  margin: 0;
+}
+
 body {
   width: 100%;
   margin: 0;
@@ -16,7 +21,13 @@ body {
   overflow: hidden;
 }
 
-#content {
+h1 {
+  /* font-size: 4rem; */
+  /* max-width: 70%; */
+  font-size: 5.5vw;
+}
+
+.content {
   /* Margin to account for header */
   margin-top: 4rem;
   padding: 4rem;
@@ -52,7 +63,7 @@ body {
   padding-bottom: 0.5rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  background-color: #66ced6;
+  background-color: #8EDBE1;
   position: fixed;
   width: 100%;
   z-index: 5;
@@ -67,12 +78,12 @@ body {
   height: 6rem;
 }
 
-#burger-svg {
-  height: 2rem;
+.header-svg {
+  height: 4rem;
   width: 4rem;
 }
 
-#burger-menu {
+/* #burger-menu {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -81,10 +92,58 @@ body {
   left: 0;
   transition: left 0.5s;
   z-index: 6;
+} */
+
+/* #burger-menu.disabled {
+  left: 100%;
+} */
+
+#burger-menu-wrapper {
+  right: 0;
+  box-sizing: border-box;
+  transform: translateX(100%);
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  z-index: 6;
+  height: 100vh;
+  width: 100%;
+  transition: transform .2s;
+
+  font-size: 3rem;
 }
 
-#burger-menu.disabled {
-  left: 100%;
+#burger-header {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-bottom: 3px solid #E3DDE1;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #E3DDE1
+}
+
+.burger-content {
+  /* padding: 4rem; */
+  padding-left: 4rem;
+  padding-right: 4rem;
+  width: 100%;
+  max-width: 45rem;
+  min-width: 23rem;
+  max-height: 100%;
+  color: #8EDBE1;
+}
+
+#burger-menu-wrapper.disabled  {
+  transform: translateX(0);
 }
 
 .blur {

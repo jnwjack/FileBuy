@@ -1,6 +1,6 @@
 function toggleBurgerMenu() {
   console.log('hey there');
-  let burgerMenu = document.getElementById('burger-menu');
+  let burgerMenu = document.getElementById('burger-menu-wrapper');
   if(burgerMenu.className === 'disabled') {
     burgerMenu.className = '';
   } else {

@@ -9,8 +9,8 @@ function activateCard(cardID) {
     card.className = "card";
   }
 
-  let content = document.getElementById('content');
-  content.className = 'blur';
+  let content = document.getElementById('main');
+  content.className = 'content blur';
 
   let inputs = Array.from(document.getElementsByTagName('input'));
   let buttons = Array.from(document.getElementsByTagName('button'));
@@ -35,8 +35,8 @@ function disableCard(cardID) {
   let card = document.getElementById(cardID);
   card.className = 'card disabled';
 
-  let content = document.getElementById('content');
-  content.className = '';
+  let content = document.getElementById('main');
+  content.className = 'content';
 
   let inputs = Array.from(document.getElementsByTagName('input'));
   let buttons = Array.from(document.getElementsByTagName('button'));
