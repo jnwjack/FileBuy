@@ -39,19 +39,12 @@
       <rect y="40" width="100" height="15" fill="white" rx="5"></rect>
       <rect y="80" width="100" height="15" fill="white" rx="5"> </rect>
 
-      <rect x="0" y="0" width="100" height="100" fill-opacity="0" onclick="toggleBurgerMenu()"></rect>
+      <rect x="0" y="0" width="100" height="100" class="clickable-rect" fill-opacity="0" onclick="toggleBurgerMenu()"></rect>
     </svg>
   </div>
   <!--Side Menu-->
   <div id="burger-menu-wrapper">
     <div id="burger-header">
-      <!-- <svg id="burger-svg-alt" xmlns='http://www.w3.org/2000/svg' viewBox="0 0 50 100">
-        <rect width="10" height="100" fill="#E3DDE1" rx="5"></rect>
-        <rect x="20" width="10" height="100" fill="#E3DDE1" rx="5"></rect>
-        <rect x="40" width="10" height="100" fill="#E3DDE1" rx="5"> </rect>
-  
-        <rect x="0" y="0" width="50" height="100" fill-opacity="0" onclick="toggleBurgerMenu()"></rect>
-      </svg> -->
       <h1>
         What's Up?
       </h1>
@@ -59,29 +52,37 @@
         <line x1="0" y1="0" x2="100" y2="100" stroke="#E3DDE1" stroke-width="6px" rx="5"></line>
         <line x1="0" y1="100" x2="100" y2="0" stroke="#E3DDE1" stroke-width="6px" rx="5"></line>
 
-        <rect x="0" y="0" width="100" height="100" fill-opacity="0" onclick="toggleBurgerMenu()"></rect>
+        <rect x="0" y="0" width="100" height="100" class="clickable-rect" fill-opacity="0" onclick="toggleBurgerMenu()"></rect>
       </svg>
     </div>
     <div id="burger-menu" class="disabled">
       <div class="burger-content">
-        <div class="content-part">
+        <a class="content-part" href="/">
           List a File
-        </div>
-        <div class="content-part">
+        </a>
+        <a class="content-part" href="/contact">
           Contact
-        </div>
-        <div class="content-part">
+        </a>
+        <a class="content-part" href="/about">
           About
-        </div>
+        </a>
       </div>
     </div>
   </div>
   <!--Cards-->
   <div id="result-card" class="card disabled">
+    <p>
+      Your Link Is:
+    </p>
     <p id="result-card-text"></p>
-    <button type="button" onclick="disableCard('result-card')">
-      Close
-    </button>
+    <div class="button-row">
+      <button id="copy-button" class="card-button" type="button" onclick="copyLink()">
+        Copy Link
+      </button>
+      <button type="button" class="card-button" onclick="disableCard('result-card')">
+        Close
+      </button>
+    </div>
   </div>
   <div id="preview-card" class="card disabled">
     <div class="preview-wrapper">
@@ -89,7 +90,7 @@
         Preview
       </canvas>
     </div>
-    <button type="button" onclick="disableCard('preview-card')">
+    <button type="button" class="card-button" onclick="disableCard('preview-card')">
       Close
     </button>
   </div>

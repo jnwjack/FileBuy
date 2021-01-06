@@ -16,10 +16,16 @@ function activateCard(cardID) {
   let buttons = Array.from(document.getElementsByTagName('button'));
   let elementArray = inputs.concat(buttons);
   elementArray.forEach((input) => {
-    if(input.parentElement !== card) {
+    if(input.className.indexOf('card-button') === -1) {
       input.disabled = true;
     }
   });
+
+  // Disable clickable header SVGs
+  let clickableRects = document.getElementsByClassName('clickable-rect');
+  for(const rect of clickableRects) {
+    rect.onclick = null;
+  }
 
   let fileInput = document.getElementById('file');
   fileInput.className = 'file-button';
@@ -45,6 +51,12 @@ function disableCard(cardID) {
     input.disabled = false;
   });
 
+  // Re-enable clickable header SVGS
+  let clickableRects = document.getElementsByClassName('clickable-rect');
+  for(const rect of clickableRects) {
+    rect.onclick = toggleBurgerMenu;
+  }
+
   let fileInput = document.getElementById('file');
   fileInput.className = 'file-button hoverable';
 }
@@ -55,8 +67,16 @@ function cardActive(cardID) {
 }
 
 function activateResultCard(text) {
-  let cardText = document.getElementsByTagName('p')[0];
-  cardText.innerText = '\tYour Link Is:\n\n' + text;
+  let cardText = document.getElementById('result-card-text');
+  cardText.innerText = text;
 
   activateCard('result-card');
+}
+
+/* Copy link on card to clipboard */
+async function copyLink() {
+  const text = document.getElementById('result-card-text').innerText;
+  await navigator.clipboard.writeText(text);
+  const button = document.getElementById('copy-button');
+  button.innerText = 'Copied!';
 }
