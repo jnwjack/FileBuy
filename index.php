@@ -19,56 +19,11 @@
 </head>
 
 <body onload="defaultPreview()">
-  <div id="header">
-    <img id="logo" src="images/logo.png" />
-    <!-- <object id="burger-svg" data="images/burger.svg" onclick="toggleBurgerMenu()">
-      <script type="text/javascript">
-        function toggleBurgerMenu() {
-          console.log('hey there');
-          let burgerMenu = document.getElementById('burger-menu');
-          if(burgerMenu.className === 'disabled') {
-            burgerMenu.className = '';
-          } else {
-            burgerMenu.className = 'disabled';
-          }
-        }
-      </script>
-    </object> -->
-    <svg class="header-svg" xmlns='http://www.w3.org/2000/svg' viewBox="0 0 100 100">
-      <rect width="100" height="15" fill="white" rx="5"></rect>
-      <rect y="40" width="100" height="15" fill="white" rx="5"></rect>
-      <rect y="80" width="100" height="15" fill="white" rx="5"> </rect>
-
-      <rect x="0" y="0" width="100" height="100" class="clickable-rect" fill-opacity="0" onclick="toggleBurgerMenu()"></rect>
-    </svg>
-  </div>
-  <!--Side Menu-->
-  <div id="burger-menu-wrapper">
-    <div id="burger-header">
-      <h1>
-        What's Up?
-      </h1>
-      <svg class="header-svg" xmlns='http://www.w3.org/2000/svg' viewBox="0 0 100 100">
-        <line x1="0" y1="0" x2="100" y2="100" stroke="#E3DDE1" stroke-width="6px" rx="5"></line>
-        <line x1="0" y1="100" x2="100" y2="0" stroke="#E3DDE1" stroke-width="6px" rx="5"></line>
-
-        <rect x="0" y="0" width="100" height="100" class="clickable-rect" fill-opacity="0" onclick="toggleBurgerMenu()"></rect>
-      </svg>
-    </div>
-    <div id="burger-menu" class="disabled">
-      <div class="burger-content">
-        <a class="content-part" href="/">
-          List a File
-        </a>
-        <a class="content-part" href="/contact">
-          Contact
-        </a>
-        <a class="content-part" href="/about">
-          About
-        </a>
-      </div>
-    </div>
-  </div>
+  <!--Add side menu and header -->
+  <?php
+    include_once('php/view/header.php');
+    include_once('php/view/side_menu.php');
+  ?>
   <!--Cards-->
   <div id="result-card" class="card disabled">
     <p>
@@ -129,6 +84,5 @@
   <script src="js/util.js"></script>
   <script src="js/requests.js"></script>
   <script src="js/card.js"></script>
-  <script src="js/burger.js"></script>
 </body>
 </html>

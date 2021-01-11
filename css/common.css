@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
 html {
   background: #E3DDE1;
 }
