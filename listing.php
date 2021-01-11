@@ -12,29 +12,17 @@
   <link rel='stylesheet' type='text/css' href='../css/common.css'>
   <link rel='stylesheet' type='text/css' href='../css/listing.css'>
 
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+
   <link rel='icon' href='favicon.ico?' type='image/x-icon'>
 </head>
     
 <body>
-  <!-- <div id='content'>
-    <div class='h-stack align-center'>
-      <div class='v-stack'>
-        <div id='filename'>File Preview</div>
-        <div id='size'></div>
-        <div id='preview-wrapper'>
-          <canvas id='preview' width='120' height='120'>
-            Preview
-          </canvas>
-        </div>
-        <div id='price'>Price: $</div>
-        <div id='seller-email'>Seller: </div>
-      </div>
-      <div id='paypal-button-container' class='justify-center'></div>
-      <div id='download-button-container'>
-        <button id='download-button'>Download</button>
-      </div>
-    </div>
-  </div> -->
+  <!--Add side menu and header -->
+  <?php
+    include_once('php/view/header.php');
+    include_once('php/view/side_menu.php');
+  ?>
   <div id="content">
     <div class="content-part preview-wrapper">
       <canvas id="preview">
