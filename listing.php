@@ -23,11 +23,23 @@
     include_once('php/view/header.php');
     include_once('php/view/side_menu.php');
   ?>
-  <div id="content">
-    <div class="content-part preview-wrapper">
-      <canvas id="preview">
-        Preview
-      </canvas>
+  <div class="content">
+    <div class="content-part">
+      <div id="file-header"></div>
+      <div class="preview-wrapper">
+        <canvas id="preview">
+          Preview
+        </canvas>
+      </div>
+      <div class="subheader-row">
+        <div id="seller-email"></div>
+        <div id="size"></div>
+      </div>
+    </div>
+    <div id="paypal-button-container" class="content-part">
+    </div>
+    <div id="download-button-container" class="content-part">
+      <button id="download-button">Download</button>
     </div>
   </div>
   <?php
@@ -85,10 +97,11 @@
       canvas.className += 'blur';
     }
 
-    document.getElementById('price').textContent += listingData['price'];
-    document.getElementById('seller-email').textContent += listingData['email'];
-    document.getElementById('filename').textContent = listingData['name'];
-    document.getElementById('size').textContent = formatBytes(listingData['size']);
+    //document.getElementById('price').textContent += listingData['price'];
+    document.getElementById('seller-email').textContent += `Listed By: ${listingData['email']}`;
+    //document.getElementById('filename').textContent = listingData['name'];
+    document.getElementById('file-header').textContent = `${listingData['name']} - $${listingData['price']}`;
+    document.getElementById('size').textContent = `File Size: ${formatBytes(listingData['size'])}`;
 
     if(!listingData['complete']) {
       document.getElementById('download-button-container').className = 'invisible';
@@ -115,6 +128,7 @@
       }).render('#paypal-button-container');
     } else {
       document.getElementById('download-button').onclick = () => requestDownload(listingData['id'], '0', listingData['name']);
+      document.getElementById('paypal-button-container').className = 'invisible';
     }
 
     //This function displays Smart Payment Buttons on your web page.
