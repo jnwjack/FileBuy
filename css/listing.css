@@ -7,3 +7,24 @@
 .invisible {
     display: none;
 }
+
+#file-header {
+  text-align: center;
+  font-size: calc(0.75rem + 1.5vw);
+  line-height: 2.5rem;
+}
+
+#download-button {
+  width: 100%;
+}
+
+.subheader-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: calc(0.5rem + 0.5vw);
+}
+
+.subheader-row > * {
+  margin-right: 1rem;
+}
