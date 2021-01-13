@@ -127,38 +127,43 @@ input[type="text"], input[type="number"] {
 }
 
 .form-button {
+  /* set position relative to allow for left offset on progress bar */
+  position: relative;
+  overflow: hidden;
+
   width: 40%;
 }
 
-.loading-icon {
-  border: 0.25rem solid #ffffff; /* Light grey */
-  border-top: 0.25rem solid #8EDBE1; /* Blue */
-  border-radius: 50%;
-  width: 2rem;
-  height: 2rem;
-  animation: spin 2s linear infinite;
+#submit-button-text {
+  transition: margin-top 1s;
+  margin-top: 0%;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+#submit-button-text.disabled {
+  margin-top: 100%;
+}
+
+#progress-bar-wrapper {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
 }
 
 #progress-bar {
-  height: 1.25rem;
-  width: 100%;
-  background-color: #66ced6;
-  animation: expand 4s linear 1;
-}
-
-#sub-progress-bar {
   height: 100%;
-  width: 0;
-  background-color: #8EDBE1;
-  animation: expand 1s linear infinite;
+  width: 100%;
+  left: -12px;
+  top: 0;
+  /* border-radius: 16px; */
+  background-color: #227b81;
+  animation: expand 3s linear 1;
+  transform: skew(30deg);
+  position: absolute;
 }
 
 @keyframes expand {
-  0% { width: 0 }
-  100% { width: 100% }
+  0% { width: 0; background-color: #227b81; }
+  50% { width: 50%; background-color: #8EDBE1;}
+  100% { width: 100%; background-color: #227b81; }
 }
