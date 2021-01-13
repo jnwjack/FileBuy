@@ -11,10 +11,17 @@ button {
   text-align: center;
   background-color: #ffffff;
   border-color: #8EDBE1;
+  border-width: 3px;
   border-style: solid;
   border-radius: 8px;
   color: #66ced6;
   font-weight: 800;
+  padding: 0;
+  outline: none;
+}
+
+button:focus {
+  border-color: #8EDBE1;
 }
 
 p {
