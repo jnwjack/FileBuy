@@ -8,8 +8,13 @@ html {
 }
 
 button {
-  width: 40%;
   text-align: center;
+  background-color: #ffffff;
+  border-color: #8EDBE1;
+  border-style: solid;
+  border-radius: 8px;
+  color: #66ced6;
+  font-weight: 800;
 }
 
 p {
@@ -40,6 +45,10 @@ h1 {
   text-align: center;
   line-height: 96px;
   font-size:calc(2.25rem + 1.5vw);
+}
+
+.invisible {
+  display: none;
 }
 
 .content {

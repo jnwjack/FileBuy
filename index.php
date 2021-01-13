@@ -32,7 +32,7 @@
     <p id="result-card-text"></p>
     <div class="button-row">
       <button id="copy-button" class="card-button" type="button" onclick="copyLink()">
-        Copy Link
+        Copy
       </button>
       <button type="button" class="card-button" onclick="disableCard('result-card')">
         Close
@@ -69,12 +69,17 @@
     </div>
     <div class="content-part">
       <div class="button-row">
-        <button type="button" onclick="activateCard('preview-card')">
+        <button type="button" class="form-button" onclick="activateCard('preview-card')">
           Show Preview
         </button>
-        <button type="submit">
-          Post Listing
-        </button> 
+        <button type="submit" class="form-button">
+          <div id="submit-button-text">
+            Post Listing
+          </div>
+          <div id="progress-bar" class="invisible">
+            <div id="sub-progress-bar" class="invisible"></div>
+          </div>
+        </button>
       </div>
     </div>
   </div>

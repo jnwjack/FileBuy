@@ -4,10 +4,6 @@
   height: auto;
 }
 
-.invisible {
-    display: none;
-}
-
 #file-header {
   text-align: center;
   font-size: calc(0.75rem + 1.5vw);

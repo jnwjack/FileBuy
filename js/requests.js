@@ -27,6 +27,11 @@ function createListing(event) {
   let name = file.name;
   let size = file.size;
 
+  // Handle Progress Bar Animation
+  document.getElementById('submit-button-text').classList.toggle('invisible', true);
+  document.getElementById('progress-bar').classList.toggle('invisible', false);
+  document.getElementById('sub-progress-bar').classList.toggle('invisible', false);
+
   let readerPromise = new Promise((resolve, reject) => {
     let reader = new FileReader();
     reader.onload = function() {
@@ -57,11 +62,22 @@ function createListing(event) {
       let linkString = `${currentUrl}listing/` + JSON.stringify(result, null, 2)
       let form = document.getElementById('main');
       form.reset();
+
+      // Turn off progress bar
+      document.getElementById('submit-button-text').classList.toggle('invisible', false);
+      document.getElementById('progress-bar').classList.toggle('invisible', true);
+      document.getElementById('sub-progress-bar').classList.toggle('invisible', true);
+
       defaultPreview();
       activateResultCard(linkString);
     })
     .catch(error => {
       console.error("Error:", error);
+
+      // Turn off progress bar
+      document.getElementById('submit-button-text').classList.toggle('invisible', false);
+      document.getElementById('progress-bar').classList.toggle('invisible', true);
+      document.getElementById('sub-progress-bar').classList.toggle('invisible', true);
     });
 
     }, function(err) {
