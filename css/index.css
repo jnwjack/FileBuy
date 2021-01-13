@@ -162,13 +162,18 @@ input[type="text"], input[type="number"] {
   top: 0;
   /* border-radius: 16px; */
   background-color: #227b81;
-  animation: expand 3s linear 1;
+  animation: expand 3s linear 1, gradient 1.5s linear infinite;
   transform: skew(30deg);
   position: absolute;
 }
 
 @keyframes expand {
-  0% { width: 0; background-color: #227b81; }
-  50% { width: 50%; background-color: #8EDBE1;}
-  100% { width: 100%; background-color: #227b81; }
+  0% { width: 0% }
+  100% { width: 100% }
+}
+
+@keyframes gradient {
+  0% { background-color: #227b81; }
+  50% { background-color: #8EDBE1; }
+  100% { background-color: #227b81; }
 }
