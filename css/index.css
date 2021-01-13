@@ -62,8 +62,10 @@ input[type="text"], input[type="number"] {
   margin-bottom: 1rem;
 }
 
-.card > button {
+.card-button {
   height: 2rem;
+  width: 4rem;
+  margin: 1rem;
 }
 
 #preview-card {
@@ -122,4 +124,41 @@ input[type="text"], input[type="number"] {
 .file-button:focus + label,
 .file-button.hoverable + label:hover {
     background-color: #66ced6;
+}
+
+.form-button {
+  width: 40%;
+}
+
+.loading-icon {
+  border: 0.25rem solid #ffffff; /* Light grey */
+  border-top: 0.25rem solid #8EDBE1; /* Blue */
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#progress-bar {
+  height: 1.25rem;
+  width: 100%;
+  background-color: #66ced6;
+  animation: expand 4s linear 1;
+}
+
+#sub-progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: #8EDBE1;
+  animation: expand 1s linear infinite;
+}
+
+@keyframes expand {
+  0% { width: 0 }
+  100% { width: 100% }
 }
