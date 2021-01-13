@@ -77,7 +77,7 @@
             Post Listing
           </div>
           <!-- <div id="progress-bar-wrapper"> -->
-          <div id="progress-bar" class=""></div>
+          <div id="progress-bar" class="invisible"></div>
           <!-- </div> -->
         </button>
       </div>
