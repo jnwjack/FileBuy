@@ -2,10 +2,16 @@ input[type="text"], input[type="number"] {
   font-size: 1.25em;
   color: #646054;
   background-color: #ffffff;
-  border-radius: 4px;
+  /* border-radius: 4px;
   border-style: solid;
-  border-color: #8EDBE1;
+  border-color: #8EDBE1; */
+  border: none;
   outline: none;
+  border-radius: 4px;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+  box-shadow: 0px 0px 6px #8EDBE1;
 }
 
 ::placeholder {
@@ -61,6 +67,8 @@ input[type="text"], input[type="number"] {
   z-index: 9999;
   background: #E3DDE1;
   box-shadow: 0px 0px 10px #9aa5a2;
+
+  border-radius: 16px;
 }
 
 .card > * {
@@ -124,7 +132,42 @@ input[type="text"], input[type="number"] {
   text-align: center;
   vertical-align: middle;
   line-height: 6rem;
+
+  border-radius: 32px;
 }
+
+
+/*
+  Desktop Styling
+------------------------------------------------
+*/
+@media only screen and (min-width: 769px) {
+  .file-button + label {
+    width: 12rem;
+    height: 3rem;
+    font-size: 1.5em;
+    line-height: 3rem;
+
+    
+  }
+  #upload-svg {
+    height: 1.5rem;
+  }
+  #file-button-wrapper {
+    border: 0.5rem solid #ffffff;
+    border-radius: 16px;
+    align-items: center;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    transition: background-color 0.75s linear;
+  }
+  #file-button-wrapper.drag-over {
+    background-color: #8EDBE1;
+  }
+}
+/*
+-------------------------------------------------
+*/
 
 .file-button:focus + label,
 .file-button.hoverable + label:hover {
