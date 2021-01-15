@@ -67,7 +67,9 @@ function cardActive(cardID) {
 }
 
 function activateResultCard(text) {
-  let cardText = document.getElementById('result-card-text');
+  const copyButton = document.getElementById('copy-button');
+  copyButton.innerText = 'Copy';
+  const cardText = document.getElementById('result-card-text');
   cardText.innerText = text;
 
   activateCard('result-card');

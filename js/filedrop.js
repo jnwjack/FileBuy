@@ -33,6 +33,10 @@ function dropHandler(ev) {
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();
 
+  // Toggle off drag enter effect
+  const filedrop = document.getElementById('file-button-wrapper');
+  filedrop.classList.toggle('drag-over', false);
+
   if (ev.dataTransfer.files) {
     if (ev.dataTransfer.files.length > 1) {
       alert("Only upload 1 file");
@@ -53,6 +57,26 @@ function dropHandler(ev) {
 function dragOverHandler(ev) {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
+}
+
+/* dragEnterHandler(ev)
+
+  Change appearance of file drop area when dragged file enters area.
+
+*/
+function dragEnterHandler(ev) {
+  const filedrop = document.getElementById('file-button-wrapper');
+  filedrop.classList.toggle('drag-over', true);
+}
+
+/* dragLeaveHandler(ev)
+
+  Change appearance back to normal when dragged file leaves area.
+
+*/
+function dragLeaveHandler(ev) {
+  const filedrop = document.getElementById('file-button-wrapper');
+  filedrop.classList.toggle('drag-over', false);
 }
 
 /* selectHandler(element)
