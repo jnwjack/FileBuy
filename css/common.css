@@ -103,6 +103,13 @@ h1 {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  font-size: 32px;
+  color: #ffffff;
+}
+
+.nav-content {
+  display: none;
 }
 
 #logo {
@@ -179,4 +186,33 @@ h1 {
 
 .blur {
     filter: blur(2px);
+}
+
+/*
+  Desktop Styling
+------------------------------------------------
+*/
+@media only screen and (min-width: 769px) {
+  .header-svg {
+    display: none;
+  }
+  .nav-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-grow: 1;
+  }
+  .nav-content > a {
+    background-color: inherit;
+    transition: background-color 0.5s;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    border-radius: 16px;
+  }
+  .nav-content > a:hover {
+    background-color: #66ced6;
+  }
+  #header {
+    justify-content: flex-start;
+  }
 }

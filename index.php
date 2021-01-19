@@ -76,9 +76,7 @@
           <div id="submit-button-text">
             Post Listing
           </div>
-          <!-- <div id="progress-bar-wrapper"> -->
           <div id="progress-bar" class="invisible"></div>
-          <!-- </div> -->
         </button>
       </div>
     </div>
