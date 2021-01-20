@@ -1,0 +1,13 @@
+#checkpoints {
+  flex-grow: 1;
+}
+
+#checkpoints-output {
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+}

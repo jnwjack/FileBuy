@@ -26,6 +26,4 @@
     return $db;
   }
 
-  getDatabaseObject();
-
 ?>

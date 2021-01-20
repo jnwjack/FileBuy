@@ -25,6 +25,32 @@ function defaultPreview() {
   }
 }
 
+/* generatePreview(file)
+
+  Inserts the image into the preview box and blurs the image.
+
+*/
+function generatePreview(file) {
+  let reader = new FileReader();
+  let image = new Image();
+  reader.onload = function () {
+    image.src = reader.result;
+  }
+
+  let canvas = document.getElementById("preview");
+  let context = canvas.getContext("2d");
+  image.onload = function () {
+    if(isImage(file)) {
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  reader.readAsDataURL(file);
+  if(isImage(file) && !canvas.className.includes("blur")){
+    canvas.className += "blur";
+  }
+}
+
 /* savePreviewAsBase64()
 
   Called at listing creation.  Converts file in preview box

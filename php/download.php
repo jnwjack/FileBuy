@@ -15,7 +15,7 @@
 
   $db = getDatabaseObject();
 
-  $statement = $db->prepare('SELECT file, order_id, complete FROM listings WHERE id=:id');
+  $statement = $db->prepare('SELECT order_id, complete FROM listings WHERE id=:id');
   $statement->bindValue(':id',$_POST['listing'],PDO::PARAM_INT);
   $statement->execute();
   $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@
       echo 'FAILURE: Order not complete';
     }
     else {
-      $file = unserialize($row['file']);
+      $file = unserialize(file_get_contents("/opt/data/$_POST[listing]"));
       $jsonData = json_encode($file);
 
       if($row['complete'] == 0) {

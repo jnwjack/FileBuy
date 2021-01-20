@@ -80,7 +80,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </form>
 
   <script src="js/preview.js"></script>
   <script src="js/filedrop.js"></script>
