@@ -20,18 +20,32 @@
 
   $db = getDatabaseObject();
 
-  $statement = $db->prepare("INSERT INTO listings(preview,file,email,price,id,name,size)
-              VALUES(:preview,:file,:email,:price,:id,:name,:size);");
+  $statement = $db->prepare("INSERT INTO listings(preview,email,price,id,name,size)
+              VALUES(:preview,:email,:price,:id,:name,:size);");
 
   $statement->bindValue(":preview",$preview,PDO::PARAM_LOB);
-  $statement->bindValue(":file",$file,PDO::PARAM_LOB);
   $statement->bindValue(":email",$email,PDO::PARAM_STR);
   $statement->bindValue(":price",$price,PDO::PARAM_STR);
   $statement->bindValue(":id",$id,PDO::PARAM_INT);
   $statement->bindValue(":name",$name,PDO::PARAM_STR);
   $statement->bindValue(":size",$size,PDO::PARAM_INT);
-  $statement->execute();
+  $listingCreateSuccessful = $statement->execute();
 
-  echo $id;
+  if($listingCreateSuccessful) {
+    $fileWriteSuccessful = file_put_contents("/opt/data/$id", $file);
+    if($fileWriteSuccessful) {
+      echo $id;
+    } else {
+      // Couldn't write file, delete
+      $delete_statement = $db->prepare('DELETE FROM listings WHERE id = :id');
+      $delete_statement->bindValue(':id',$row['id'],PDO::PARAM_INT);
+      $delete_statement->execute();
 
+      http_response_code(500);
+      echo 'FAILURE: Could not write file to system';
+    }
+  } else {
+    http_response_code(500);
+    echo 'FAILURE: Could not create database entry';
+  }
 ?>

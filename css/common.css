@@ -40,13 +40,10 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  overflow: hidden;
+  overflow: auto;
 }
 
 h1 {
-  /* font-size: 4rem; */
-  /* max-width: 70%; */
-  /* Minimum font size: 2.5rem */
   margin: 0;
   height: 96px;
   text-align: center;
@@ -54,8 +51,25 @@ h1 {
   font-size:calc(2.25rem + 1.5vw);
 }
 
+input[type="text"], input[type="number"], textarea {
+  font-size: 1.25em;
+  color: #646054;
+  background-color: #ffffff;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+  box-shadow: 0px 0px 6px #8EDBE1;
+}
+
+::placeholder {
+  color: #BFBAB0;
+}
+
 .invisible {
-  display: none;
+  display: none !important;
 }
 
 .content {
@@ -78,9 +92,18 @@ h1 {
 }
 
 .content-part > * {
-  height: 2.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.content-part > input, .content-part > div, .content-part > button{
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.content-part > textarea {
+  resize: none;
+  height: 10rem;
 }
 
 #preview {
@@ -205,8 +228,7 @@ h1 {
   .nav-content > a {
     background-color: inherit;
     transition: background-color 0.5s;
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
+    padding: 0.25rem;
     border-radius: 16px;
   }
   .nav-content > a:hover {
