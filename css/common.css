@@ -211,6 +211,27 @@ input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
     filter: blur(2px);
 }
 
+.price-wrapper {
+  position: relative;
+}
+
+.price-wrapper > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+  font-style: normal;
+}
+
+.price-wrapper > input {
+  padding-left: 20px;
+  width: 100%;
+  height: 100%;
+}
+
 /*
   Desktop Styling
 ------------------------------------------------
@@ -238,3 +259,7 @@ input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
     justify-content: flex-start;
   }
 }
+
+/*
+------------------------------------------------
+*/

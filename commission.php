@@ -38,21 +38,37 @@
     <div class="step content-part">
       <label for="step1">Step One</label>
       <input type="text" name="step1" placeholder="Title of Step" />
+      <div class="price-wrapper">
+        <input type="number" id="step1-price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <i>$</i>
+      </div>
       <textarea placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
     </div>
     <div class="step content-part">
       <label for="step2">Step Two</label>
       <input type="text" name="step2" placeholder="Title of Step" />
+      <div class="price-wrapper">
+        <input type="number" id="step2-price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <i>$</i>
+      </div>
       <textarea placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
     </div>
     <div class="step content-part">
       <label for="step3">Step Three</label>
       <input type="text" name="step3" placeholder="Title of Step" />
+      <div class="price-wrapper">
+        <input type="number" id="step3-price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <i>$</i>
+      </div>
       <textarea placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
     </div>
     <div class="step content-part">
       <label for="step4">Step Four</label>
       <input type="text" name="step4" placeholder="Title of Step" />
+      <div class="price-wrapper">
+        <input type="number" id="step4-price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <i>$</i>
+      </div>
       <textarea placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
     </div>
     <div class="content-part">
