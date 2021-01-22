@@ -46,7 +46,7 @@ function formatBytes(number, unitIndex = 0) {
 
 */
 function truncateString(string) {
-  const maxLength = 20;
+  const maxLength = 15;
   if(string.length > maxLength) {
     return string.substring(0, maxLength) + '...';
   } else {
