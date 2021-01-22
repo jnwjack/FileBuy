@@ -35,6 +35,21 @@ function formatBytes(number, unitIndex = 0) {
     return number.toString(10) + ' ' + units[unitIndex];
   }
   let nextNumber = number / 1000.0;
-  nextNumber.toFixed(2);
+  nextNumber = nextNumber.toFixed(2);
   return formatBytes(nextNumber, ++unitIndex);
+}
+
+/* truncateString(string)
+
+  Return string that is truncated after a fixed length.
+  An ellipsis if there is truncation.
+
+*/
+function truncateString(string) {
+  const maxLength = 20;
+  if(string.length > maxLength) {
+    return string.substring(0, maxLength) + '...';
+  } else {
+    return string;
+  }
 }
