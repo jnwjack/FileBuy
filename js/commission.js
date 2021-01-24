@@ -7,7 +7,6 @@ function onSliderChange() {
   while(i < totalPossibleSteps) {
     if(i < numSteps) {
       steps[i].classList.toggle('invisible', false);
-      console.log('hoe');
     } else {
       steps[i].classList.toggle('invisible', true);
     }

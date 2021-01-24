@@ -96,9 +96,13 @@ input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
   margin-bottom: 0.5rem;
 }
 
-.content-part > input, .content-part > div, .content-part > button{
+.content-part > input {
   height: 2.5rem;
   line-height: 2.5rem;
+}
+
+.content-part > button {
+  height: 2.5rem;
 }
 
 .content-part > textarea {
@@ -213,6 +217,7 @@ input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
 
 .price-wrapper {
   position: relative;
+  height: 2.5rem;
 }
 
 .price-wrapper > i {

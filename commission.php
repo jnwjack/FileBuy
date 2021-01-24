@@ -24,10 +24,14 @@
     include_once('php/view/side_menu.php');
   ?>
 
-  <form class="content">
+  <form class="content" onsubmit="createCommission(event)">
     <h2 class="content-part">
       Create a new commission
     </h2>
+    <div class="content-part">
+      <input id="email" type="text" placeholder="PayPal Email" />
+      <input id="confirm" type="text" placeholder="Confirm Email" />
+    </div>
     <div id="slider" class="content-part">
       <label for="checkpoints">Number of steps in commission</label>
       <div class="slider-wrapper">
@@ -42,7 +46,7 @@
         <input type="number" id="step1-price" min="0" max="10000" step="0.01" placeholder="5.00">
         <i>$</i>
       </div>
-      <textarea placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
+      <textarea id="step1-description" placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
     </div>
     <div class="step content-part">
       <label for="step2">Step Two</label>
@@ -51,7 +55,7 @@
         <input type="number" id="step2-price" min="0" max="10000" step="0.01" placeholder="5.00">
         <i>$</i>
       </div>
-      <textarea placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
+      <textarea id="step2-description" placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
     </div>
     <div class="step content-part">
       <label for="step3">Step Three</label>
@@ -60,7 +64,7 @@
         <input type="number" id="step3-price" min="0" max="10000" step="0.01" placeholder="5.00">
         <i>$</i>
       </div>
-      <textarea placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
+      <textarea id="step3-description" placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
     </div>
     <div class="step content-part">
       <label for="step4">Step Four</label>
@@ -69,7 +73,7 @@
         <input type="number" id="step4-price" min="0" max="10000" step="0.01" placeholder="5.00">
         <i>$</i>
       </div>
-      <textarea placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
+      <textarea id="step4-description" placeholder="Enter a description for the file that will be uploaded for this step."></textarea>
     </div>
     <div class="content-part">
       <button type="submit" class="form-button">
@@ -79,6 +83,8 @@
   </form>
 
   <script src="../js/commission.js"></script>
+  <script src="../js/requests.js"></script>
+  <script src="../js/util.js"></script>
 </body>
 
 </html>
