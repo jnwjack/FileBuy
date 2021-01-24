@@ -53,3 +53,22 @@ function truncateString(string) {
     return string;
   }
 }
+
+/* validateEmail(email, confirm)
+
+  Check if email and confirm are equal and valid email addresses.
+
+*/
+function validateEmail(email, confirm) {
+  if(email !== confirm) {
+    alert('Error: Email and Email Confirm must match');
+    return false;
+  }
+
+  if(!isEmailAddress(email)) {
+    alert('Error: Invalid Email');
+    return false;
+  }
+
+  return true;
+}
