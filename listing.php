@@ -12,8 +12,6 @@
   <link rel='stylesheet' type='text/css' href='../css/common.css'>
   <link rel='stylesheet' type='text/css' href='../css/listing.css'>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
-
   <link rel='icon' href='../favicon.ico?' type='image/x-icon'>
 </head>
     
