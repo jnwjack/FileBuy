@@ -10,15 +10,15 @@
   <!-- Ensures optimal rendering on mobile devices. -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
   <link rel="stylesheet" type="text/css" href="../css/common.css">
-  <link rel="stylesheet" type="text/css" href="../css/commission.css">
+  <link rel="stylesheet" type="text/css" href="../css/commission/create.css">
 
   <link rel="icon" href="../favicon.ico?" type="image/x-icon">
 </head>
 
 <body onload="onSliderChange()">
   <?php
-    include_once('php/view/header.php');
-    include_once('php/view/side_menu.php');
+    include_once('../php/view/header.php');
+    include_once('../php/view/side_menu.php');
   ?>
 
   <form class="content" onsubmit="createCommission(event)">

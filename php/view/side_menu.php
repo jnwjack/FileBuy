@@ -15,7 +15,7 @@
       <a class="content-part" href="/">
         List a File
       </a>
-      <a class="content-part" href="/commission.php">
+      <a class="content-part" href="/commission/create.php">
         Commissions
       </a>
       <a class="content-part" href="/contact">

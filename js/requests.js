@@ -43,7 +43,7 @@ function createCommission(event) {
   const formData = JSON.stringify(commissionObject);
   console.log(commissionObject);
 
-  fetch('php/create_commission.php', {
+  fetch('../php/create_commission.php', {
     method: 'POST',
     body: formData,
     header: {
