@@ -4,7 +4,7 @@
     <a href="/">
       List a File
     </a>
-    <a href="/commission.php">
+    <a href="/commission/create.php">
       Commissions
     </a>
     <a href="/contact">
