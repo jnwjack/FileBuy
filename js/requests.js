@@ -77,7 +77,7 @@ function createListing(event) {
 
   let email = document.getElementById('email').value;
   let confirm = document.getElementById('confirm').value;
-  if(!validateEmail()) {
+  if(!validateEmail(email, confirm)) {
     return false;
   }
 

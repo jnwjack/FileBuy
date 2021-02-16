@@ -8,7 +8,7 @@ function dropHandler(ev) {
   ev.preventDefault();
 
   // Toggle off drag enter effect
-  const filedrop = document.getElementById('file-button-wrapper');
+  const filedrop = document.querySelector('.file-button-wrapper');
   filedrop.classList.toggle('drag-over', false);
 
   if (ev.dataTransfer.files) {
@@ -39,7 +39,7 @@ function dragOverHandler(ev) {
 
 */
 function dragEnterHandler(ev) {
-  const filedrop = document.getElementById('file-button-wrapper');
+  const filedrop = document.querySelector('.file-button-wrapper');
   filedrop.classList.toggle('drag-over', true);
 }
 
@@ -49,7 +49,7 @@ function dragEnterHandler(ev) {
 
 */
 function dragLeaveHandler(ev) {
-  const filedrop = document.getElementById('file-button-wrapper');
+  const filedrop = document.querySelector('.file-button-wrapper');
   filedrop.classList.toggle('drag-over', false);
 }
 
@@ -60,10 +60,8 @@ function dragLeaveHandler(ev) {
 */
 function selectHandler(element) {
   let file = element.files[0];
+  generatePreview(file);
   if(!file) {
-    defaultPreview();
     return false;
   }
-
-  generatePreview(file);
 }

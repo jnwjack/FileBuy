@@ -1,9 +1,3 @@
-.preview-wrapper {
-  border: 3px solid;
-  width: 100%;
-  height: auto;
-}
-
 #file-header {
   text-align: center;
   font-size: calc(0.75rem + 1.5vw);
