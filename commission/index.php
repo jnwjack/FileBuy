@@ -30,20 +30,40 @@
 
     $db = getDatabaseObject();
 
-    $statement = $db->prepare('SELECT steps, current, email FROM commissions WHERE id=:id');
-    $statement->bindValue(':id',$_GET['commission'],PDO::PARAM_INT);
-    $statement->execute();
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $commissionStatement = $db->prepare('SELECT steps, current, email FROM commissions WHERE id=:id');
+    $commissionStatement->bindValue(':id', $_GET['commission'], PDO::PARAM_INT);
+    $commissionStatement->execute();
+    $commission = $commissionStatement->fetch(PDO::FETCH_ASSOC);
 
-    if(!$row) {
+    if(!$commission) {
+      header('Location: /error');
+      die();
+    }
+
+    $db = getDatabaseObject();
+
+    $currentStepStatement = $db->prepare('SELECT preview, name, title, description, price FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+    $currentStepStatement->bindValue(':commission_id', $_GET['commission'], PDO::PARAM_INT);
+    $currentStepStatement->bindValue(':sequence_number', $commission['current'], PDO::PARAM_INT);
+    $currentStepStatement->execute();
+    $currentStep = $currentStepStatement->fetch(PDO::FETCH_ASSOC);
+
+    if(!$currentStep) {
       header('Location: /error');
       die();
     }
 
     $convertedArray = array(
-      'steps' => $row['steps'],
-      'current' => $row['current'],
-      'email' => $row['email']
+      'steps' => $commission['steps'],
+      'current' => $commission['current'],
+      'email' => $commission['email'],
+      'currentStep' => array(
+        'preview' => $currentStep['preview'],
+        'name' => $currentStep['name'],
+        'title' => $currentStep['title'],
+        'description' => $currentStep['description'],
+        'price' => $currentStep['price']
+      )
     );
     $json = json_encode($convertedArray);
   ?>
@@ -54,8 +74,26 @@
     </h2>
     <div class="content-part" id="steps-bar">
     </div>
+    <h3 id="current-step-title" class="content-part">
+      Could not display milestone information.
+    </h3>
+    <p id="current-step-description" class="content-part"></p>
+    <div class="preview-wrapper invisible">
+      <canvas id="preview">
+        Preview
+      </canvas>
+    </div>
+    <div id="file-upload-section" class="content-part">
+      <?php 
+        include_once('../php/view/file_upload.php');
+      ?>
+      <button type="submit">
+        Confirm
+      </button>
+    </div>
   </div>
 
+  <script src='../js/preview.js'></script>
   <script>
     /*
 
@@ -63,6 +101,7 @@
 
     */
 
+    // Generate progress bar
     function stepsBarFragment(isCompleted) {
       const stepsBarFragment = document.createElement('div');
       stepsBarFragment.className = 'steps-bar-fragment';
@@ -84,13 +123,24 @@
 
     const commissionData = <?php echo $json; ?>;
     const numSteps = commissionData['steps'];
+    // Figure out how to store this complete variable later
+    const complete = false;
     const current = commissionData['current'];
     const stepsBar = document.getElementById('steps-bar');
     stepsBar.appendChild(stepsBarFragment());
     for(let i = 0; i < numSteps; i++) {
       stepsBar.appendChild(stepsBarCircle(i === current - 1));
-      stepsBar.appendChild(stepsBarFragment(i < current - 1));
+      stepsBar.appendChild(stepsBarFragment(i < current - 1 || complete));
     }
+
+    // Display current step
+    const title = commissionData['currentStep']['title'];
+    const price = commissionData['currentStep']['price'];
+    const description = commissionData['currentStep']['description'];
+    const preview = commissionData['currentStep']['preview'];
+    document.getElementById('current-step-title').textContent = `${title} - $${price}`;
+    document.getElementById('current-step-description').textContent = description;
+    generatePreview(preview);
 
   </script>
 </body>

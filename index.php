@@ -49,12 +49,10 @@
 
   <!--Content-->
   <form id="main" class="content" onsubmit="createListing(event)">
-    <div id="file-button-wrapper" class="content-part" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragenter="dragEnterHandler(event)" ondragleave="dragLeaveHandler(event)">
-      <input type="file" id="file" class="file-button hoverable" accept="image/*" onchange="selectHandler(this)"/>
-      <label for="file">
-        <object id="upload-svg" data="images/upload.svg"></object>
-        Choose a file
-      </label>
+    <div class="content-part">
+      <?php
+        include_once("php/view/file_upload.php");
+      ?>
     </div>
     <div class="content-part">
       <div class="price-wrapper">
