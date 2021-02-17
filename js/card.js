@@ -27,8 +27,11 @@ function activateCard(cardID) {
     rect.onclick = null;
   }
 
+  // Disable hover on file button if it exists
   let fileInput = document.getElementById('file');
-  fileInput.className = 'file-button';
+  if(fileInput) {
+    fileInput.className = 'file-button';
+  }
 }
 
 
@@ -57,8 +60,11 @@ function disableCard(cardID) {
     rect.onclick = toggleBurgerMenu;
   }
 
+  // Enable hover on file button if it exists
   let fileInput = document.getElementById('file');
-  fileInput.className = 'file-button hoverable';
+  if(fileInput) {
+    fileInput.className = 'file-button hoverable';
+  }
 }
 
 function cardActive(cardID) {

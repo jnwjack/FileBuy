@@ -72,3 +72,21 @@ function validateEmail(email, confirm) {
 
   return true;
 }
+
+/* extractURLRoot(string) 
+
+  Get URL root (e.g. https://filebuy.app/) from string
+
+*/
+function extractURLRoot(string) {
+  // Get index of 3rd forward slash
+  let count = 0;
+  let lastOccurence = 0;
+  while(count < 3 && lastOccurence !== -1) {
+    lastOccurence = string.indexOf('/', lastOccurence+1);
+    count++;
+  }
+
+  // Return string from index 0 to index of 3rd slash
+  return string.substring(0, lastOccurence);
+}

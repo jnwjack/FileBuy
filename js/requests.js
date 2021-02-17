@@ -51,16 +51,17 @@ function createCommission(event) {
     }
   })
   .then(response => {
-    console.log(response);
     return response.json();
   })
   .then(result => {
-    console.log(result);
-
     let form = document.querySelector('.content');
     form.reset();
     let output = document.getElementById('checkpoints-output');
     output.textContent = 1;
+    let currentUrlRoot = extractURLRoot(document.location.href);
+    let linkString = `${currentUrlRoot}/commission/` + JSON.stringify(result, null, 2);
+
+    activateResultCard(linkString);
   })
   .catch(error => {
     console.error('Error:', error);
@@ -175,5 +176,46 @@ function requestDownload(listing, orderID, filename) {
   })
   .catch(error => {
     console.error('Error:', error);
+  });
+}
+
+/* uploadCommissionFile(event)
+
+  Upload file for current step in commission.
+
+*/
+function uploadCommissionFile(event, commissionID) {
+  event.preventDefault();
+
+  let file = document.getElementById('file').files[0];
+  if(!file) {
+    alert('Error: No File');
+    return false;
+  }
+
+  let readerPromise = new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.onload = function() {
+      resolve(reader.result);
+    }
+    reader.readAsDataURL(file);
+  });
+
+  readerPromise.then(function(fileData) {
+    let previewb64 = savePreviewAsBase64();
+
+    let formData = new FormData();
+    formData.append('preview', previewb64);
+    formData.append('file', fileData);
+    formData.append('commission', commissionID);
+
+    fetch('../php/commission_file_upload.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result);
+    });
   });
 }
