@@ -21,7 +21,23 @@
     include_once('../php/view/side_menu.php');
   ?>
 
-  <form class="content" onsubmit="createCommission(event)">
+  <!--Card-->
+  <div id="result-card" class="card disabled">
+    <p>
+      Your Commission Is:
+    </p>
+    <p id="result-card-text"></p>
+    <div class="button-row">
+      <button id="copy-button" class="card-button" type="button" onclick="copyLink()">
+        Copy
+      </button>
+      <button type="button" class="card-button" onclick="disableCard('result-card')">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <form id="main" class="content" onsubmit="createCommission(event)">
     <h2 class="content-part">
       Create a new commission
     </h2>
@@ -82,6 +98,7 @@
   <script src="../js/commission.js"></script>
   <script src="../js/requests.js"></script>
   <script src="../js/util.js"></script>
+  <script src="../js/card.js"></script>
 </body>
 
 </html>

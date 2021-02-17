@@ -42,7 +42,7 @@
 
     $db = getDatabaseObject();
 
-    $currentStepStatement = $db->prepare('SELECT preview, name, title, description, price FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+    $currentStepStatement = $db->prepare('SELECT preview, name, title, description, price, status FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
     $currentStepStatement->bindValue(':commission_id', $_GET['commission'], PDO::PARAM_INT);
     $currentStepStatement->bindValue(':sequence_number', $commission['current'], PDO::PARAM_INT);
     $currentStepStatement->execute();
@@ -54,6 +54,7 @@
     }
 
     $convertedArray = array(
+      'commission_id' => $_GET['commission'],
       'steps' => $commission['steps'],
       'current' => $commission['current'],
       'email' => $commission['email'],
@@ -62,7 +63,8 @@
         'name' => $currentStep['name'],
         'title' => $currentStep['title'],
         'description' => $currentStep['description'],
-        'price' => $currentStep['price']
+        'price' => $currentStep['price'],
+        'status' => $currentStep['status'],
       )
     );
     $json = json_encode($convertedArray);
@@ -78,7 +80,7 @@
       Could not display milestone information.
     </h3>
     <p id="current-step-description" class="content-part"></p>
-    <div class="preview-wrapper invisible">
+    <div class="preview-wrapper">
       <canvas id="preview">
         Preview
       </canvas>
@@ -93,7 +95,10 @@
     </div>
   </div>
 
+  <script src='../js/util.js'></script>
   <script src='../js/preview.js'></script>
+  <script src='../js/commission.js'></script>
+  <script src='../js/requests.js'></script>
   <script>
     /*
 
@@ -101,47 +106,19 @@
 
     */
 
-    // Generate progress bar
-    function stepsBarFragment(isCompleted) {
-      const stepsBarFragment = document.createElement('div');
-      stepsBarFragment.className = 'steps-bar-fragment';
-      stepsBarFragment.classList.toggle('completed', isCompleted);
-      
-      return stepsBarFragment;
-    }
-
-    function stepsBarCircle(isCurrent) {
-      const stepsBarCircleWrapper = document.createElement('div');
-      stepsBarCircleWrapper.className = 'steps-bar-circle-wrapper';
-      const stepsBarCircle = document.createElement('div');
-      stepsBarCircle.className = 'steps-bar-circle';
-      stepsBarCircle.classList.toggle('current', isCurrent);
-      stepsBarCircleWrapper.appendChild(stepsBarCircle);
-
-      return stepsBarCircleWrapper;
-    }
-
     const commissionData = <?php echo $json; ?>;
     const numSteps = commissionData['steps'];
+    const commissionID = commissionData['commission_id'];
     // Figure out how to store this complete variable later
     const complete = false;
+    const email = commissionData['email'];
     const current = commissionData['current'];
-    const stepsBar = document.getElementById('steps-bar');
-    stepsBar.appendChild(stepsBarFragment());
-    for(let i = 0; i < numSteps; i++) {
-      stepsBar.appendChild(stepsBarCircle(i === current - 1));
-      stepsBar.appendChild(stepsBarFragment(i < current - 1 || complete));
-    }
 
-    // Display current step
-    const title = commissionData['currentStep']['title'];
-    const price = commissionData['currentStep']['price'];
-    const description = commissionData['currentStep']['description'];
-    const preview = commissionData['currentStep']['preview'];
-    document.getElementById('current-step-title').textContent = `${title} - $${price}`;
-    document.getElementById('current-step-description').textContent = description;
-    generatePreview(preview);
+    document.querySelector('#title').textContent = `Commission by ${email}`;
+    document.querySelector('#file-upload-section > button').onclick = (event) => uploadCommissionFile(event, commissionID);
 
+    const currentStep = commissionData['currentStep'];
+    displayMilestone(current, numSteps, complete, currentStep);
   </script>
 </body>
 <html>

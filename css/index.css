@@ -1,10 +1,3 @@
-.button-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 2.5rem;
-}
-
 #preview-card .preview-wrapper {
   border: 3px solid;
   width: 16rem;
@@ -16,31 +9,6 @@
   Cards
 ----------------------------------------------
 */
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  padding: 3rem;
-  position: fixed;
-  z-index: 9999;
-  background: #E3DDE1;
-  box-shadow: 0px 0px 10px #9aa5a2;
-
-  border-radius: 16px;
-}
-
-.card > * {
-  margin-bottom: 1rem;
-}
-
-.card-button {
-  height: 2rem;
-  width: 4rem;
-  margin: 1rem;
-}
-
 #preview-card {
   top: 50%;
   transform: translateY(-50%);
@@ -50,16 +18,6 @@
 #preview-card.disabled {
   visibility: hidden;
   opacity: 0;
-}
-
-#result-card {
-  transition: top 1s;
-  top: 25%;
-}
-
-#result-card.disabled {
-  top: 0;
-  visibility: hidden;
 }
 /*
 -------------------------------------------------
