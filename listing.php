@@ -76,6 +76,7 @@
 
   <script src='../js/util.js'></script>
   <script src='../js/requests.js'></script>
+  <script src='../js/preview.js'></script>
   <script src='https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ'></script>
   <script>
     /* 
@@ -85,15 +86,7 @@
     */
   
     const listingData = <?php echo $json; ?>;
-    let image = new Image();
-    image.src = listingData['preview'];
-
-    let canvas = document.getElementById('preview');
-    let context = canvas.getContext('2d');
-    image.onload = function () {
-      context.drawImage(image, 0, 0, canvas.width, canvas.height);
-      canvas.className += 'blur';
-    }
+    setCanvasImageFromBase64(listingData['preview']);
 
     //document.getElementById('price').textContent += listingData['price'];
     document.getElementById('seller-email').textContent += `Listed By: ${truncateString(listingData['email'])}`;

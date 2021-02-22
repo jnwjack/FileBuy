@@ -59,7 +59,7 @@
       'current' => $commission['current'],
       'email' => $commission['email'],
       'currentStep' => array(
-        'preview' => $currentStep['preview'],
+        'preview' => unserialize($currentStep['preview']),
         'name' => $currentStep['name'],
         'title' => $currentStep['title'],
         'description' => $currentStep['description'],
@@ -79,13 +79,16 @@
     <h3 id="current-step-title" class="content-part">
       Could not display milestone information.
     </h3>
-    <p id="current-step-description" class="content-part"></p>
-    <div class="preview-wrapper">
-      <canvas id="preview">
-        Preview
-      </canvas>
+    <p id="current-step-description" class="content-part invisible"></p>
+    <div class="content-part">
+      <div class="preview-wrapper">
+        <canvas id="preview">
+          Preview
+        </canvas>
+      </div>
     </div>
-    <div id="file-upload-section" class="content-part">
+    <div id="file-upload-section" class="content-part invisible">
+      <p>Seller: Upload File</p>
       <?php 
         include_once('../php/view/file_upload.php');
       ?>
@@ -93,12 +96,17 @@
         Confirm
       </button>
     </div>
+    <div id="paypal-section" class="content-part invisible">
+      <p>Buyer: Pay</p>
+      <div id="paypal-button-container"></div>
+    </div>
   </div>
 
   <script src='../js/util.js'></script>
   <script src='../js/preview.js'></script>
   <script src='../js/commission.js'></script>
   <script src='../js/requests.js'></script>
+  <script src='https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ'></script>
   <script>
     /*
 
@@ -118,7 +126,7 @@
     document.querySelector('#file-upload-section > button').onclick = (event) => uploadCommissionFile(event, commissionID);
 
     const currentStep = commissionData['currentStep'];
-    displayMilestone(current, numSteps, complete, currentStep);
+    displayMilestone(current, numSteps, complete, currentStep, commissionID);
   </script>
 </body>
 <html>
