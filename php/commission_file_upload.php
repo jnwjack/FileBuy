@@ -40,7 +40,7 @@
   // Only upload file if no file uploaded and step not complete
   if($currentStepStatus == 0 || $currentStepStatus == 2) {
     $newStepStatus = $currentStepStatus + 1;
-    $fileWriteSuccessful = file_put_contents("/opt/data/${commission_id}-${currentStep}", $file);
+    $fileWriteSuccessful = file_put_contents("/opt/data/${commission_id}-${currentStepNumber}", $file);
     if(!$fileWriteSuccessful) {
       http_response_code(500);
       die('FAILURE: Could not update commission milestone');

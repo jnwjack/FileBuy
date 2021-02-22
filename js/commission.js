@@ -40,7 +40,7 @@ function stepsBarCircle(isCurrent) {
   return stepsBarCircleWrapper;
 }
 
-function displayMilestone(current, numSteps, complete, currentStep) {
+function displayMilestone(current, numSteps, complete, currentStep, commissionID) {
   console.log(current, numSteps);
   const stepsBar = document.getElementById('steps-bar');
   
@@ -70,20 +70,53 @@ function displayMilestone(current, numSteps, complete, currentStep) {
   let previewWrapper = document.querySelector('.preview-wrapper');
   let fileUpload = document.querySelector('#file-upload-section');
   if(status % 2 !== 0) {
+    console.log('file uploaded');
     // file is uploaded
     previewWrapper.classList.toggle('invisible', false);
     fileUpload.classList.toggle('invisible', true);
+    if(preview) {
+      // Set canvas data to preview
+      setCanvasImageFromBase64(preview);
+    } else {
+      // Default preview
+      generatePreview(null);
+    }
   } else {
     // file is not uploaded
     previewWrapper.classList.toggle('invisible', true);
     fileUpload.classList.toggle('invisible', false);
+
+    // Display PayPal Buttons
   }
 
   // Check if payment made
   if(status < 2) {
     console.log('no payment');
+    document.getElementById('paypal-section').classList.toggle('invisible', false);
+    paypal.Buttons({
+      createOrder: async function(data, actions) {
+        // This function sets up the details of the transaction, including the amount and line item details.
+        let formData = new FormData();
+        formData.append('commission', commissionID);
+        const response = await fetch('../php/commission_order.php', {
+          method: 'POST',
+          body: formData
+        });
+        const orderId = await response.text();
+
+        return orderId;
+      },
+      onApprove: function(data, actions) {
+        // This function captures the funds from the transaction.
+        return actions.order.capture().then(function(details) {
+          //requestDownload(listingData['id'], details.id, listingData['name']);
+          console.log('making commission order...');
+        });
+      }
+    }).render('#paypal-button-container');
   } else {
+    document.getElementById('paypal-section').classList.toggle('invisible', true);
     console.log('payment');
   }
-  generatePreview(preview);
+  //generatePreview(preview);
 }

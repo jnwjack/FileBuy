@@ -85,3 +85,21 @@ function savePreviewAsBlob() {
     });
   });
 }
+
+/* setCanvasImageFromBase64(string)
+
+  Converts base64 string to image and draws it on
+  the canvas.
+
+*/
+function setCanvasImageFromBase64(string) {
+  let image = new Image();
+  image.src = string;
+
+  let canvas = document.getElementById('preview');
+  let context = canvas.getContext('2d');
+  image.onload = function () {
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    canvas.className += 'blur';
+  }
+}
