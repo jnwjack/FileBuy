@@ -1,0 +1,130 @@
+<?php
+
+  /* commission_pay.php
+
+    This script is called when the buyer of a commission completes a payment for a milestone. It progresses
+    the status variable of the current milestone and, if the step is completed, increments the current milestone
+    variable in the commission row and returns the file data.
+
+  */
+
+  require_once('paypal_request.php');
+  require_once('database_request.php');
+
+  $commission_id = $_POST['commission'];
+  $order = $_POST['order_id'];
+
+  $db = getDatabaseObject();
+
+  $commissionStatement = $db->prepare('SELECT steps, current FROM commissions WHERE id=:id');
+  $commissionStatement = $db->bindValue(':id',$commission_id,PDO::PARAM_INT);
+  $successful = $commissionStatement->execute();
+  if(!$successful) {
+    http_response_code(500);
+    die('FAILURE: Could not fetch commission');
+  }
+  $commissionRow = $commissionStatement->fetch(PDO::FETCH_ASSOC);
+  $currentStepNumber = $commissionRow['current'];
+  $totalSteps = $commissionRow['steps'];
+
+  $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+  $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+  $stepStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
+  $successful = $stepStatement->execute();
+  if(!$successful) {
+    http_response_code(500);
+    die('FAILURE: Could not fetch commission');
+  }
+  $stepStatementRow = $stepStatement->fetch(PDO::FETCH_ASSOC);
+  $currentStepOrderID = $stepStatementRow['order_id'];
+  $currentStepStatus = $stepStatementRow['status'];
+  $currentStepTitle = $stepStatementRow['title'];
+  $currentStepDescription = $stepStatementRow['description'];
+  $currentStepPrice = $stepStatementRow['price'];
+  $currentStepPreview = $stepStatementRow['preview'];
+
+  if($order != $currentStepOrderID) {
+    http_response_code(500);
+    die('FAILURE: Invalid Order ID');
+  }
+
+  // Payment already received, don't continue
+  if($status > 1) {
+    http_response_code(500);
+    die('FAILURE: Payment already received');
+  }
+
+  // Get order details
+  $ch = curl_init("https://api.sandbox.paypal.com/v2/checkout/orders/$order_id");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  $paypal_response = makePayPalCall($ch);
+
+  if($paypal_response->status != 'COMPLETED') {
+    http_response_code(500);
+    die('FAILURE: Order not complete');
+  }
+
+  // Update status code to show that payment is received
+  $newStatusCode = $status + 2;
+  $stepStatement = $db->prepare('UPDATE steps SET status=:status WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+  $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+  $stepStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
+  $stepStatement->bindValue(':status', $newStatusCode, PDO::PARAM_INT);
+  $successful = $stepStatement->execute();
+  if(!$successful) {
+    http_response_code(500);
+    die('FAILURE: Could not update milestone');
+  }
+
+  $returnData = array(
+    'preview' => unserialize($currentStepPreview),
+    'title' => $currentStepTitle,
+    'status' => $currentStepStatus,
+    'price' => $currentStepPrice,
+    'description' => $currentStepDescription
+  );
+
+  // If the order for this milestone is now complete
+  if($status == 1) {
+    $newStepNumber = $currentStepNumber + 1;
+    if($newStepNumber <= $totalSteps) {
+      $commissionStatement = $db->prepare('UPDATE commissions SET current=:current WHERE id=:id');
+      $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_INT);
+      $commissionStatement->bindValue(':current', $newStepNumber, PDO::PARAM_INT);
+      $successful = $commissionStatement->execute();
+      if(!$successful) {
+        http_response_code(500);
+        die('FAILURE: Could not update new status of commission');
+      }
+
+      $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+      $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+      $stepStatement->bindValue(':sequence_number', $newStepNumber, PDO::PARAM_INT);
+      $successful = $commissionStatement->execute();
+      if(!$successful) {
+        http_response_code(500);
+        die('FAILURE: Could not fetch next milestone');
+      }
+      $stepStatementRow = $stepStatement->fetch(PDO::FETCH_ASSOC);
+      $nextStepOrderID = $stepStatementRow['order_id'];
+      $nextStepStatus = $stepStatementRow['status'];
+      $nextStepTitle = $stepStatementRow['title'];
+      $nextStepDescription = $stepStatementRow['description'];
+      $nextStepPrice = $stepStatementRow['price'];
+      $nextStepPreview = $stepStatementRow['preview'];
+
+      $returnData['status'] = $newStepNumber;
+      $returnData['preview'] = $nextStepPreview;
+      $returnData['title'] = $nextStepTitle;
+      $returnData['description'] = $nextStepDescription;
+      $returnData['price'] = $nextStepPrice;
+    }
+
+    $file = unserialize(file_get_contents("/opt/data/${commission_id}-${currentStepNumber}"));
+    $returnData['file'] = $file;
+  }
+
+  $jsonData = json_encode($returnData);
+  echo $jsonData;
+
+?>

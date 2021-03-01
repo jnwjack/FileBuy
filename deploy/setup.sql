@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS listings (
   order_id char(17) DEFAULT NULL,
   name varchar(100) NOT NULL,
   size int(15) UNSIGNED NOT NULL,
-  complete tinyint(2) NOT NULL,
+  complete tinyint(2) NOT NULL DEFAULT 0,
   time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ( id )
 );

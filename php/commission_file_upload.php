@@ -18,7 +18,7 @@
   $successful = $commissionStatement->execute();
   if(!$successful) {
     http_response_code(500);
-    die('FAILURE: Could not update commission milestone');
+    die('FAILURE: Could not fetch commission');
   }
   $commissionStatementRow = $commissionStatement->fetch(PDO::FETCH_ASSOC);
   $currentStepNumber = $commissionStatementRow['current'];
@@ -29,7 +29,7 @@
   $successful = $stepStatement->execute();
   if(!$successful) {
     http_response_code(500);
-    die('FAILURE: Could not update commission milestone');
+    die('FAILURE: Could not fetch milestone');
   }
   $stepStatementRow = $stepStatement->fetch(PDO::FETCH_ASSOC);
   $currentStepStatus = $stepStatementRow['status'];
@@ -43,7 +43,7 @@
     $fileWriteSuccessful = file_put_contents("/opt/data/${commission_id}-${currentStepNumber}", $file);
     if(!$fileWriteSuccessful) {
       http_response_code(500);
-      die('FAILURE: Could not update commission milestone');
+      die('FAILURE: Could not write file');
     }
     $insertStatement = $db->prepare('UPDATE steps SET status=:status, preview=:preview WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
     $insertStatement->bindValue(':preview', $preview, PDO::PARAM_LOB);
