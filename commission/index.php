@@ -80,7 +80,7 @@
       Could not display milestone information.
     </h3>
     <p id="current-step-description" class="content-part"></p>
-    <div class="content-part invisible">
+    <div id="preview-section" class="content-part invisible">
       <div class="preview-wrapper">
         <canvas id="preview">
           Preview

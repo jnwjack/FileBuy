@@ -67,12 +67,12 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
   */
 
   // Check if file is uploaded
-  let previewWrapper = document.querySelector('.preview-wrapper');
+  let previewSection = document.querySelector('#preview-section');
   let fileUpload = document.querySelector('#file-upload-section');
   if(status % 2 !== 0) {
     console.log('file uploaded');
     // file is uploaded
-    previewWrapper.classList.toggle('invisible', false);
+    previewSection.classList.toggle('invisible', false);
     fileUpload.classList.toggle('invisible', true);
     if(preview) {
       // Set canvas data to preview
@@ -83,7 +83,7 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
     }
   } else {
     // file is not uploaded
-    previewWrapper.classList.toggle('invisible', true);
+    previewSection.classList.toggle('invisible', true);
     fileUpload.classList.toggle('invisible', false);
 
     // Display PayPal Buttons
@@ -110,7 +110,7 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
         // This function captures the funds from the transaction.
         return actions.order.capture().then(function(details) {
           //requestDownload(listingData['id'], details.id, listingData['name']);
-          console.log('making commission order...');
+          completeCommissionPayment(commissionID, details.id, 'filename');
         });
       }
     }).render('#paypal-button-container');
