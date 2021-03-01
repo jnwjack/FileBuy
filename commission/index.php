@@ -79,8 +79,8 @@
     <h3 id="current-step-title" class="content-part">
       Could not display milestone information.
     </h3>
-    <p id="current-step-description" class="content-part invisible"></p>
-    <div class="content-part">
+    <p id="current-step-description" class="content-part"></p>
+    <div class="content-part invisible">
       <div class="preview-wrapper">
         <canvas id="preview">
           Preview

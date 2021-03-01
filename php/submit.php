@@ -42,10 +42,10 @@
       $delete_statement->execute();
 
       http_response_code(500);
-      echo 'FAILURE: Could not write file to system';
+      die('FAILURE: Could not write file to system');
     }
   } else {
     http_response_code(500);
-    echo 'FAILURE: Could not create database entry';
+    die('FAILURE: Could not create database entry');
   }
 ?>
