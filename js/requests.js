@@ -179,6 +179,25 @@ function requestDownload(listing, orderID, filename) {
   });
 }
 
+// Combine this and the above function
+function completeCommissionPayment(commission, orderID, filename) {
+  let formData = new FormData();
+  formData.append('commission', commission);
+  formData.append('order', orderID);
+
+  fetch('../php/commission_pay.php', {
+    method:'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log('FROM COMMISSION PAYMENT: ', result);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
 /* uploadCommissionFile(event)
 
   Upload file for current step in commission.

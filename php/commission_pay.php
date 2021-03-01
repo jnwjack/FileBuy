@@ -12,12 +12,12 @@
   require_once('database_request.php');
 
   $commission_id = $_POST['commission'];
-  $order = $_POST['order_id'];
+  $order = $_POST['order'];
 
   $db = getDatabaseObject();
 
   $commissionStatement = $db->prepare('SELECT steps, current FROM commissions WHERE id=:id');
-  $commissionStatement = $db->bindValue(':id',$commission_id,PDO::PARAM_INT);
+  $commissionStatement->bindValue(':id',$commission_id,PDO::PARAM_INT);
   $successful = $commissionStatement->execute();
   if(!$successful) {
     http_response_code(500);
@@ -49,13 +49,13 @@
   }
 
   // Payment already received, don't continue
-  if($status > 1) {
+  if($currentStepStatus > 1) {
     http_response_code(500);
     die('FAILURE: Payment already received');
   }
 
   // Get order details
-  $ch = curl_init("https://api.sandbox.paypal.com/v2/checkout/orders/$order_id");
+  $ch = curl_init("https://api.sandbox.paypal.com/v2/checkout/orders/$order");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   $paypal_response = makePayPalCall($ch);
 
@@ -79,7 +79,7 @@
   $returnData = array(
     'preview' => unserialize($currentStepPreview),
     'title' => $currentStepTitle,
-    'status' => $currentStepStatus,
+    'status' => $newStatusCode,
     'price' => $currentStepPrice,
     'description' => $currentStepDescription
   );
