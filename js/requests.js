@@ -180,21 +180,23 @@ function requestDownload(listing, orderID, filename) {
 }
 
 // Combine this and the above function
-function completeCommissionPayment(commission, orderID, filename) {
+async function completeCommissionPayment(commission, orderID, filename) {
   let formData = new FormData();
   formData.append('commission', commission);
   formData.append('order', orderID);
 
-  fetch('../php/commission_pay.php', {
-    method:'POST',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(result => {
-    console.log('FROM COMMISSION PAYMENT: ', result);
-  })
-  .catch(error => {
-    console.error('Error:', error);
+  return new Promise(resolve => {fetch('../php/commission_pay.php', {
+      method:'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log('FROM COMMISSION PAYMENT: ', result);
+      resolve(result);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   });
 }
 
@@ -233,8 +235,10 @@ function uploadCommissionFile(event, commissionID) {
       body: formData
     })
     .then(response => response.json())
-    .then(result => {
-      console.log(result);
+    .then(state => {
+      console.log(state);
+      updateProgressBar(state['current']);
+      updateMilestoneSectionVisibilityAndText(state['currentStep']);
     });
   });
 }

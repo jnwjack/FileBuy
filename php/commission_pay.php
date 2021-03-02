@@ -77,11 +77,14 @@
   }
 
   $returnData = array(
-    'preview' => unserialize($currentStepPreview),
-    'title' => $currentStepTitle,
-    'status' => $newStatusCode,
-    'price' => $currentStepPrice,
-    'description' => $currentStepDescription
+    'current' => $currentStepNumber,
+    'currentStep' => array(
+      'preview' => unserialize($currentStepPreview),
+      'title' => $currentStepTitle,
+      'status' => $newStatusCode,
+      'price' => $currentStepPrice,
+      'description' => $currentStepDescription
+    )
   );
 
   // If the order for this milestone is now complete
@@ -113,15 +116,13 @@
       $nextStepPrice = $stepStatementRow['price'];
       $nextStepPreview = $stepStatementRow['preview'];
 
-      $returnData['status'] = $nextStepStatus;
-      $returnData['preview'] = $nextStepPreview;
-      $returnData['title'] = $nextStepTitle;
-      $returnData['description'] = $nextStepDescription;
-      $returnData['price'] = $nextStepPrice;
+      $returnData['current'] = $newStepNumber;
+      $returnData['currentStep']['status'] = $nextStepStatus;
+      $returnData['currentStep']['preview'] = $nextStepPreview;
+      $returnData['currentStep']['title'] = $nextStepTitle;
+      $returnData['currentStep']['description'] = $nextStepDescription;
+      $returnData['currentStep']['price'] = $nextStepPrice;
     }
-
-    $file = unserialize(file_get_contents("/opt/data/${commission_id}-${currentStepNumber}"));
-    $returnData['file'] = $file;
   }
 
   $jsonData = json_encode($returnData);

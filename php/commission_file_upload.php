@@ -51,18 +51,21 @@
     $insertStatement->bindValue(':status', $newStepStatus, PDO::PARAM_INT);
     $insertStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
     $insertStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
-    $insertStatement->execute();
-    // if(!$successful) {
-    //   http_response_code(500);
-    //   die('FAILURE: Could not update commission milestone');
-    // }
-    // If milestone is now complete.
+    $successful = $insertStatement->execute();
+    if(!$successful) {
+      http_response_code(500);
+      die('FAILURE: Could not update commission milestone');
+    }
+
     $returnData = array(
-      'preview' => unserialize($preview),
-      'status' => $newStepStatus,
-      'title' => $currentStepTitle,
-      'price' => $currentStepPrice,
-      'description' => $currentStepDescription
+      'current' => $currentStepNumber,
+      'currentStep' => array(
+        'preview' => unserialize($preview),
+        'title' => $currentStepTitle,
+        'status' => $newStepStatus,
+        'price' => $currentStepPrice,
+        'description' => $currentStepDescription
+      )
     );
 
     $newStepNumber = $currentStepNumber + 1;
@@ -92,11 +95,12 @@
       $nextStepPrice = $stepStatementRow['price'];
       $nextStepPreview = $stepStatementRow['preview'];
 
-      $returnData['status'] = $newStepNumber;
-      $returnData['preview'] = $nextStepPreview;
-      $returnData['title'] = $nextStepTitle;
-      $returnData['description'] = $nextStepDescription;
-      $returnData['price'] = $nextStepPrice;
+      $returnData['current'] = $newStepNumber;
+      $returnData['currentStep']['status'] = $nextStepStatus;
+      $returnData['currentStep']['preview'] = $nextStepPreview;
+      $returnData['currentStep']['title'] = $nextStepTitle;
+      $returnData['currentStep']['description'] = $nextStepDescription;
+      $returnData['currentStep']['price'] = $nextStepPrice;
     }
 
     $jsonData = json_encode($returnData);
