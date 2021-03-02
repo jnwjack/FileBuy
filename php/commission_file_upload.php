@@ -13,7 +13,7 @@
 
   $db = getDatabaseObject();
 
-  $commissionStatement = $db->prepare('SELECT current, email FROM commissions WHERE id=:id');
+  $commissionStatement = $db->prepare('SELECT current, email, steps FROM commissions WHERE id=:id');
   $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_INT);
   $successful = $commissionStatement->execute();
   if(!$successful) {
@@ -22,6 +22,7 @@
   }
   $commissionStatementRow = $commissionStatement->fetch(PDO::FETCH_ASSOC);
   $currentStepNumber = $commissionStatementRow['current'];
+  $totalSteps = $commissionStatementRow['steps'];
 
   $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
   $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
@@ -55,6 +56,7 @@
     //   http_response_code(500);
     //   die('FAILURE: Could not update commission milestone');
     // }
+    // If milestone is now complete.
     $returnData = array(
       'preview' => unserialize($preview),
       'status' => $newStepStatus,
@@ -62,6 +64,41 @@
       'price' => $currentStepPrice,
       'description' => $currentStepDescription
     );
+
+    $newStepNumber = $currentStepNumber + 1;
+    if($currentStepStatus == 2 && $newStepNumber <= $totalSteps) {
+      $commissionStatement = $db->prepare('UPDATE commissions SET current=:current WHERE id=:id');
+      $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_INT);
+      $commissionStatement->bindValue(':current', $newStepNumber, PDO::PARAM_INT);
+      $successful = $commissionStatement->execute();
+      if(!$successful) {
+        http_response_code(500);
+        die('FAILURE: Could not update new status of commission');
+      }
+
+      $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+      $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+      $stepStatement->bindValue(':sequence_number', $newStepNumber, PDO::PARAM_INT);
+      $successful = $stepStatement->execute();
+      if(!$successful) {
+        http_response_code(500);
+        die('FAILURE: Could not fetch next milestone');
+      }
+      $stepStatementRow = $stepStatement->fetch(PDO::FETCH_ASSOC);
+      $nextStepOrderID = $stepStatementRow['order_id'];
+      $nextStepStatus = $stepStatementRow['status'];
+      $nextStepTitle = $stepStatementRow['title'];
+      $nextStepDescription = $stepStatementRow['description'];
+      $nextStepPrice = $stepStatementRow['price'];
+      $nextStepPreview = $stepStatementRow['preview'];
+
+      $returnData['status'] = $newStepNumber;
+      $returnData['preview'] = $nextStepPreview;
+      $returnData['title'] = $nextStepTitle;
+      $returnData['description'] = $nextStepDescription;
+      $returnData['price'] = $nextStepPrice;
+    }
+
     $jsonData = json_encode($returnData);
 
     echo $jsonData;

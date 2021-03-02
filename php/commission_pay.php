@@ -65,7 +65,7 @@
   }
 
   // Update status code to show that payment is received
-  $newStatusCode = $status + 2;
+  $newStatusCode = $currentStepStatus + 2;
   $stepStatement = $db->prepare('UPDATE steps SET status=:status WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
   $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
   $stepStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
@@ -85,7 +85,7 @@
   );
 
   // If the order for this milestone is now complete
-  if($status == 1) {
+  if($currentStepStatus == 1) {
     $newStepNumber = $currentStepNumber + 1;
     if($newStepNumber <= $totalSteps) {
       $commissionStatement = $db->prepare('UPDATE commissions SET current=:current WHERE id=:id');
@@ -100,7 +100,7 @@
       $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
       $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
       $stepStatement->bindValue(':sequence_number', $newStepNumber, PDO::PARAM_INT);
-      $successful = $commissionStatement->execute();
+      $successful = $stepStatement->execute();
       if(!$successful) {
         http_response_code(500);
         die('FAILURE: Could not fetch next milestone');
@@ -113,7 +113,7 @@
       $nextStepPrice = $stepStatementRow['price'];
       $nextStepPreview = $stepStatementRow['preview'];
 
-      $returnData['status'] = $newStepNumber;
+      $returnData['status'] = $nextStepStatus;
       $returnData['preview'] = $nextStepPreview;
       $returnData['title'] = $nextStepTitle;
       $returnData['description'] = $nextStepDescription;
