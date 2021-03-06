@@ -48,11 +48,12 @@
     */
 
     require_once('php/database_request.php');
+    $listing_id = $_GET['listing'];
 
     $db = getDatabaseObject();
 
     $statement = $db->prepare('SELECT preview, email, price, id, name, size, complete FROM listings WHERE id=:id');
-    $statement->bindValue(':id',$_GET['listing'],PDO::PARAM_INT);
+    $statement->bindValue(':id',"$listing_id",PDO::PARAM_STR);
     $statement->execute();
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -85,7 +86,7 @@
 
     */
   
-    const listingData = <?php echo $json; ?>;
+    const listingData = <?php echo $json ?>;
     setCanvasImageFromBase64(listingData['preview']);
 
     //document.getElementById('price').textContent += listingData['price'];

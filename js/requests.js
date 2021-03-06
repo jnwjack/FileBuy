@@ -50,16 +50,15 @@ function createCommission(event) {
       'Content-Type': 'application/json'
     }
   })
-  .then(response => {
-    return response.json();
-  })
+  .then(response => response.text())
   .then(result => {
+    let commissionID = removeQuotes(result);
     let form = document.querySelector('.content');
     form.reset();
     let output = document.getElementById('checkpoints-output');
     output.textContent = 1;
     let currentUrlRoot = extractURLRoot(document.location.href);
-    let linkString = `${currentUrlRoot}/commission/` + JSON.stringify(result, null, 2);
+    let linkString = `${currentUrlRoot}/commission/${commissionID}`;
 
     activateResultCard(linkString);
   })
@@ -124,10 +123,12 @@ function createListing(event) {
       method: 'POST',
       body: formData
     })
-    .then(response => response.json())
+    .then(response => response.text())
     .then(result => {
+      let listingID = removeQuotes(result);
+      console.log(listingID);
       let currentUrl = document.location.href;
-      let linkString = `${currentUrl}listing/` + JSON.stringify(result, null, 2)
+      let linkString = `${currentUrl}listing/${listingID}`;
       let form = document.getElementById('main');
       form.reset();
 

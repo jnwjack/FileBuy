@@ -90,3 +90,13 @@ function extractURLRoot(string) {
   // Return string from index 0 to index of 3rd slash
   return string.substring(0, lastOccurence);
 }
+
+/* removeQuotes(string)
+
+  Remove quotation marks surrounding a string
+
+*/
+function removeQuotes(string) {
+  console.log(string);
+  return string.replace('"', '');
+}

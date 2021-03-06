@@ -10,7 +10,7 @@
   <!-- Ensures optimal rendering on mobile devices. -->
   <meta http-equiv='X-UA-Compatible' content='IE=edge' /> <!-- Optimal Internet Explorer compatibility -->
   <link rel='stylesheet' type='text/css' href='../css/common.css'>
-  <link rel='stylesheet' type='text/css' href='../css/commission/index.css'>
+  <link rel='stylesheet' type='text/css' href='../css/commission/commission_index.css'>
 
   <link rel='icon' href='../favicon.ico?' type='image/x-icon'>
 </head>
@@ -28,10 +28,12 @@
     */
     require_once('../php/database_request.php');
 
+    $commission_id = $_GET['commission'];
+
     $db = getDatabaseObject();
 
     $commissionStatement = $db->prepare('SELECT steps, current, email FROM commissions WHERE id=:id');
-    $commissionStatement->bindValue(':id', $_GET['commission'], PDO::PARAM_INT);
+    $commissionStatement->bindValue(':id', "$commission_id", PDO::PARAM_STR);
     $commissionStatement->execute();
     $commission = $commissionStatement->fetch(PDO::FETCH_ASSOC);
 
@@ -43,7 +45,7 @@
     $db = getDatabaseObject();
 
     $currentStepStatement = $db->prepare('SELECT preview, name, title, description, price, status FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
-    $currentStepStatement->bindValue(':commission_id', $_GET['commission'], PDO::PARAM_INT);
+    $currentStepStatement->bindValue(':commission_id', "$commission_id", PDO::PARAM_STR);
     $currentStepStatement->bindValue(':sequence_number', $commission['current'], PDO::PARAM_INT);
     $currentStepStatement->execute();
     $currentStep = $currentStepStatement->fetch(PDO::FETCH_ASSOC);

@@ -7,16 +7,18 @@
     in the database
 
   */
-
+  
+  require('../vendor/autoload.php');
+  use Ramsey\Uuid\Uuid;
   require_once('database_request.php');
 
   function deleteCommissionAndSteps($dbObj, $commission) {
     $statement = $dbObj->prepare("DELETE FROM commissions WHERE id=:id");
-    $statement->bindValue(":id",$commission,PDO::PARAM_INT);
+    $statement->bindValue(":id",$commission,PDO::PARAM_STR);
     $statement->execute();
 
     $statement = $dbObj->prepare("DELETE FROM steps WHERE commission_id=:commission_id");
-    $statement->bindValue(":commission_id",$commission,PDO::PARAM_INT);
+    $statement->bindValue(":commission_id",$commission,PDO::PARAM_STR);
     $statement->execute();
   }
 
@@ -24,18 +26,18 @@
 
   $numSteps = $postData['numSteps'];
   $email = $postData['email'];
-  $id = random_int(0, 50000);
+  $uuid = Uuid::uuid4();
+  $id = $uuid->toString();
   $current = 1;
 
   $db = getDatabaseObject();
 
   $statement = $db->prepare("INSERT INTO commissions(id,steps,email,current)
                 VALUES(:id,:steps,:email,:current);");
-
-  $statement->bindValue(":id",$id,PDO::PARAM_INT);
-  $statement->bindValue(":steps",$numSteps);
-  $statement->bindValue(":email",$email);
-  $statement->bindValue(":current",$current);
+  $statement->bindValue(":id", $id,PDO::PARAM_STR);
+  $statement->bindValue(":steps", $numSteps,PDO::PARAM_INT);
+  $statement->bindValue(":email", $email, PDO::PARAM_STR);
+  $statement->bindValue(":current", $current, PDO::PARAM_INT);
   $successful = $statement->execute();
   if(!$successful) {
     http_response_code(500);
@@ -49,13 +51,14 @@
     $price = $postData['steps'][$i-1]['price'];
     $stepStatement = $db->prepare("INSERT INTO steps(commission_id,sequence_number,price,title,description)
                       VALUES(:commission_id,:sequence_number,:price,:title,:description);");
-    $stepStatement->bindValue(":commission_id",$id,PDO::PARAM_INT);
+    $stepStatement->bindValue(":commission_id",$id,PDO::PARAM_STR);
     $stepStatement->bindValue(":sequence_number",$i,PDO::PARAM_INT);
     $stepStatement->bindValue(":price",$price,PDO::PARAM_STR);
     $stepStatement->bindValue(":title",$title,PDO::PARAM_STR);
     $stepStatement->bindValue(":description",$description,PDO::PARAM_LOB);
     $successful = $stepStatement->execute();
     if(!$successful) {
+
       deleteCommissionAndSteps($db, $id);
       echo 'FAILURE: Could not create steps';
       die();
