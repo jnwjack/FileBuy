@@ -14,7 +14,7 @@
   $db = getDatabaseObject();
 
   $commissionStatement = $db->prepare('SELECT current, email, steps FROM commissions WHERE id=:id');
-  $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_INT);
+  $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_STR);
   $successful = $commissionStatement->execute();
   if(!$successful) {
     http_response_code(500);
@@ -25,7 +25,7 @@
   $totalSteps = $commissionStatementRow['steps'];
 
   $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
-  $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+  $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
   $stepStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
   $successful = $stepStatement->execute();
   if(!$successful) {
@@ -49,7 +49,7 @@
     $insertStatement = $db->prepare('UPDATE steps SET status=:status, preview=:preview WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
     $insertStatement->bindValue(':preview', $preview, PDO::PARAM_LOB);
     $insertStatement->bindValue(':status', $newStepStatus, PDO::PARAM_INT);
-    $insertStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+    $insertStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
     $insertStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
     $successful = $insertStatement->execute();
     if(!$successful) {
@@ -71,7 +71,7 @@
     $newStepNumber = $currentStepNumber + 1;
     if($currentStepStatus == 2 && $newStepNumber <= $totalSteps) {
       $commissionStatement = $db->prepare('UPDATE commissions SET current=:current WHERE id=:id');
-      $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_INT);
+      $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_STR);
       $commissionStatement->bindValue(':current', $newStepNumber, PDO::PARAM_INT);
       $successful = $commissionStatement->execute();
       if(!$successful) {
@@ -80,7 +80,7 @@
       }
 
       $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
-      $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+      $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
       $stepStatement->bindValue(':sequence_number', $newStepNumber, PDO::PARAM_INT);
       $successful = $stepStatement->execute();
       if(!$successful) {

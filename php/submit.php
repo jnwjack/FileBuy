@@ -8,6 +8,8 @@
 
   */
 
+  require('../vendor/autoload.php');
+  use Ramsey\Uuid\Uuid;
   require_once('database_request.php');
 
   $preview = serialize($_POST["preview"]);
@@ -16,7 +18,8 @@
   $price = $_POST["price"];
   $name = $_POST["name"];
   $size = $_POST["size"];
-  $id = random_int(0, 50000);
+  $uuid = Uuid::uuid4();
+  $id = $uuid->toString();
 
   $db = getDatabaseObject();
 
@@ -26,7 +29,7 @@
   $statement->bindValue(":preview",$preview,PDO::PARAM_LOB);
   $statement->bindValue(":email",$email,PDO::PARAM_STR);
   $statement->bindValue(":price",$price,PDO::PARAM_STR);
-  $statement->bindValue(":id",$id,PDO::PARAM_INT);
+  $statement->bindValue(":id",$id,PDO::PARAM_STR);
   $statement->bindValue(":name",$name,PDO::PARAM_STR);
   $statement->bindValue(":size",$size,PDO::PARAM_INT);
   $listingCreateSuccessful = $statement->execute();
@@ -38,7 +41,7 @@
     } else {
       // Couldn't write file, delete
       $delete_statement = $db->prepare('DELETE FROM listings WHERE id = :id');
-      $delete_statement->bindValue(':id',$row['id'],PDO::PARAM_INT);
+      $delete_statement->bindValue(':id',$row['id'],PDO::PARAM_STR);
       $delete_statement->execute();
 
       http_response_code(500);

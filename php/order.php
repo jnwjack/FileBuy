@@ -14,7 +14,7 @@
   $db = getDatabaseObject();
 
   $statement = $db->prepare('SELECT email, price FROM listings WHERE id=:id');
-  $statement->bindValue(':id',$_POST['listing'],PDO::PARAM_INT);
+  $statement->bindValue(':id',$_POST['listing'],PDO::PARAM_STR);
   $statement->execute();
   $row = $statement->fetch(PDO::FETCH_ASSOC);
   $price = $row['price'];

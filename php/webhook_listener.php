@@ -68,7 +68,7 @@
       }
 
       $statement = $db->prepare('UPDATE listings SET complete=2 WHERE id=:id');
-      $statement->bindValue(':id',$id,PDO::PARAM_INT);
+      $statement->bindValue(':id',$id,PDO::PARAM_STR);
       $statement->execute();
 
       die('Seller payment pending');

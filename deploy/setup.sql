@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS listings (
   preview BLOB DEFAULT NULL,
   email VARCHAR(100) NOT NULL,
   price DECIMAL(13,2) NOT NULL,
-  id INT(11) UNSIGNED NOT NULL,
+  id VARCHAR(36) DEFAULT UUID(),
   order_id char(17) DEFAULT NULL,
   name varchar(100) NOT NULL,
   size int(15) UNSIGNED NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS listings (
 );
 
 CREATE TABLE IF NOT EXISTS commissions (
-  id INT(11) UNSIGNED NOT NULL,
+  id VARCHAR(36) DEFAULT UUID(),
   steps TINYINT(4) UNSIGNED NOT NULL DEFAULT 1,
   email VARCHAR(100) NOT NULL,
   current INT(4) UNSIGNED NOT NULL DEFAULT 1,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS commissions (
 );
 
 CREATE TABLE IF NOT EXISTS steps (
-  commission_id INT(11) UNSIGNED NOT NULL,
+  commission_id VARCHAR(36),
   sequence_number TINYINT(4) NOT NULL,
   price DECIMAL(13,2) NOT NULL,
   preview BLOB DEFAULT NULL,

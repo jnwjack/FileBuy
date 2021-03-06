@@ -26,7 +26,7 @@
   
     if($time_difference->h >= 6 || $time_difference->d > 0 || $time_difference->m > 0 || $time_difference->y > 0) {
       $delete_statement = $db->prepare('DELETE FROM listings WHERE id = :id');
-      $delete_statement->bindValue(':id',$row['id'],PDO::PARAM_INT);
+      $delete_statement->bindValue(':id',$row['id'],PDO::PARAM_STR);
       $delete_statement->execute();
     }
   }

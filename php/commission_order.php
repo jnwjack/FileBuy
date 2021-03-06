@@ -15,7 +15,7 @@
 
   $db = getDatabaseObject();
   $commissionStatement = $db->prepare('SELECT current FROM commissions WHERE id=:id');
-  $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_INT);
+  $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_STR);
   $successful = $commissionStatement->execute();
   if(!$successful) {
     http_response_code(500);
@@ -25,7 +25,7 @@
   $current = $commissionRow['current'];
 
   $stepStatement = $db->prepare('SELECT price, status FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
-  $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+  $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
   $stepStatement->bindValue(':sequence_number', $current, PDO::PARAM_INT);
   $successful = $stepStatement->execute();
   if(!$successful) {
@@ -54,7 +54,7 @@
   // Update step row to include order_id
   $updateStatement = $db->prepare('UPDATE steps SET order_id=:order_id WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
   $updateStatement->bindValue(':order_id', $paypal_response->id, PDO::PARAM_STR);
-  $updateStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_INT);
+  $updateStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
   $updateStatement->bindValue(':sequence_number', $current, PDO::PARAM_INT);
   $successful = $updateStatement->execute();
   if(!$successful) {
