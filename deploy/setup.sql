@@ -38,6 +38,6 @@ CREATE TABLE IF NOT EXISTS steps (
   name VARCHAR(100) DEFAULT NULL,
   status TINYINT(3) NOT NULL DEFAULT 0,
   title VARCHAR(100) NOT NULL DEFAULT "Milestone",
-  description TEXT NOT NULL DEFAULT "No description provided.",
+  description TEXT NOT NULL,
   order_id char(17) DEFAULT NULL
 );
