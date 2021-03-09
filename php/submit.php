@@ -8,6 +8,14 @@
 
   */
 
+  // Error handling
+  function exceptions_error_handler($severity, $message, $filename, $lineno) {
+    die($message);
+    //throw new ErrorException($message, 0, $severity, $filename, $lineno);
+  }
+
+  set_error_handler('exceptions_error_handler');
+
   require('../vendor/autoload.php');
   use Ramsey\Uuid\Uuid;
   require_once('database_request.php');
