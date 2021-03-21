@@ -8,7 +8,6 @@
 
   */
 
-  die($_SERVER['DOCUMENT_ROOT']);
   // Error handling
   function exceptions_error_handler($severity, $message, $filename, $lineno) {
     die($message);
