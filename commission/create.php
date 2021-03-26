@@ -24,7 +24,7 @@
   <!--Card-->
   <div id="result-card" class="card disabled">
     <p>
-      Your Commission Is:
+      Your Commission:
     </p>
     <p id="result-card-text"></p>
     <div class="button-row">
@@ -42,8 +42,8 @@
       Create a new commission
     </h2>
     <div class="content-part">
-      <input id="email" type="text" placeholder="PayPal Email" />
-      <input id="confirm" type="text" placeholder="Confirm Email" />
+      <input id="email" type="email" placeholder="PayPal Email" />
+      <input id="confirm" type="email" placeholder="Confirm Email" />
     </div>
     <div id="slider" class="content-part">
       <label for="checkpoints">Number of milestones in commission</label>

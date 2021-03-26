@@ -34,8 +34,11 @@ button:focus {
 }
 
 p {
-  display: flex;
   margin: 0;
+}
+
+p,label {
+  font-size: 20px;
 }
 
 a {
@@ -60,7 +63,7 @@ h1 {
   font-size:calc(2.25rem + 1.5vw);
 }
 
-input[type="text"], input[type="number"], textarea {
+input[type="text"], input[type="number"], input[type="email"], textarea {
   font-size: 1.25em;
   color: #646054;
   background-color: #ffffff;
@@ -69,7 +72,7 @@ input[type="text"], input[type="number"], textarea {
   border-radius: 4px;
 }
 
-input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, textarea:focus {
   box-shadow: 0px 0px 6px #8EDBE1;
 }
 
@@ -177,6 +180,7 @@ input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
   justify-content: center;
 
   padding: 3rem;
+  max-width: calc(100% - 6rem);
   position: fixed;
   z-index: 9999;
   background: #E3DDE1;
@@ -198,6 +202,11 @@ input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
 #result-card {
   transition: top 1s;
   top: 25%;
+}
+
+#result-card-text {
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 #result-card.disabled {
