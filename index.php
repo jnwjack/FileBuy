@@ -24,7 +24,7 @@
   <!--Cards-->
   <div id="result-card" class="card disabled">
     <p>
-      Your Link Is:
+      Your Listing:
     </p>
     <p id="result-card-text"></p>
     <div class="button-row">
@@ -59,7 +59,7 @@
         <input type="number" id="price" min="0" max="10000" step="0.01" placeholder="5.00">
         <i>$</i>
       </div>
-      <input id="email" type="text" placeholder="PayPal Email" />
+      <input id="email" type="email" placeholder="PayPal Email" />
       <input id="confirm" type="text" placeholder="Confirm Email" />
     </div>
     <div class="content-part">

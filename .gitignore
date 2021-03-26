@@ -9,3 +9,4 @@ auth/CLIENT_SECRET
 vendor/
 keys/*
 *.old
+*.phar
