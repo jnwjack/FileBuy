@@ -21,7 +21,7 @@
   <div class="content">
     <h2 class="content-part">What is File Buy?</h2>
     <p class="content-part">
-      The web app is a simple way for artists to sell files. A user uploads an image and receives a link to the listing for that file. They can then share the link with someone else, who can go to the link and pay for it (via Paypal) and then download the file.
+      File Buy is a simple way for artists to sell files. A user uploads an image and receives a link to the listing for that file. They can then share the link with someone else, who can go to the link and pay for it (via Paypal) and then download the file.
     </p>
     <p class="content-part">
       Freelancers often sell their art in insecurely. Either the seller sends the file before accepting payment, or the buyer pays before receiving the file. This leaves room for one party to scam another, either by accepting payment and abandoning the project or by accepting the finished work and not paying.

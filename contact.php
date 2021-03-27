@@ -18,7 +18,7 @@
     include_once('php/view/side_menu.php');
   ?>
 
-  <form class="content">
+  <form class="content" onsubmit="sendMessage(event)">
     <h2 class="content-part">Have a question? Contact us!</h2>
     <div class="content-part">
       <input id="email" type="email" placeholder="Email">
@@ -30,6 +30,8 @@
       </button>
     </div>
   </form>
+
+  <script src="js/requests.js"></script>
 </body>
 
 </html>

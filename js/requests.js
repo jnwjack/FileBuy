@@ -243,3 +243,23 @@ function uploadCommissionFile(event, commissionID) {
     });
   });
 }
+
+/* sendMessage(event)
+
+  Send message to site owner via Contact page
+
+*/
+
+function sendMessage(event) {
+  event.preventDefault();
+
+  fetch('../php/send_message.php', {
+    method: 'POST',
+    header: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    console.log(response);
+  })
+}
