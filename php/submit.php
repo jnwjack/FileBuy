@@ -19,6 +19,7 @@
   require('../vendor/autoload.php');
   use Ramsey\Uuid\Uuid;
   require_once('database_request.php');
+  require_once('email.php');
 
   $preview = serialize($_POST["preview"]);
   $file = serialize($_POST["file"]);
@@ -45,6 +46,13 @@
   if($listingCreateSuccessful) {
     $fileWriteSuccessful = file_put_contents("/opt/data/$id", $file);
     if($fileWriteSuccessful) {
+      // Send email with link
+      $confirmation = new Email();
+      $confirmation->setMessage("Hi! Here's the link to the listing you've just created: https://filebuy.app/$id");
+      $confirmation->setSubject('Link to your listing');
+      $confirmation->setRecipient($email);
+      $confirmation->send();
+
       echo $id;
     } else {
       // Couldn't write file, delete
