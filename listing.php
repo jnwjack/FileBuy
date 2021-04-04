@@ -39,6 +39,11 @@
     <div id="download-button-container" class="content-part">
       <button id="download-button">Download</button>
     </div>
+    <div class="content-part">
+      <h3>Demo Credentials (use when buying via PayPal)</h3>
+      <p>Email: demo@buy.com</p>
+      <p>Password: filebuydemo</p>
+    </div>
   </div>
   <?php
     /* listing.php
