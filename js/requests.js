@@ -41,7 +41,6 @@ function createCommission(event) {
     steps: steps
   };
   const formData = JSON.stringify(commissionObject);
-  console.log(commissionObject);
 
   fetch('../php/create_commission.php', {
     method: 'POST',
@@ -126,7 +125,6 @@ function createListing(event) {
     .then(response => response.text())
     .then(result => {
       let listingID = removeQuotes(result);
-      console.log(listingID);
       let currentUrl = document.location.href;
       let linkString = `${currentUrl}listing/${listingID}`;
       let form = document.getElementById('main');
@@ -148,7 +146,7 @@ function createListing(event) {
     });
 
     }, function(err) {
-      console.log(err);
+      console.error(err);
   });
 
   return true;
@@ -192,7 +190,6 @@ async function completeCommissionPayment(commission, orderID, filename) {
     })
     .then(response => response.json())
     .then(result => {
-      console.log('FROM COMMISSION PAYMENT: ', result);
       resolve(result);
     })
     .catch(error => {
@@ -281,4 +278,29 @@ function sendMessage(event) {
     let form = document.querySelector('#main');
     form.reset();
   })
+}
+
+/* fetchCommissionStep(commission, step)
+
+  Fetch data for a specified step for a commission
+
+*/
+async function fetchCommissionStep(commission, step) {
+  return new Promise(resolve => {fetch(`../php/commission_fetch_step.php?commission=${commission}&step=${step}`, {
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if(response.status !== 200) {
+        throw new Error(`Status code: ${response.status}`);
+      }
+      resolve(response.json());
+    })
+    .then(json => json)
+    .catch(error => {
+      console.error('Error', error);
+    })
+  });
 }
