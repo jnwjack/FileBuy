@@ -46,7 +46,7 @@
       }
 
       $alert = new Email();
-      $alert->setMessage("Congrats! Your file has been paid for: https://filebuy.app/$id");
+      $alert->setMessage("Congrats! Your file has been paid for: https://filebuy.app/listing/$id");
       $alert->setSubject('Payment made on your listing');
       $alert->setRecipient($email);
       $alert->send();
