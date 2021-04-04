@@ -278,6 +278,7 @@ function sendMessage(event) {
     }
   })
   .then(response => {
-    console.log(response);
+    let form = document.querySelector('#main');
+    form.reset();
   })
 }

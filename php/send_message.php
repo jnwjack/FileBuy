@@ -12,9 +12,9 @@
   $message = $_POST['message'];
 
   $email = new Email();
-  $email->setMessage($message, "Message from $contactEmail");
-  $email->setSubject('Someone has filled out a contact form');
-  $email->setRecipient('contact@em5875.filebuy.app');
+  $email->setMessage($message);
+  $email->setSubject("$contactEmail has filled out a contact form");
+  $email->setRecipient('jnw900@gmail.com');
   $result = $email->send();
 
   if(!$result) {

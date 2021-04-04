@@ -11,6 +11,7 @@
   require('../vendor/autoload.php');
   use Ramsey\Uuid\Uuid;
   require_once('database_request.php');
+  require_once('email.php');
 
   function deleteCommissionAndSteps($dbObj, $commission) {
     $statement = $dbObj->prepare("DELETE FROM commissions WHERE id=:id");
@@ -64,6 +65,13 @@
       die();
     }
   }
+
+  // Send email with link
+  $confirmation = new Email();
+  $confirmation->setMessage("Hi! Here's the link to the commission you've just started: https://filebuy.app/commission/$id.");
+  $confirmation->setSubject('Link to your commmission');
+  $confirmation->setRecipient($email);
+  $confirmation->send();
 
   echo $id;
 ?>

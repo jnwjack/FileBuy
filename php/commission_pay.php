@@ -10,13 +10,14 @@
 
   require_once('paypal_request.php');
   require_once('database_request.php');
+  require_once('email.php');
 
   $commission_id = $_POST['commission'];
   $order = $_POST['order'];
 
   $db = getDatabaseObject();
 
-  $commissionStatement = $db->prepare('SELECT steps, current FROM commissions WHERE id=:id');
+  $commissionStatement = $db->prepare('SELECT email, steps, current FROM commissions WHERE id=:id');
   $commissionStatement->bindValue(':id',$commission_id,PDO::PARAM_STR);
   $successful = $commissionStatement->execute();
   if(!$successful) {
@@ -26,6 +27,8 @@
   $commissionRow = $commissionStatement->fetch(PDO::FETCH_ASSOC);
   $currentStepNumber = $commissionRow['current'];
   $totalSteps = $commissionRow['steps'];
+  // Get email so we can send an email at the end
+  $email = $commissionRow['email'];
 
   $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
   $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
@@ -124,6 +127,13 @@
       $returnData['currentStep']['price'] = $nextStepPrice;
     }
   }
+
+  // Send email to alert that a payment has been made
+  $alert = new Email();
+  $alert->setMessage("Congrats! A payment has been made on your commission: https://filebuy.app/commission/$commission_id");
+  $alert->setSubject('Payment made on your commission');
+  $alert->setRecipient($email);
+  $alert->send();
 
   $jsonData = json_encode($returnData);
   echo $jsonData;
