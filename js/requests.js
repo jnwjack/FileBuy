@@ -253,8 +253,26 @@ function uploadCommissionFile(event, commissionID) {
 function sendMessage(event) {
   event.preventDefault();
 
+  let email = document.querySelector('#email').value;
+  let message = document.querySelector('#message').value;
+
+  if(!isEmailAddress(email)) {
+    alert('Enter a valid email');
+    return false;
+  }
+  
+  if(message === '') {
+    alert('Message body empty');
+    return false;
+  }
+
+  let formData = new FormData();
+  formData.append('email', email);
+  formData.append('message', message);
+
   fetch('../php/send_message.php', {
     method: 'POST',
+    body: formData,
     header: {
       'Content-Type': 'application/json'
     }
