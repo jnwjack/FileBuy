@@ -6,6 +6,7 @@ info
 !*.secret
 auth/CLIENT_ID
 auth/CLIENT_SECRET
+auth/MAILKEY
 vendor/
 keys/*
 *.old
