@@ -46,7 +46,8 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
   const description = currentStep['description'];
   const preview = currentStep['preview'];
   const status = currentStep['status'];
-  console.log('STATUS', status);
+
+  // Toggle download button
 
   document.getElementById('current-step-title').textContent = `${title} - $${price}`;
   document.getElementById('current-step-description').textContent = description;
@@ -62,7 +63,6 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
   let previewSection = document.querySelector('#preview-section');
   let fileUpload = document.querySelector('#file-upload-section');
   if(status % 2 !== 0) {
-    console.log('file uploaded');
     // file is uploaded
     previewSection.classList.toggle('invisible', false);
     fileUpload.classList.toggle('invisible', true);
@@ -108,12 +108,44 @@ function updateProgressBar(current) {
   updateMilestoneSectionVisibilityAndText(currentStep);
 }
 
+function setCircleAsCurrent(newStep) {
+  const currentCircle = document.querySelector('.steps-bar-circle.current');
+  const newCurrentCircle = document.querySelectorAll('.steps-bar-circle')[newStep - 1];
+
+  currentCircle.classList.toggle('current', false);
+  newCurrentCircle.classList.toggle('current', true);
+}
+
+function circleCallback(index, current, maxStep) {
+  return async () => {
+    if(index >= maxStep - 1 || index === current - 1) {
+      return;
+    }
+
+    // Fetch and display that circle's step
+    let jsonData = await fetchCommissionStep(commissionID, index + 1);
+    setCircleAsCurrent(jsonData['stepNumber']);
+    updateMilestoneSectionVisibilityAndText(jsonData['step']);
+
+    // Adjust callbacks on circles to reflect new current step
+    const circles = document.querySelectorAll('.steps-bar-circle');
+    for(let i = 0; i <= maxStep - 1; i++) {
+      circles[i].onclick = circleCallback(i, jsonData['stepNumber'], numSteps);
+    }
+  }
+}
+
 function displayMilestone(current, numSteps, complete, currentStep, commissionID) {
   const stepsBar = document.getElementById('steps-bar');
   
   stepsBar.appendChild(stepsBarFragment());
   for(let i = 0; i < numSteps; i++) {
-    stepsBar.appendChild(stepsBarCircle(i === current - 1));
+    let circleWrapper = stepsBarCircle(i === current - 1);
+    if(i < current) {
+      let circle = circleWrapper.childNodes[0];
+      circle.onclick = circleCallback(i, current, current);
+    }
+    stepsBar.appendChild(circleWrapper);
     stepsBar.appendChild(stepsBarFragment(i < current - 1 || complete));
   }
 
@@ -144,7 +176,6 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
               updateProgressBar(state['current']);
               updateMilestoneSectionVisibilityAndText(state['currentStep']);
             }
-            console.log('completecommissionpayment just finished!');
           })
         });
       }

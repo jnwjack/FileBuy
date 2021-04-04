@@ -88,6 +88,9 @@
           Preview
         </canvas>
       </div>
+      <button>
+        Download
+      </button>
     </div>
     <div id="file-upload-section" class="content-part invisible">
       <p>Seller: Upload File</p>
@@ -117,7 +120,6 @@
     */
 
     const commissionData = <?php echo $json; ?>;
-    console.log(commissionData);
     const numSteps = commissionData['steps'];
     const commissionID = commissionData['commission_id'];
     // Figure out how to store this complete variable later
