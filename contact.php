@@ -22,7 +22,7 @@
     <h2 class="content-part">Have a question? Contact us!</h2>
     <div class="content-part">
       <input id="email" type="email" placeholder="Email">
-      <textarea placeholder="Message"></textarea>
+      <textarea id="message" placeholder="Message"></textarea>
     </div>
     <div class="content-part">
       <button type="submit" class="form-button">
@@ -31,6 +31,7 @@
     </div>
   </form>
 
+  <script src="js/util.js"></script>
   <script src="js/requests.js"></script>
 </body>
 
