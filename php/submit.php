@@ -48,7 +48,7 @@
     if($fileWriteSuccessful) {
       // Send email with link
       $confirmation = new Email();
-      $confirmation->setMessage("Hi! Here's the link to the listing you've just created: https://filebuy.app/$id");
+      $confirmation->setMessage("Hi! Here's the link to the listing you've just created: https://filebuy.app/listing/$id");
       $confirmation->setSubject('Link to your listing');
       $confirmation->setRecipient($email);
       $confirmation->send();
