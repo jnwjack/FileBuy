@@ -24,7 +24,7 @@
       }
 
       // Check if sendgrid API key is in session
-      if(!$_SESSION['SENDGRID']) {
+      if(!array_key_exists('SENDGRID', $_SESSION)) {
         $sendgrid_key_filename = '../auth/MAILKEY';
         $sendgrid_key_file = fopen($sendgrid_key_filename, 'r');
         $sendgrid_key = fread($sendgrid_key_file, filesize($sendgrid_key_filename));
