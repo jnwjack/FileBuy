@@ -178,6 +178,36 @@ function requestDownload(listing, orderID, filename) {
   });
 }
 
+/* requestCommissionDownload(commission, step)
+
+  Fetch file from backend for specified commission and step
+
+*/
+
+function requestCommissionDownload(commission, step, filename) {
+  fetch(`../php/commission_download.php?commission=${commission}&step=${step}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if(response.status != 200) {
+      throw new Error(`Status code: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(json => {
+    let link = document.createElement('a');
+    link.download = filename || 'download';
+    link.href = json;
+    link.click();
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  })
+}
+
 // Combine this and the above function
 async function completeCommissionPayment(commission, orderID, filename) {
   let formData = new FormData();

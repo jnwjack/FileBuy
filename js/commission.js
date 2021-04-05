@@ -127,6 +127,10 @@ function circleCallback(index, current, maxStep) {
     setCircleAsCurrent(jsonData['stepNumber']);
     updateMilestoneSectionVisibilityAndText(jsonData['step']);
 
+    // Set download button callback
+    const downloadButton = document.querySelector('#download-button');
+    downloadButton.onclick = () => requestCommissionDownload(jsonData['commission'], index + 1, jsonData['step']['title']);
+
     // Adjust callbacks on circles to reflect new current step
     const circles = document.querySelectorAll('.steps-bar-circle');
     for(let i = 0; i <= maxStep - 1; i++) {
@@ -136,6 +140,10 @@ function circleCallback(index, current, maxStep) {
 }
 
 function displayMilestone(current, numSteps, complete, currentStep, commissionID) {
+  // Set download callback
+  const downloadButton = document.querySelector('#download-button');
+  downloadButton.onclick = () => requestCommissionDownload(commissionID, current, currentStep['title']);
+
   const stepsBar = document.getElementById('steps-bar');
   
   stepsBar.appendChild(stepsBarFragment());

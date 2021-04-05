@@ -59,6 +59,7 @@
 
     $returnData = array(
       'current' => $currentStepNumber,
+      'commission' => $commission_id,
       'currentStep' => array(
         'preview' => unserialize($preview),
         'title' => $currentStepTitle,

@@ -88,7 +88,7 @@
           Preview
         </canvas>
       </div>
-      <button>
+      <button id="download-button">
         Download
       </button>
     </div>

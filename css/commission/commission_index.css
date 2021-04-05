@@ -35,6 +35,7 @@
   border: 3px solid #8EDBE1;
   background-color: #ffffff;
   transition: min-width 0.5s, min-height 0.5s, border-radius 0.5s;
+  cursor: pointer;
 }
 
 .steps-bar-circle.current {
