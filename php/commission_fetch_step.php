@@ -7,6 +7,7 @@
   */
 
   require_once('database_request.php');
+  require_once('util.php');
 
   $commissionID = $_GET['commission'];
   $queryStepNumber = $_GET['step'];
@@ -42,7 +43,7 @@
   $queryStepStatus = $stepStatementRow['status'];
   $queryStepTitle = $stepStatementRow['title'];
   $queryStepDescription = $stepStatementRow['description'];
-  $queryStepPrice = $stepStatementRow['price'];
+  $queryStepPrice = priceWithFee($stepStatementRow['price']);
   $queryStepPreview = $stepStatementRow['preview'];
 
   $returnData = array(

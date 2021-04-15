@@ -49,7 +49,7 @@
   for($i = 1; $i <= $numSteps; $i++) {
     $title = $postData['steps'][$i-1]['title'];
     $description = $postData['steps'][$i-1]['description'];
-    $price = $postData['steps'][$i-1]['price'];
+    $price = round($postData['steps'][$i-1]['price'], 2);
     $stepStatement = $db->prepare("INSERT INTO steps(commission_id,sequence_number,price,title,description)
                       VALUES(:commission_id,:sequence_number,:price,:title,:description);");
     $stepStatement->bindValue(":commission_id",$id,PDO::PARAM_STR);

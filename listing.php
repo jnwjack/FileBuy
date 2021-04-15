@@ -53,6 +53,7 @@
     */
 
     require_once('php/database_request.php');
+    require_once('php/util.php');
     $listing_id = $_GET['listing'];
 
     $db = getDatabaseObject();
@@ -71,7 +72,7 @@
     $convertedArray = array(
       'preview' => unserialize($row['preview']),
       'email' => $row['email'],
-      'price' => $row['price'],
+      'price' => priceWithFee($row['price']),
       'id' => $row['id'],
       'name' => $row['name'],
       'size' => $row['size'],
@@ -83,7 +84,7 @@
   <script src='../js/util.js'></script>
   <script src='../js/requests.js'></script>
   <script src='../js/preview.js'></script>
-  <script src='https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ'></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ&currency=USD" data-sdk-integration-source="button-factory"></script>
   <script>
     /* 
 
