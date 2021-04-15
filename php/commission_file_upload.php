@@ -7,6 +7,7 @@
   */
 
   require_once('database_request.php');
+  require_once('paypal_request.php');
   require_once('util.php');
 
   $commission_id = $_POST['commission'];
