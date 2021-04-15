@@ -24,7 +24,7 @@
   $preview = serialize($_POST["preview"]);
   $file = serialize($_POST["file"]);
   $email = $_POST["email"];
-  $price = $_POST["price"];
+  $price = round($_POST["price"], 2);
   $name = $_POST["name"];
   $size = $_POST["size"];
   $uuid = Uuid::uuid4();

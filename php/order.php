@@ -10,15 +10,22 @@
 
   require_once('paypal_request.php');
   require_once('database_request.php');
+  require_once('util.php');
 
   $db = getDatabaseObject();
 
-  $statement = $db->prepare('SELECT email, price FROM listings WHERE id=:id');
+  $statement = $db->prepare('SELECT email, price, complete FROM listings WHERE id=:id');
   $statement->bindValue(':id',$_POST['listing'],PDO::PARAM_STR);
   $statement->execute();
   $row = $statement->fetch(PDO::FETCH_ASSOC);
-  $price = $row['price'];
+  $price = priceWithFee($row['price']);
   $seller_email = $row['email'];
+  $complete = $row['complete'];
+
+  if($complete > 0) {
+    http_response_code(500);
+    die('Error: File already purchased');
+  }
 
   $ch = curl_init('https://api.sandbox.paypal.com/v2/checkout/orders');
   $curl_data = array('intent' => 'CAPTURE', 'purchase_units' => array(array('amount' => array('currency_code' => 'USD', 'value' => "$price"))));

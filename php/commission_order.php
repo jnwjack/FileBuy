@@ -10,6 +10,7 @@
 
   require_once('paypal_request.php');
   require_once('database_request.php');
+  require_once('util.php');
 
   $commission_id = $_POST['commission'];
 
@@ -34,17 +35,20 @@
   }
   $stepRow = $stepStatement->fetch(PDO::FETCH_ASSOC);
   $status = $stepRow['status'];
-  $price = $stepRow['price'];
+  $price = priceWithFee($stepRow['price']);
 
   // Only set up order if status indicates that no payment has been made
-  if($status < 2) {
-    $ch = curl_init('https://api.sandbox.paypal.com/v2/checkout/orders');
-    $curl_data = array('intent' => 'CAPTURE', 'purchase_units' => array(array('amount' => array('currency_code' => 'USD', 'value' => "$price"))));
-    $json_curl_data = json_encode($curl_data);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_curl_data);
+  if($status >= 2) {
+    http_response_code(500);
+    die('ERROR: Payment already made for this step');
   }
+
+  $ch = curl_init('https://api.sandbox.paypal.com/v2/checkout/orders');
+  $curl_data = array('intent' => 'CAPTURE', 'purchase_units' => array(array('amount' => array('currency_code' => 'USD', 'value' => "$price"))));
+  $json_curl_data = json_encode($curl_data);
+  curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $json_curl_data);
   $paypal_response = makePayPalCall($ch);
   if(!$paypal_response) {
     http_response_code(500);

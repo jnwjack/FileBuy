@@ -11,6 +11,7 @@
   require_once('paypal_request.php');
   require_once('database_request.php');
   require_once('email.php');
+  require_once('util.php');
 
   $commission_id = $_POST['commission'];
   $order = $_POST['order'];
@@ -27,7 +28,7 @@
   $commissionRow = $commissionStatement->fetch(PDO::FETCH_ASSOC);
   $currentStepNumber = $commissionRow['current'];
   $totalSteps = $commissionRow['steps'];
-  // Get email so we can send an email at the end
+  // Get email so we can send an email at the end and pay out if necessary
   $email = $commissionRow['email'];
 
   $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
@@ -44,6 +45,7 @@
   $currentStepTitle = $stepStatementRow['title'];
   $currentStepDescription = $stepStatementRow['description'];
   $currentStepPrice = $stepStatementRow['price'];
+  $currentStepPriceWithFee = priceWithFee($currentStepPrice);
   $currentStepPreview = $stepStatementRow['preview'];
 
   if($order != $currentStepOrderID) {
@@ -86,13 +88,38 @@
       'preview' => unserialize($currentStepPreview),
       'title' => $currentStepTitle,
       'status' => $newStatusCode,
-      'price' => $currentStepPrice,
+      'price' => $currentStepPriceWithFee,
       'description' => $currentStepDescription
     )
   );
 
   // If the order for this milestone is now complete
   if($currentStepStatus == 1) {
+    // Pay out to seller
+    $ch = curl_init('https://api.sandbox.paypal.com/v1/payments/payouts');
+    $curl_data = array(
+      'sender_batch_header' => array('email_subject' => 'A milestone has been completed!', 'email_message' => '<3'),
+      'items' => array(array(
+      'recipient_type' => 'EMAIL', 
+      'amount' => array('value' => "$currentStepPrice", 'currency' => 'USD'),
+      'note' => 'Thank you for using FileBuy!',
+      'sender_item_id' => '0',
+      'receiver' => "$email",
+      'notification_language' => 'fr-FR')
+      )
+    );
+    $json_curl_data = json_encode($curl_data);
+    
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_curl_data);
+
+    $payout_response = makePayPalCall($ch);
+    if(!in_array($payout_response->batch_header->batch_status, array('PENDING', 'PROCESSING', 'SUCCESS'))) {
+      http_response_code(500);
+      die('ERROR: Payout to seller failed');
+    }
+
     $newStepNumber = $currentStepNumber + 1;
     if($newStepNumber <= $totalSteps) {
       $commissionStatement = $db->prepare('UPDATE commissions SET current=:current WHERE id=:id');
@@ -117,7 +144,7 @@
       $nextStepStatus = $stepStatementRow['status'];
       $nextStepTitle = $stepStatementRow['title'];
       $nextStepDescription = $stepStatementRow['description'];
-      $nextStepPrice = $stepStatementRow['price'];
+      $nextStepPrice = priceWithFee($stepStatementRow['price']);
       $nextStepPreview = $stepStatementRow['preview'];
 
       $returnData['current'] = $newStepNumber;

@@ -7,6 +7,8 @@
   */
 
   require_once('database_request.php');
+  require_once('util.php');
+
   $commission_id = $_POST['commission'];
   $preview = serialize($_POST["preview"]);
   $file = serialize($_POST["file"]);
@@ -23,6 +25,7 @@
   $commissionStatementRow = $commissionStatement->fetch(PDO::FETCH_ASSOC);
   $currentStepNumber = $commissionStatementRow['current'];
   $totalSteps = $commissionStatementRow['steps'];
+  $email = $commissionStatementRow['email'];
 
   $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
   $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
@@ -37,6 +40,7 @@
   $currentStepTitle = $stepStatementRow['title'];
   $currentStepDescription = $stepStatementRow['description'];
   $currentStepPrice = $stepStatementRow['price'];
+  $currentStepPriceWithFee = priceWithFee($currentStepPrice);
   
   // Only upload file if no file uploaded and step not complete
   if($currentStepStatus == 0 || $currentStepStatus == 2) {
@@ -64,44 +68,74 @@
         'preview' => unserialize($preview),
         'title' => $currentStepTitle,
         'status' => $newStepStatus,
-        'price' => $currentStepPrice,
+        'price' => $currentStepPriceWithFee,
         'description' => $currentStepDescription
       )
     );
 
     $newStepNumber = $currentStepNumber + 1;
-    if($currentStepStatus == 2 && $newStepNumber <= $totalSteps) {
-      $commissionStatement = $db->prepare('UPDATE commissions SET current=:current WHERE id=:id');
-      $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_STR);
-      $commissionStatement->bindValue(':current', $newStepNumber, PDO::PARAM_INT);
-      $successful = $commissionStatement->execute();
-      if(!$successful) {
+
+    // If order is complete
+    if($currentStepStatus == 2) {
+      // Pay seller
+      $ch = curl_init('https://api.sandbox.paypal.com/v1/payments/payouts');
+      $curl_data = array(
+        'sender_batch_header' => array('email_subject' => 'A milestone has been completed!', 'email_message' => '<3'),
+        'items' => array(array(
+        'recipient_type' => 'EMAIL', 
+        'amount' => array('value' => "$currentStepPrice", 'currency' => 'USD'),
+        'note' => 'Thank you for using FileBuy!',
+        'sender_item_id' => '0',
+        'receiver' => "$email",
+        'notification_language' => 'fr-FR')
+        )
+      );
+      $json_curl_data = json_encode($curl_data);
+      
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $json_curl_data);
+  
+      $payout_response = makePayPalCall($ch);
+      if(!in_array($payout_response->batch_header->batch_status, array('PENDING', 'PROCESSING', 'SUCCESS'))) {
         http_response_code(500);
-        die('FAILURE: Could not update new status of commission');
+        die('ERROR: Payout to seller failed');
       }
 
-      $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
-      $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
-      $stepStatement->bindValue(':sequence_number', $newStepNumber, PDO::PARAM_INT);
-      $successful = $stepStatement->execute();
-      if(!$successful) {
-        http_response_code(500);
-        die('FAILURE: Could not fetch next milestone');
-      }
-      $stepStatementRow = $stepStatement->fetch(PDO::FETCH_ASSOC);
-      $nextStepOrderID = $stepStatementRow['order_id'];
-      $nextStepStatus = $stepStatementRow['status'];
-      $nextStepTitle = $stepStatementRow['title'];
-      $nextStepDescription = $stepStatementRow['description'];
-      $nextStepPrice = $stepStatementRow['price'];
-      $nextStepPreview = $stepStatementRow['preview'];
+      // If there's another step
+      if($newStepNumber <= $totalSteps) {
+        $commissionStatement = $db->prepare('UPDATE commissions SET current=:current WHERE id=:id');
+        $commissionStatement->bindValue(':id', $commission_id, PDO::PARAM_STR);
+        $commissionStatement->bindValue(':current', $newStepNumber, PDO::PARAM_INT);
+        $successful = $commissionStatement->execute();
+        if(!$successful) {
+          http_response_code(500);
+          die('FAILURE: Could not update new status of commission');
+        }
 
-      $returnData['current'] = $newStepNumber;
-      $returnData['currentStep']['status'] = $nextStepStatus;
-      $returnData['currentStep']['preview'] = $nextStepPreview;
-      $returnData['currentStep']['title'] = $nextStepTitle;
-      $returnData['currentStep']['description'] = $nextStepDescription;
-      $returnData['currentStep']['price'] = $nextStepPrice;
+        $stepStatement = $db->prepare('SELECT * FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+        $stepStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
+        $stepStatement->bindValue(':sequence_number', $newStepNumber, PDO::PARAM_INT);
+        $successful = $stepStatement->execute();
+        if(!$successful) {
+          http_response_code(500);
+          die('FAILURE: Could not fetch next milestone');
+        }
+        $stepStatementRow = $stepStatement->fetch(PDO::FETCH_ASSOC);
+        $nextStepOrderID = $stepStatementRow['order_id'];
+        $nextStepStatus = $stepStatementRow['status'];
+        $nextStepTitle = $stepStatementRow['title'];
+        $nextStepDescription = $stepStatementRow['description'];
+        $nextStepPrice = priceWithFee($stepStatementRow['price']);
+        $nextStepPreview = $stepStatementRow['preview'];
+
+        $returnData['current'] = $newStepNumber;
+        $returnData['currentStep']['status'] = $nextStepStatus;
+        $returnData['currentStep']['preview'] = $nextStepPreview;
+        $returnData['currentStep']['title'] = $nextStepTitle;
+        $returnData['currentStep']['description'] = $nextStepDescription;
+        $returnData['currentStep']['price'] = $nextStepPrice;
+      }
     }
 
     $jsonData = json_encode($returnData);
