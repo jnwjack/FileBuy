@@ -32,7 +32,7 @@
   min-width: 2rem;
   min-height: 2rem;
   border-radius: 1rem;
-  border: 3px solid #8EDBE1;
+  border: 3px solid #4D68B2;
   background-color: #ffffff;
   transition: min-width 0.5s, min-height 0.5s, border-radius 0.5s;
   cursor: pointer;
@@ -42,7 +42,7 @@
   min-width: 3rem;
   min-height: 3rem;
   border-radius: 1.5rem;
-  background-color: #8EDBE1;
+  background-color: #4D68B2;
   border-color: #ffffff;
 }
 
@@ -61,9 +61,9 @@
 }
 
 @keyframes gradient {
-  0% { background-color: #227b81; }
-  50% { background-color: #8EDBE1; }
-  100% { background-color: #227b81; }
+  0% { background-color: #3C9AA3; }
+  50% { background-color: #4D68B2; }
+  100% { background-color: #3C9AA3; }
 }
 /*
 ------------------------------------------------

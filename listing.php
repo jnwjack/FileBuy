@@ -23,7 +23,7 @@
   ?>
   <div class="content">
     <div class="content-part">
-      <div id="file-header"></div>
+      <h2 id="file-header"></h2>
       <div class="preview-wrapper">
         <canvas id="preview">
           Preview
