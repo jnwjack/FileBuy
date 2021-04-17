@@ -35,6 +35,8 @@ function createCommission(event) {
     });
   }
 
+  toggleButtonProgressBar(true);
+
   const commissionObject = {
     numSteps: numSteps,
     email: email,
@@ -59,9 +61,13 @@ function createCommission(event) {
     let currentUrlRoot = extractURLRoot(document.location.href);
     let linkString = `${currentUrlRoot}/commission/${commissionID}`;
 
+    toggleButtonProgressBar(false);
+
     activateResultCard(linkString);
   })
   .catch(error => {
+    toggleButtonProgressBar(false);
+
     console.error('Error:', error);
   })
 }
@@ -95,8 +101,7 @@ function createListing(event) {
   let size = file.size;
 
   // Handle Progress Bar Animation
-  document.getElementById('submit-button-text').classList.toggle('disabled', true);
-  document.getElementById('progress-bar').classList.toggle('invisible', false);
+  toggleButtonProgressBar(true);
 
   let readerPromise = new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -131,8 +136,7 @@ function createListing(event) {
       form.reset();
 
       // Turn off progress bar
-      document.getElementById('submit-button-text').classList.toggle('disabled', false);
-      document.getElementById('progress-bar').classList.toggle('invisible', true);
+      toggleButtonProgressBar(false);
 
       defaultPreview();
       activateResultCard(linkString);
@@ -141,8 +145,7 @@ function createListing(event) {
       console.error('Error:', error);
 
       // Turn off progress bar
-      document.getElementById('submit-button-text').classList.toggle('disabled', false);
-      document.getElementById('progress-bar').classList.toggle('invisible', true);
+      toggleButtonProgressBar(false);
     });
 
     }, function(err) {
@@ -242,6 +245,8 @@ function uploadCommissionFile(event, commissionID) {
     return false;
   }
 
+  toggleButtonProgressBar(true);
+
   let readerPromise = new Promise((resolve, reject) => {
     let reader = new FileReader();
     reader.onload = function() {
@@ -264,11 +269,17 @@ function uploadCommissionFile(event, commissionID) {
     })
     .then(response => response.json())
     .then(state => {
-      console.log(state);
+      toggleButtonProgressBar(false);
+
       updateProgressBar(state['current']);
       updateMilestoneSectionVisibilityAndText(state['currentStep']);
     });
-  });
+  })
+  .catch(error => {
+    toggleButtonProgressBar(false);
+
+    console.error('Error:', error);
+  })
 }
 
 /* sendMessage(event)

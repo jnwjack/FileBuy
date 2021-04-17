@@ -98,8 +98,11 @@
       <?php 
         include_once('../php/view/file_upload.php');
       ?>
-      <button type="submit">
-        Confirm
+      <button type="submit" class="form-button">
+        <div id="submit-button-text">
+          Confirm
+        </div>
+        <div id="progress-bar" class="invisible"></div>
       </button>
     </div>
     <div id="paypal-section" class="content-part invisible">
@@ -112,6 +115,7 @@
   <script src='../js/preview.js'></script>
   <script src='../js/commission.js'></script>
   <script src='../js/requests.js'></script>
+  <script src='../js/inputs.js'></script>
   <script src="https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ&currency=USD" data-sdk-integration-source="button-factory"></script>
   <script>
     /*

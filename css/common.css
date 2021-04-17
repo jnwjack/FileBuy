@@ -19,18 +19,18 @@ html {
 button {
   text-align: center;
   background-color: #ffffff;
-  border-color: #8EDBE1;
+  border-color: #4D68B2;
   border-width: 3px;
   border-style: solid;
   border-radius: 8px;
-  color: #66ced6;
+  color: #1B3888;
   font-weight: 800;
   padding: 0;
   outline: none;
 }
 
 button:focus {
-  border-color: #8EDBE1;
+  border-color: #4D68B2;
 }
 
 p {
@@ -73,11 +73,11 @@ input[type="text"], input[type="number"], input[type="email"], textarea {
 }
 
 input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, textarea:focus {
-  box-shadow: 0px 0px 6px #8EDBE1;
+  box-shadow: 0px 0px 6px #4D68B2;
 }
 
 ::placeholder {
-  color: #BFBAB0;
+  color: #d6d6d6;
 }
 
 .invisible {
@@ -139,7 +139,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
   padding-bottom: 0.5rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  background-color: #8EDBE1;
+  background-color: #4D68B2;
   position: fixed;
   width: 100%;
   z-index: 9999;
@@ -236,7 +236,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
   padding-bottom: 0.5rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  border-bottom: 3px solid #E3DDE1;
+  border-bottom: 3px solid #3C9AA3;
   width: 100%;
 
   display: flex;
@@ -244,7 +244,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
   justify-content: space-between;
   align-items: center;
 
-  color: #E3DDE1
+  color: #3C9AA3;
 }
 
 .burger-content {
@@ -255,7 +255,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
   max-width: 45rem;
   min-width: 23rem;
   max-height: 100%;
-  color: #8EDBE1;
+  color: #4D68B2;
 }
 
 #burger-menu-wrapper.disabled  {
@@ -288,6 +288,39 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
   height: 100%;
 }
 
+/* Progress bar button
+------------------------------------------------
+*/
+
+.form-button {
+  /* set position relative to allow for left offset on progress bar */
+  position: relative;
+  overflow: hidden;
+
+  width: 40%;
+}
+
+#submit-button-text {
+  transition: margin-top 2s;
+  margin-top: 0%;
+}
+
+#submit-button-text.disabled {
+  margin-top: 100%;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 100%;
+  left: -12px;
+  top: 0;
+  /* border-radius: 16px; */
+  background-color: #3C9AA3;
+  animation: expand 3s linear 1, gradient 1.5s linear infinite;
+  transform: skew(30deg);
+  position: absolute;
+}
+
 /*
   Desktop Styling
 ------------------------------------------------
@@ -309,7 +342,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
     border-radius: 16px;
   }
   .nav-content > a:hover {
-    background-color: #66ced6;
+    background-color: #1B3888;
   }
   #header {
     justify-content: flex-start;
@@ -330,9 +363,9 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
 }
 
 @keyframes gradient {
-  0% { background-color: #227b81; }
-  50% { background-color: #8EDBE1; }
-  100% { background-color: #227b81; }
+  0% { background-color: #3C9AA3; }
+  50% { background-color: #4D68B2; }
+  100% { background-color: #3C9AA3; }
 }
 /*
 ------------------------------------------------

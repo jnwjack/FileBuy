@@ -90,7 +90,10 @@
     </div>
     <div class="content-part">
       <button type="submit" class="form-button">
-        Start Commission
+        <div id="submit-button-text">
+          Start Commission
+        </div>
+        <div id="progress-bar" class="invisible"></div>
       </button>
     </div>
   </form>
@@ -98,6 +101,7 @@
   <script src="../js/commission.js"></script>
   <script src="../js/requests.js"></script>
   <script src="../js/util.js"></script>
+  <script src="../js/inputs.js"></script>
   <script src="../js/card.js"></script>
 </body>
 

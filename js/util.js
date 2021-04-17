@@ -97,6 +97,5 @@ function extractURLRoot(string) {
 
 */
 function removeQuotes(string) {
-  console.log(string);
   return string.replace('"', '');
 }

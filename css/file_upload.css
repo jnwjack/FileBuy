@@ -12,7 +12,7 @@
   font-weight: 700;
   color: #ffffff;
   display: inline-block;
-  background-color: #8EDBE1;
+  background-color: #4D68B2;
   padding: 5px;
 
   width: 100%;
@@ -25,7 +25,7 @@
 }
 .file-button:focus + label,
 .file-button.hoverable + label:hover {
-    background-color: #66ced6;
+    background-color: #1B3888;
 }
 #upload-svg {
   height: 1.5rem;
@@ -42,7 +42,7 @@
     transition: background-color 0.25s linear;
   }
   .file-button-wrapper.drag-over {
-    background-color: #8EDBE1;
+    background-color: #4D68B2;
     transition: background-color 0.5s linear;
   }
   .file-button + label {

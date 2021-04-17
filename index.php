@@ -80,6 +80,7 @@
   <script src="js/preview.js"></script>
   <script src="js/filedrop.js"></script>
   <script src="js/util.js"></script>
+  <script src="js/inputs.js"></script>
   <script src="js/requests.js"></script>
   <script src="js/card.js"></script>
 </body>
