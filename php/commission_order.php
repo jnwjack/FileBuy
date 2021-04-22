@@ -1,6 +1,6 @@
 <?php
 
-  /* commission_payment.php
+  /* commission_order.php
 
     This script is called when a user clicks the "Pay with PayPal" button and sets up an order on a commission.
 
