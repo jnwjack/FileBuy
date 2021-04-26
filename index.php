@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 
-
-<html>
+<html lang="en">
 
 <head>
   <title>File Buy</title>
+  <meta name="description" content="Sell digital files online">
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,16 +37,9 @@
       </button>
     </div>
   </div>
-  <div id="preview-card" class="card disabled">
-    <div class="preview-wrapper">
-      <canvas id="preview">
-        Preview
-      </canvas>
-    </div>
-    <button type="button" class="card-button" onclick="disableCard('preview-card')">
-      Close
-    </button>
-  </div>
+  <?php
+    include_once('php/view/preview_card.php');
+  ?>
 
   <!--Content-->
   <form id="main" class="content" onsubmit="createListing(event)">

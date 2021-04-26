@@ -31,7 +31,7 @@ input[type=range]::-webkit-slider-runnable-track {
   height: 11px;
   cursor: pointer;
   /* box-shadow: 1px 1px 1px #000000; */
-  background: #1B3888;
+  background: #3C9AA3;
   border-radius: 8px;
   border: 0px solid #010101;
 }
@@ -47,14 +47,14 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: -8px;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #1B3888;
+  background: #3C9AA3;
 }
 input[type=range]::-moz-range-track {
   width: 100%;
   height: 11px;
   cursor: pointer;
   /* box-shadow: 1px 1px 1px #000000; */
-  background: #1B3888;
+  background: #3C9AA3;
   border-radius: 8px;
   border: 0px solid #010101;
 }
@@ -76,13 +76,13 @@ input[type=range]::-ms-track {
   color: transparent;
 }
 input[type=range]::-ms-fill-lower {
-  background: #1B3888;
+  background: #3C9AA3;
   border: 0px solid #010101;
   border-radius: 2px;
   /* box-shadow: 1px 1px 1px #000000; */
 }
 input[type=range]::-ms-fill-upper {
-  background: #1B3888;
+  background: #3C9AA3;
   border: 0px solid #010101;
   border-radius: 2px;
   /* box-shadow: 1px 1px 1px #000000; */
@@ -98,10 +98,10 @@ input[type=range]::-ms-thumb {
   cursor: pointer;
 }
 input[type=range]:focus::-ms-fill-lower {
-  background: #1B3888;
+  background: #3C9AA3;
 }
 input[type=range]:focus::-ms-fill-upper {
-  background: #1B3888;
+  background: #3C9AA3;
 }
 /*
 ------------------------------------------------

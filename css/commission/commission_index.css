@@ -4,6 +4,9 @@
 ------------------------------------------------
 */
 #steps-bar {
+  /* Explicitly set height to avoid bobbing of steps bar */
+  height: 3rem;
+  
   flex-direction: row  !important;
   align-items: center;
   justify-content: center;

@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 
 <head>
   <title>File Buy</title>
@@ -26,13 +26,17 @@
     </div>
     <div class="content-part">
       <button type="submit" class="form-button">
-        Send
+        <div id="submit-button-text">
+          Send
+        </div>
+        <div id="progress-bar" class="invisible"></div>
       </button>
     </div>
   </form>
 
   <script src="js/util.js"></script>
   <script src="js/requests.js"></script>
+  <script src="js/inputs.js"></script>
 </body>
 
 </html>

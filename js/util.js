@@ -39,6 +39,15 @@ function formatBytes(number, unitIndex = 0) {
   return formatBytes(nextNumber, ++unitIndex);
 }
 
+/* formatPrice(number)
+
+  Return value formatted as float such that there will always be 2 decimal places
+
+*/
+function formatPrice(number) {
+  return number.toFixed(2);
+}
+
 /* truncateString(string)
 
   Return string that is truncated after a fixed length.

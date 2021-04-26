@@ -1,5 +1,5 @@
 <div id="header">
-  <img id="logo" src="../../images/logo.png" />
+  <img id="logo" src="../../images/logo.png" alt="File Buy logo"/>
   <div class="nav-content">
     <a href="/">
       List a File

@@ -47,9 +47,8 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
   const preview = currentStep['preview'];
   const status = currentStep['status'];
 
-  // Toggle download button
-
-  document.getElementById('current-step-title').textContent = `${title} - $${price}`;
+  // Display title and description of step
+  document.getElementById('current-step-title').textContent = `${title} - $${formatPrice(price)}`;
   document.getElementById('current-step-description').textContent = description;
 
     /* Status codes:
@@ -68,7 +67,7 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
     fileUpload.classList.toggle('invisible', true);
     if(preview) {
       // Set canvas data to preview
-      setCanvasImageFromBase64(preview);
+      setCanvasImageFromBase64(preview, 'uploaded-file');
     } else {
       // Default preview
       generatePreview(null);
@@ -77,8 +76,6 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
     // file is not uploaded
     previewSection.classList.toggle('invisible', true);
     fileUpload.classList.toggle('invisible', false);
-
-    // Display PayPal Buttons
   }
 
   // If payment has been made
@@ -118,7 +115,7 @@ function setCircleAsCurrent(newStep) {
 
 function circleCallback(index, current, maxStep) {
   return async () => {
-    if(index >= maxStep - 1 || index === current - 1) {
+    if(index >= maxStep || index === current - 1) {
       return;
     }
 
@@ -134,8 +131,16 @@ function circleCallback(index, current, maxStep) {
     // Adjust callbacks on circles to reflect new current step
     const circles = document.querySelectorAll('.steps-bar-circle');
     for(let i = 0; i <= maxStep - 1; i++) {
-      circles[i].onclick = circleCallback(i, jsonData['stepNumber'], numSteps);
+      circles[i].onclick = circleCallback(i, jsonData['stepNumber'], jsonData['current']);
     }
+  }
+}
+
+function setCircleCallbacks(currentStepNumber) {
+  const circles = document.querySelectorAll('.steps-bar-circle');
+  for(let i = 0; i < currentStepNumber; i++) {
+    const circle = circles[i];
+    circle.onclick = circleCallback(i, currentStepNumber, currentStepNumber);
   }
 }
 
@@ -144,18 +149,19 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
   const downloadButton = document.querySelector('#download-button');
   downloadButton.onclick = () => requestCommissionDownload(commissionID, current, currentStep['title']);
 
+  // Draw progress bar
   const stepsBar = document.getElementById('steps-bar');
-  
   stepsBar.appendChild(stepsBarFragment());
+
   for(let i = 0; i < numSteps; i++) {
     let circleWrapper = stepsBarCircle(i === current - 1);
-    if(i < current) {
-      let circle = circleWrapper.childNodes[0];
-      circle.onclick = circleCallback(i, current, current);
-    }
     stepsBar.appendChild(circleWrapper);
     stepsBar.appendChild(stepsBarFragment(i < current - 1 || complete));
   }
+
+  // Set onclick functions for circles. Must be done dynamically and updated with any change in the
+  // state of the commission. This is because the callbacks are dependent upon the current step number
+  setCircleCallbacks(current);
 
   updateMilestoneSectionVisibilityAndText(currentStep);
 
@@ -183,6 +189,7 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
               // Display new state
               updateProgressBar(state['current']);
               updateMilestoneSectionVisibilityAndText(state['currentStep']);
+              setCircleCallbacks(state['current']);
             }
           })
         });

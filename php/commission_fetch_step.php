@@ -48,6 +48,7 @@
 
   $returnData = array(
     'stepNumber' => $queryStepNumber,
+    'current' => $currentStepNumber,
     'commission' => $commissionID,
     'step' => array(
       'preview' => unserialize($queryStepPreview),
