@@ -273,6 +273,7 @@ function uploadCommissionFile(event, commissionID) {
 
       updateProgressBar(state['current']);
       updateMilestoneSectionVisibilityAndText(state['currentStep']);
+      setCircleCallbacks(state['current']);
     });
   })
   .catch(error => {
@@ -304,6 +305,8 @@ function sendMessage(event) {
     return false;
   }
 
+  toggleButtonProgressBar(true);
+
   let formData = new FormData();
   formData.append('email', email);
   formData.append('message', message);
@@ -318,6 +321,12 @@ function sendMessage(event) {
   .then(response => {
     let form = document.querySelector('#main');
     form.reset();
+    toggleButtonProgressBar(false);
+  })
+  .error(error => {
+    toggleButtonProgressBar(false);
+    
+    console.error('Error: ', error);
   })
 }
 

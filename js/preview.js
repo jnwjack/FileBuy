@@ -92,11 +92,11 @@ function savePreviewAsBlob() {
   the canvas.
 
 */
-function setCanvasImageFromBase64(string) {
+function setCanvasImageFromBase64(string, canvasID) {
   let image = new Image();
   image.src = string;
 
-  let canvas = document.getElementById('preview');
+  let canvas = document.getElementById(canvasID);
   let context = canvas.getContext('2d');
   image.onload = function () {
     context.drawImage(image, 0, 0, canvas.width, canvas.height);

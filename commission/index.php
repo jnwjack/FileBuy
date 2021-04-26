@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
   <title>File Buy</title>
@@ -15,12 +15,12 @@
   <link rel='icon' href='../favicon.ico?' type='image/x-icon'>
 </head>
 
-<body>
+<body onload="defaultPreview()">
   <?php
     // Add side menu and header
     include_once('../php/view/header.php');
     include_once('../php/view/side_menu.php');
-    include_once('../php/util.php');
+    include_once('../php/view/preview_card.php');
 
     /* commission.php
 
@@ -28,6 +28,7 @@
 
     */
     require_once('../php/database_request.php');
+    require_once('../php/util.php');
 
     $commission_id = $_GET['commission'];
 
@@ -73,7 +74,7 @@
     $json = json_encode($convertedArray);
   ?>
 
-  <div class="content">
+  <div class="content" id="main">
     <h2 class="content-part" id="title">
       Commission
     </h2>
@@ -85,7 +86,7 @@
     <p id="current-step-description" class="content-part"></p>
     <div id="preview-section" class="content-part invisible">
       <div class="preview-wrapper">
-        <canvas id="preview">
+        <canvas id="uploaded-file">
           Preview
         </canvas>
       </div>
@@ -98,12 +99,17 @@
       <?php 
         include_once('../php/view/file_upload.php');
       ?>
-      <button type="submit" class="form-button">
-        <div id="submit-button-text">
-          Confirm
-        </div>
-        <div id="progress-bar" class="invisible"></div>
-      </button>
+      <div class="button-row">
+        <button class="form-button" onclick="activateCard('preview-card')">
+          Show Preview
+        </button>
+        <button type="submit" class="form-button">
+          <div id="submit-button-text">
+            Confirm
+          </div>
+          <div id="progress-bar" class="invisible"></div>
+        </button>
+      </div>
     </div>
     <div id="paypal-section" class="content-part invisible">
       <p>Buyer: Pay</p>
@@ -112,6 +118,7 @@
   </div>
 
   <script src='../js/util.js'></script>
+  <script src='../js/card.js'></script>
   <script src='../js/preview.js'></script>
   <script src='../js/commission.js'></script>
   <script src='../js/requests.js'></script>
@@ -133,7 +140,7 @@
     const current = commissionData['current'];
 
     document.querySelector('#title').textContent = `Commission by ${email}`;
-    document.querySelector('#file-upload-section > button').onclick = (event) => uploadCommissionFile(event, commissionID);
+    document.querySelector('#file-upload-section > .button-row > button[type="submit"]').onclick = (event) => uploadCommissionFile(event, commissionID);
 
     const currentStep = commissionData['currentStep'];
     displayMilestone(current, numSteps, complete, currentStep, commissionID);

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
   <title>File Buy</title>
@@ -93,12 +93,12 @@
     */
   
     const listingData = <?php echo $json ?>;
-    setCanvasImageFromBase64(listingData['preview']);
+    setCanvasImageFromBase64(listingData['preview'], 'preview');
 
     //document.getElementById('price').textContent += listingData['price'];
     document.getElementById('seller-email').textContent += `Listed By: ${truncateString(listingData['email'])}`;
     //document.getElementById('filename').textContent = listingData['name'];
-    document.getElementById('file-header').textContent = `${truncateString(listingData['name'])} - $${listingData['price']}`;
+    document.getElementById('file-header').textContent = `${truncateString(listingData['name'])} - $${formatPrice(listingData['price'])}`;
     document.getElementById('size').textContent = `File Size: ${formatBytes(listingData['size'])}`;
 
     if(!listingData['complete']) {
