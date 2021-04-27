@@ -95,7 +95,7 @@
         Download
       </button>
     </div>
-    <div id="file-upload-section" class="content-part">
+    <div id="file-upload-section" class="content-part invisible">
       <p>Seller: Upload File</p>
       <?php 
         include_once('../php/view/file_upload.php');
@@ -112,11 +112,11 @@
         </button>
       </div>
     </div>
-    <div id="paypal-section" class="content-part">
+    <div id="paypal-section" class="content-part invisible">
       <p>Buyer: Pay</p>
       <div id="paypal-button-container"></div>
     </div>
-    <p id="paypal-section-complete" class="content-part text-complete">Buyer: Pay - Complete</p>
+    <p id="paypal-section-complete" class="content-part text-complete invisible">Buyer: Pay - Complete</p>
   </div>
 
   <script src='../js/util.js'></script>
