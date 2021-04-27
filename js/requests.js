@@ -271,6 +271,9 @@ function uploadCommissionFile(event, commissionID) {
     .then(state => {
       toggleButtonProgressBar(false);
 
+      // Clear preview card
+      defaultPreview();
+      
       updateProgressBar(state['current']);
       updateMilestoneSectionVisibilityAndText(state['currentStep']);
       setCircleCallbacks(state['current']);
