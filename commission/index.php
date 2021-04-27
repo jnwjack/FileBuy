@@ -85,6 +85,7 @@
     </h3>
     <p id="current-step-description" class="content-part"></p>
     <div id="preview-section" class="content-part invisible">
+      <p class="text-complete">Seller: Upload File - Complete</p>
       <div class="preview-wrapper">
         <canvas id="uploaded-file">
           Preview
@@ -94,7 +95,7 @@
         Download
       </button>
     </div>
-    <div id="file-upload-section" class="content-part invisible">
+    <div id="file-upload-section" class="content-part">
       <p>Seller: Upload File</p>
       <?php 
         include_once('../php/view/file_upload.php');
@@ -111,10 +112,11 @@
         </button>
       </div>
     </div>
-    <div id="paypal-section" class="content-part invisible">
+    <div id="paypal-section" class="content-part">
       <p>Buyer: Pay</p>
       <div id="paypal-button-container"></div>
     </div>
+    <p id="paypal-section-complete" class="content-part text-complete">Buyer: Pay - Complete</p>
   </div>
 
   <script src='../js/util.js'></script>

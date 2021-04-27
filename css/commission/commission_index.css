@@ -71,3 +71,8 @@
 /*
 ------------------------------------------------
 */
+
+/* Set text to green when part of step complete */
+.text-complete {
+  color: green;
+}

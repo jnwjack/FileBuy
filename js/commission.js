@@ -78,11 +78,22 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
     fileUpload.classList.toggle('invisible', false);
   }
 
-  // If payment has been made
+  // If payment has not been made
   if(status < 2) {
-    document.getElementById('paypal-section').classList.toggle('invisible', false);
+    // Enable PayPal Section
+    document.querySelector('#paypal-section').classList.toggle('invisible', false);
+    // Disable download button
+    document.querySelector('#download-button').classList.toggle('invisible', true);
+    // Disable completed text
+    document.querySelector('#paypal-section-complete').classList.toggle('invisible', true);
+
   } else {
-    document.getElementById('paypal-section').classList.toggle('invisible', true);
+    // Disable PayPal section
+    document.querySelector('#paypal-section').classList.toggle('invisible', true);
+    // Enable download button
+    document.querySelector('#download-button').classList.toggle('invisible', false);
+    // Enable completed text
+    document.querySelector('#paypal-section-complete').classList.toggle('invisible', false);
   }
 }
 
