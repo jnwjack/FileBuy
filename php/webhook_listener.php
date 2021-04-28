@@ -38,7 +38,7 @@
       http_response_code(500);
       die('Payment not received');
     case 1:  
-      $ch = curl_init('https://api.sandbox.paypal.com/v1/payments/payouts');
+      $ch = curl_init('https://api.paypal.com/v1/payments/payouts');
       $curl_data = array(
         'sender_batch_header' => array('email_subject' => 'Your file has been bought!', 'email_message' => '<3'),
         'items' => array(array(
