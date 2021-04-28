@@ -17,6 +17,7 @@
 
   */
   function fetchPayPalToken() {
+    error_log(print_r('fetchPayPalToken', TRUE));
     $client_id_filename = '../auth/CLIENT_ID';
     $client_id_file = fopen($client_id_filename, 'r');
     $client_id = fread($client_id_file, filesize($client_id_filename));
@@ -39,6 +40,7 @@
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
     if($httpcode !== 200) {
+      error_log(print_r($httpcode, TRUE));
       return false;
     }
 
@@ -52,7 +54,9 @@
 
   */
   function makePayPalCall($ch) {
+    error_log(print_r('does it work?', TRUE));
     if(!array_key_exists('access_token', $_SESSION)) {
+      error_log(print_r('missing key', TRUE));
       fetchPayPalToken();
     }
 
