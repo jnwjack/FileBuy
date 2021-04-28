@@ -38,7 +38,7 @@
 
   // Otherwise, see if PayPal order is complete
   else if($order_id == $_POST['order']) {
-    $ch = curl_init("https://api.sandbox.paypal.com/v2/checkout/orders/$order_id");
+    $ch = curl_init("https://api.paypal.com/v2/checkout/orders/$order_id");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $paypal_response = makePayPalCall($ch);
   
@@ -48,7 +48,7 @@
     }
 
     // Pay seller
-    $ch = curl_init('https://api.sandbox.paypal.com/v1/payments/payouts');
+    $ch = curl_init('https://api.paypal.com/v1/payments/payouts');
     $curl_data = array(
       'sender_batch_header' => array('email_subject' => 'Your file has been bought!', 'email_message' => '<3'),
       'items' => array(array(

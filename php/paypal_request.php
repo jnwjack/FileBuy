@@ -25,7 +25,7 @@
     $client_sec_file = fopen($client_sec_filename, 'r');
     $client_sec = fread($client_sec_file, filesize($client_sec_filename));
 
-    $ch = curl_init('https://api.sandbox.paypal.com/v1/oauth2/token');
+    $ch = curl_init('https://api.paypal.com/v1/oauth2/token');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(

@@ -60,7 +60,7 @@
   }
 
   // Get order details
-  $ch = curl_init("https://api.sandbox.paypal.com/v2/checkout/orders/$order");
+  $ch = curl_init("https://api.paypal.com/v2/checkout/orders/$order");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   $paypal_response = makePayPalCall($ch);
 
@@ -96,7 +96,7 @@
   // If the order for this milestone is now complete
   if($currentStepStatus == 1) {
     // Pay out to seller
-    $ch = curl_init('https://api.sandbox.paypal.com/v1/payments/payouts');
+    $ch = curl_init('https://api.paypal.com/v1/payments/payouts');
     $curl_data = array(
       'sender_batch_header' => array('email_subject' => 'A milestone has been completed!', 'email_message' => '<3'),
       'items' => array(array(
