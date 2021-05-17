@@ -13,4 +13,6 @@ keys/*
 *.phar
 *.env
 *.pem
+sshconnect.sh
+
 
