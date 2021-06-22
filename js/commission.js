@@ -97,23 +97,21 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
   }
 }
 
-function updateProgressBar(current) {
+function updateProgressBar(currentStep, selectedStep) {
   // Get the fragment the rightmost fragment that should be marked as completed.
-  const currentFragment = document.querySelectorAll('.steps-bar-fragment')[current - 1];
+  const currentFragment = document.querySelectorAll('.steps-bar-fragment')[currentStep - 1];
   currentFragment.classList.toggle('completed', true);
 
   const circles = document.querySelectorAll('.steps-bar-circle');
   // Get the circle that should be marked as current
-  const currentCircle = circles[current - 1];
+  const currentCircle = circles[selectedStep - 1];
   // If this circle is not already current, that means the previous one is. Unmark that one
   // as current.
   if(!currentCircle.classList.contains('current')) {
-    const previousCircle = circles[current - 2];
+    const previousCircle = circles[selectedStep - 2];
     previousCircle.classList.toggle('current', false);
   }
   currentCircle.classList.toggle('current', true);
-  
-  updateMilestoneSectionVisibilityAndText(currentStep);
 }
 
 function setCircleAsCurrent(newStep) {
@@ -147,11 +145,11 @@ function circleCallback(index, current, maxStep) {
   }
 }
 
-function setCircleCallbacks(currentStepNumber) {
+function setCircleCallbacks(currentStepNumber, maxStepNumber) {
   const circles = document.querySelectorAll('.steps-bar-circle');
-  for(let i = 0; i < currentStepNumber; i++) {
+  for(let i = 0; i < maxStepNumber; i++) {
     const circle = circles[i];
-    circle.onclick = circleCallback(i, currentStepNumber, currentStepNumber);
+    circle.onclick = circleCallback(i, currentStepNumber, maxStepNumber);
   }
 }
 
@@ -172,7 +170,7 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
 
   // Set onclick functions for circles. Must be done dynamically and updated with any change in the
   // state of the commission. This is because the callbacks are dependent upon the current step number
-  setCircleCallbacks(current);
+  setCircleCallbacks(current, current);
 
   updateMilestoneSectionVisibilityAndText(currentStep);
 
@@ -198,9 +196,15 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
           completeCommissionPayment(commissionID, details.id, 'filename').then(state => {
             if(state) {
               // Display new state
-              updateProgressBar(state['current']);
+              updateProgressBar(state['current'], state['stepNumber']);
               updateMilestoneSectionVisibilityAndText(state['currentStep']);
-              setCircleCallbacks(state['current']);
+              setCircleCallbacks(state['stepNumber'], state['current']);
+
+              // If the current milestone is greater than the milestone we were just working on (stepNumber),
+              // then request a download of the file, since the milestone should be complete
+              if(state['current'] > state['stepNumber']) {
+                requestCommissionDownload(state['commission'], state['stepNumber'], state['currentStep']['title']);
+              }
             }
           })
         });
