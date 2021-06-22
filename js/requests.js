@@ -112,7 +112,6 @@ function createListing(event) {
   });
 
   readerPromise.then(function(fileData) {
-    //let previewPromise = savePreviewAsBlob();
     let previewb64 = savePreviewAsBase64();
 
     let formData = new FormData();
@@ -274,9 +273,9 @@ function uploadCommissionFile(event, commissionID) {
       // Clear preview card
       defaultPreview();
       
-      updateProgressBar(state['current']);
+      updateProgressBar(state['current'], state['stepNumber']);
       updateMilestoneSectionVisibilityAndText(state['currentStep']);
-      setCircleCallbacks(state['current']);
+      setCircleCallbacks(state['stepNumber'], state['current']);
     });
   })
   .catch(error => {
