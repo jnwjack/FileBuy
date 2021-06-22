@@ -63,6 +63,7 @@
     }
 
     $returnData = array(
+      'stepNumber' => $currentStepNumber,
       'current' => $currentStepNumber,
       'commission' => $commission_id,
       'currentStep' => array(
@@ -131,11 +132,6 @@
         $nextStepPreview = $stepStatementRow['preview'];
 
         $returnData['current'] = $newStepNumber;
-        $returnData['currentStep']['status'] = $nextStepStatus;
-        $returnData['currentStep']['preview'] = $nextStepPreview;
-        $returnData['currentStep']['title'] = $nextStepTitle;
-        $returnData['currentStep']['description'] = $nextStepDescription;
-        $returnData['currentStep']['price'] = $nextStepPrice;
       }
     }
 

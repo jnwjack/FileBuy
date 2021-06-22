@@ -10,7 +10,7 @@
   require_once('util.php');
 
   $commissionID = $_GET['commission'];
-  $queryStepNumber = $_GET['step'];
+  $queryStepNumber = (int) $_GET['step'];
 
   $db = getDatabaseObject();
 
