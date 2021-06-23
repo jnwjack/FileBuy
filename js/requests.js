@@ -56,8 +56,12 @@ function createCommission(event) {
     let commissionID = removeQuotes(result);
     let form = document.querySelector('.content');
     form.reset();
+
+    // Reset slider and hide milestone fields
     let output = document.getElementById('checkpoints-output');
     output.textContent = 1;
+    onSliderChange()
+    
     let currentUrlRoot = extractURLRoot(document.location.href);
     let linkString = `${currentUrlRoot}/commission/${commissionID}`;
 
