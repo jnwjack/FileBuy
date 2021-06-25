@@ -1,0 +1,12 @@
+.hero {
+  display: flex;
+  flex-direction: row;
+  /* Small margin on top, auto margin to cause content to fit in the center of the screen */
+  margin: 2rem auto;
+}
+.hero-text {
+  max-width: 30rem;
+}
+.hero-img {
+  height: 25rem;
+}
