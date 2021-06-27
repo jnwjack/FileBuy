@@ -1,12 +1,71 @@
+.landing-container {
+  display: flex;
+  flex-direction: column;
+}
 .hero {
   display: flex;
   flex-direction: row;
+  justify-self: center;
   /* Small margin on top, auto margin to cause content to fit in the center of the screen */
-  margin: 2rem auto;
+
+  position: absolute;
+  /* move the element half way across the screen */
+  left: 50%;
+  /* allow the width to be calculated dynamically */
+  /* min-width: 55rem; */
+  width: auto;
+  /* then move the element back again using a transform */
+  transform: translateX(-50%);
+  
+  margin-top: 2rem;
+}
+.hero > * {
+  margin: 0 2rem;
 }
 .hero-text {
-  max-width: 30rem;
+  width: 25rem;
+  max-width: calc(100vw - 2rem);
+
 }
 .hero-img {
   height: 25rem;
+  /* Invisible on mobile devices */
+  display: none;
+}
+.landing-button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.landing-button {
+  line-height: 4rem;
+  text-align: center;
+  height: 4rem;
+  color: #ffffff;
+  font-weight: 700;
+  background-color: #4D68B2;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 3rem;
+  width: 165px;
+}
+section {
+  height: 100vh;
+  width: 100%;
+}
+#first {
+  background-color: #E3DDE1;
+}
+#second {
+  background-color: #4D68B2;
+}
+#third {
+  background-color: #3C9AA3;
+}
+
+@media only screen and (min-width: 769px) {
+  .hero-img {
+    display: block;
+  }
 }
