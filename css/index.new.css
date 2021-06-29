@@ -49,10 +49,10 @@ section {
   padding-top: 2rem;
   padding-bottom: 2rem;
   display: flex;
-  flex-direction: row;
 }
 #first {
   background-color: #E3DDE1;
+  flex-direction: row;
   justify-content: center;
 }
 #first .hero-img {
@@ -60,20 +60,25 @@ section {
 }
 #second {
   background-color: #4D68B2;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
 }
 #second > .hero {
   align-items: center;
   padding-right: 2rem;
 }
+#second .hero:not(:last-child) {
+  margin-bottom: 2rem;
+}
 #second .hero-img {
-  height: 20rem;
+  height: 15rem;
 }
 #second .landing-button {
   background-color: #3C9AA3;
 }
 #third {
   background-color: #3C9AA3;
+  flex-direction: row;
   justify-content: flex-start;
 }
 #third > .hero {
@@ -91,5 +96,11 @@ section {
   }
   .hero-img {
     display: block;
+  }
+  #second .hero-alt {
+    align-self: flex-start;
+  }
+  #second .hero:not(:last-child) {
+    margin-bottom: 0;
   }
 }
