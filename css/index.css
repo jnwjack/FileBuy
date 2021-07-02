@@ -29,6 +29,7 @@
   justify-content: space-between;
 }
 .landing-button {
+  white-space: nowrap;
   line-height: 4rem;
   text-align: center;
   height: 4rem;
