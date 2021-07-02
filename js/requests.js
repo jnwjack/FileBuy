@@ -126,15 +126,15 @@ function createListing(event) {
     formData.append('name', name);
     formData.append('size', size);
 
-    fetch('php/submit.php', {
+    fetch('../php/submit.php', {
       method: 'POST',
       body: formData
     })
     .then(response => response.text())
     .then(result => {
       let listingID = removeQuotes(result);
-      let currentUrl = document.location.href;
-      let linkString = `${currentUrl}listing/${listingID}`;
+      let currentUrl = extractURLRoot(document.location.href);
+      let linkString = `${currentUrl}/listing/${listingID}`;
       let form = document.getElementById('main');
       form.reset();
 

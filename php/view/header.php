@@ -1,7 +1,7 @@
 <div id="header">
   <img id="logo" src="../../images/logo.png" alt="File Buy logo"/>
   <div class="nav-content">
-    <a href="/listing">
+    <a href="/listing/create">
       List a File
     </a>
     <a href="/commission/create">

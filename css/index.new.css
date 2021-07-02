@@ -1,6 +1,8 @@
 .landing-container {
   display: flex;
   flex-direction: column;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
 .hero {
   display: flex;
@@ -49,6 +51,8 @@ section {
   padding-top: 2rem;
   padding-bottom: 2rem;
   display: flex;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 #first {
   background-color: #E3DDE1;
