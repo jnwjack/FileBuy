@@ -12,7 +12,7 @@
   </div>
   <div id="burger-menu" class="disabled">
     <div class="burger-content">
-      <a class="content-part" href="/listing">
+      <a class="content-part" href="/listing/create">
         List a File
       </a>
       <a class="content-part" href="/commission/create">
