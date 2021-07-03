@@ -98,9 +98,34 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
 }
 
 function updateProgressBar(currentStep, selectedStep) {
+  // Remove the currently completed fragment bars because we want these bars and the new one to be synced
+  //const enabledFragments = document.querySelectorAll('.steps-bar-fragment');
+  const numSteps = document.querySelectorAll('.steps-bar-circle').length;
+  const stepsBar = document.querySelector('#steps-bar');
+  while(stepsBar.firstElementChild) {
+    stepsBar.firstElementChild.remove();
+  }
+
+  // Enable all the older fragments, along with the newer, rightmost one.
+  // for(let i = 0;i <= currentStep - 1; i++) {
+  //   enabledFragments[i].classList.toggle('completed', true);
+  // }
+
+  stepsBar.appendChild(stepsBarFragment(true));
+
+  for(let i = 0; i < numSteps; i++) {
+    let circleWrapper = stepsBarCircle(i === selectedStep - 1);
+    stepsBar.appendChild(circleWrapper);
+    stepsBar.appendChild(stepsBarFragment(i < currentStep - 1));
+  }
+
+  // Set onclick functions for circles. Must be done dynamically and updated with any change in the
+  // state of the commission. This is because the callbacks are dependent upon the current step number
+  setCircleCallbacks(current, current);
+
   // Get the fragment the rightmost fragment that should be marked as completed.
-  const currentFragment = document.querySelectorAll('.steps-bar-fragment')[currentStep - 1];
-  currentFragment.classList.toggle('completed', true);
+  // const currentFragment = document.querySelectorAll('.steps-bar-fragment')[currentStep - 1];
+  // currentFragment.classList.toggle('completed', true);
 
   const circles = document.querySelectorAll('.steps-bar-circle');
   // Get the circle that should be marked as current
