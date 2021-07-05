@@ -31,16 +31,14 @@ function defaultPreview() {
 
 */
 function generatePreview(file) {
-  if(!file) {
-    defaultPreview();
-  }
-  else {
+  defaultPreview();
+  if(file) {
     let reader = new FileReader();
     let image = new Image();
     reader.onload = function () {
       image.src = reader.result;
     }
-  
+
     let canvas = document.getElementById("preview");
     let context = canvas.getContext("2d");
     image.onload = function () {
@@ -48,7 +46,7 @@ function generatePreview(file) {
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
       }
     }
-  
+
     reader.readAsDataURL(file);
     if(isImage(file) && !canvas.className.includes("blur")){
       canvas.className += "blur";

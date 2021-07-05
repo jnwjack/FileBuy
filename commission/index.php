@@ -118,7 +118,7 @@
     <p id="paypal-section-complete" class="content-part text-complete invisible">Buyer: Pay - Complete</p>
   </div>
 
-  <script src="../dist/commission_index.js">
+  <script src="../dist/commission_index.js"></script>
   <script src="https://www.paypal.com/sdk/js?client-id=AWN4WQzmmUyUccqa8ZVYp1EmW3HP3AHCHZT3OnXzsiiqT87e2RAQTO7_EAkx-GeDgrHSK_iyDNfQK2sV&currency=USD" data-sdk-integration-source="button-factory"></script>
   <script>
     /*
