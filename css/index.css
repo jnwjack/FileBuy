@@ -69,6 +69,7 @@ section {
   align-items: flex-end;
 }
 #second > .hero {
+  max-height: 25%;
   align-items: center;
   padding-right: 2rem;
 }
@@ -76,7 +77,8 @@ section {
   margin-bottom: 2rem;
 }
 #second .hero-img {
-  height: 15rem;
+  /* height: 15rem; */
+  height: 100%;
 }
 #second .landing-button {
   background-color: #3C9AA3;
