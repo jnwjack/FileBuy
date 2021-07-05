@@ -1,4 +1,4 @@
-<script src="../../js/card.js"></script>
+<script src="../../dist/preview_card.js"></script>
 <div id="preview-card" class="card disabled">
   <div class="preview-wrapper">
     <canvas id="preview">

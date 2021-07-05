@@ -9,8 +9,7 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <!-- Ensures optimal rendering on mobile devices. -->
   <meta http-equiv='X-UA-Compatible' content='IE=edge' /> <!-- Optimal Internet Explorer compatibility -->
-  <link rel='stylesheet' type='text/css' href='../../css/common.css'>
-  <link rel='stylesheet' type='text/css' href='../../css/listing/index.css'>
+  <link rel='stylesheet' type='text/css' href='../../dist/listing_index.css'>
 
   <link rel='icon' href='../favicon.ico?' type='image/x-icon'>
 </head>
@@ -76,9 +75,7 @@
     $json = json_encode($convertedArray);
   ?>
 
-  <script src='../js/util.js'></script>
-  <script src='../js/requests.js'></script>
-  <script src='../js/preview.js'></script>
+  <script src='../dist/commission_index.js'></script>
   <script src="https://www.paypal.com/sdk/js?client-id=AWN4WQzmmUyUccqa8ZVYp1EmW3HP3AHCHZT3OnXzsiiqT87e2RAQTO7_EAkx-GeDgrHSK_iyDNfQK2sV&currency=USD" data-sdk-integration-source="button-factory"></script>
   <script>
     /* 

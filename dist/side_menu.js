@@ -1,0 +1,1 @@
+function toggleBurgerMenu(){let e=document.getElementById("burger-menu-wrapper");"disabled"===e.className?e.className="":e.className="disabled"}
