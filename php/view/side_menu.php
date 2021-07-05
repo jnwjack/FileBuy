@@ -27,5 +27,5 @@
     </div>
   </div>
 
-  <script src="../../js/burger.js"></script>
+  <script src="../../dist/side_menu.js"></script>
 </div>

@@ -1,0 +1,29 @@
+{
+  "name": "FileBuy",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "The web app is a simple way for artists to sell files. A user uploads an image and receives a link to the listing for that file.  They can then share the link with someone else, who can go to the link and pay for it (via Paypal) and then download the file. Files stay listed for 6 hours, and once they have been paid for anyone with the link can download it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jnwjack/FileBuy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jnwjack/FileBuy/issues"
+  },
+  "homepage": "https://github.com/jnwjack/FileBuy#readme",
+  "devDependencies": {
+    "webpack": "^5.42.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "minify": "^7.0.2",
+    "try-to-catch": "^3.0.0"
+  }
+}

@@ -34,9 +34,7 @@
     </div>
   </form>
 
-  <script src="js/util.js"></script>
-  <script src="js/requests.js"></script>
-  <script src="js/inputs.js"></script>
+  <script src="dist/contact.js"></script>
 </body>
 
 </html>

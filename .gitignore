@@ -8,6 +8,7 @@ auth/CLIENT_ID
 auth/CLIENT_SECRET
 auth/MAILKEY
 vendor/
+node_modules/
 keys/*
 *.old
 *.phar

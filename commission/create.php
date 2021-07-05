@@ -9,8 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Ensures optimal rendering on mobile devices. -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
-  <link rel="stylesheet" type="text/css" href="../css/common.css">
-  <link rel="stylesheet" type="text/css" href="../css/commission/commission_create.css">
+  <link rel="stylesheet" type="text/css" href="../dist/commission_create.css">
 
   <link rel="icon" href="../favicon.ico?" type="image/x-icon">
 </head>
@@ -98,11 +97,7 @@
     </div>
   </form>
 
-  <script src="../js/commission.js"></script>
-  <script src="../js/requests.js"></script>
-  <script src="../js/util.js"></script>
-  <script src="../js/inputs.js"></script>
-  <script src="../js/card.js"></script>
+  <script src="../dist/commission_create.js"></script>
 </body>
 
 </html>
