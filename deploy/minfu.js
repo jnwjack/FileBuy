@@ -29,15 +29,15 @@ function run() {
   configs.forEach(async (config) => {
     console.log('Building ' + config.name + '...');
     // Check if output directory exists first
-    if(!fs.existsSync(config.outputDir)) {
-      fs.mkdirSync(config.outputDir);
+    if(!fs.existsSync(path.join(__dirname,config.outputDir))) {
+      fs.mkdirSync(path.join(__dirname, config.outputDir));
     }
     // Minify all js files for that config, then write them to the specified file
     if(config.js && config.outputJS) {
       Promise.all(config.js.map((script) => doMinification(script)))
       .then((array) => {
         const minifiedScripts = array.join('');
-        fs.writeFileSync(path.join(config.outputDir, config.outputJS), minifiedScripts);
+        fs.writeFileSync(path.join(__dirname, config.outputDir, config.outputJS), minifiedScripts);
       });
     }
 
@@ -46,7 +46,7 @@ function run() {
       Promise.all(config.css.map((script) => doMinification(script)))
       .then((array) => {
         const minifiedScripts = array.join('');
-        fs.writeFileSync(path.join(config.outputDir, config.outputCSS), minifiedScripts);
+        fs.writeFileSync(path.join(__dirname, config.outputDir, config.outputCSS), minifiedScripts);
       });
     }
   });
