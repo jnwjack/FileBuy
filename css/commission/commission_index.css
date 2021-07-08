@@ -1,4 +1,11 @@
 
+#current-step-title, #current-step-description {
+  overflow-wrap: break-word;
+  /* Safari compatability */
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
 /*
   Steps Bar
 ------------------------------------------------
