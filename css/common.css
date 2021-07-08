@@ -27,6 +27,7 @@ button {
   font-weight: 800;
   padding: 0;
   outline: none;
+  cursor: pointer;
 }
 
 button:focus {
@@ -178,6 +179,16 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
   height: 2.5rem;
 }
 
+#explain-anchor {
+  align-self: flex-end;
+  color: #0000ff;
+  text-decoration: underline;
+  cursor: pointer;
+  /* Snap anchor to exact top of preview wrapper */
+  margin-bottom: -0.5rem;
+  font-size: calc(.5rem + .5vw);
+}
+
 /* Cards
 -----------------------------------------------
 */
@@ -240,12 +251,18 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
   height: 16rem;
 }
 
+#explain-card {
+  top: 50%;
+  width: 70%;
+  max-width: 20rem;
+  transform: translateY(-50%);
+  transition: opacity 0.6s;
+}
 
-#preview-card.disabled {
+#preview-card.disabled, #explain-card.disabled {
   visibility: hidden;
   opacity: 0;
 }
-
 /*
 ------------------------------------------------
 */
