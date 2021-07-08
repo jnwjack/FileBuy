@@ -20,6 +20,7 @@
     include_once('../php/view/header.php');
     include_once('../php/view/side_menu.php');
     include_once('../php/view/preview_card.php');
+    include_once('../php/view/explain_card.php');
 
     /* commission.php
 
@@ -85,6 +86,7 @@
     <p id="current-step-description" class="content-part"></p>
     <div id="preview-section" class="content-part invisible">
       <p class="text-complete">Seller: Upload File - Complete</p>
+      <a id="explain-anchor" onclick="activateCard('explain-card')">Low quality?</a>
       <div class="preview-wrapper">
         <canvas id="uploaded-file">
           Preview

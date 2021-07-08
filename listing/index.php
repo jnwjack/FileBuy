@@ -15,14 +15,16 @@
 </head>
     
 <body>
-  <!--Add side menu and header -->
+  <!--Add side menu, header, and card-->
   <?php
     include_once('../php/view/header.php');
     include_once('../php/view/side_menu.php');
+    include_once('../php/view/explain_card.php');
   ?>
-  <div class="content">
+  <div class="content" id="main">
     <div class="content-part">
       <h2 id="file-header"></h2>
+      <a id="explain-anchor" onclick="activateCard('explain-card')">Low quality?</a>
       <div class="preview-wrapper">
         <canvas id="preview">
           Preview

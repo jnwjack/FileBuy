@@ -33,7 +33,7 @@ const configs = [
   },
   {
     name: 'ListingIndex',
-    js: ['../js/util.js', '../js/preview.js', '../js/requests.js'],
+    js: ['../js/util.js', '../js/preview.js', '../js/requests.js', '../js/card.js'],
     css: ['../css/common.css', '../css/listing/index.css'],
     outputDir: '../dist',
     outputJS: 'listing_index.js',
@@ -53,6 +53,13 @@ const configs = [
     css: [],
     outputDir: '../dist',
     outputJS: 'preview_card.js',
+  },
+  {
+    name: 'ExplainCard',
+    js: ['../js/card.js'],
+    css: [],
+    outputDir: '../dist',
+    outputJS: 'explain_card.js',
   },
   {
     name: 'SideMenu',
