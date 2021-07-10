@@ -72,8 +72,14 @@ const configs = [
     name: 'Index',
     css: ['../css/common.css', '../css/index.css'],
     outputDir: '../dist',
-    outputCSS: 'index.css'
+    outputCSS: 'index.css',
   },
+  {
+    name: 'About',
+    css: ['../css/common.css', '../css/about.css'],
+    outputDir: '../dist',
+    outputCSS: 'about.css',
+  }
 ];
 
 export default configs;
