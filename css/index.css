@@ -110,4 +110,8 @@ section {
   #second .hero:not(:last-child) {
     margin-bottom: 0;
   }
+  #second .hero:first-child .hero-text {
+    margin-left: 6rem;
+    margin-right: 0;
+  }
 }
