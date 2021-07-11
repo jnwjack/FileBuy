@@ -130,7 +130,20 @@ function createListing(event) {
       method: 'POST',
       body: formData
     })
-    .then(response => response.text())
+    .then(response => {
+      // If file is too big
+      if(response.status == 413) {
+        alert('The file is too big. The maximum file size is 4MB');
+
+        // Reset form values and clear preview
+        let form = document.getElementById('main');
+        form.reset();
+        defaultPreview();
+
+        throw(response.text());
+      }
+      return response.text();
+    })
     .then(result => {
       let listingID = removeQuotes(result);
       let currentUrl = extractURLRoot(document.location.href);
@@ -270,7 +283,20 @@ function uploadCommissionFile(event, commissionID) {
       method: 'POST',
       body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+      // If file is too big
+      if(response.status == 413) {
+        alert('The file is too big. The maximum file size is 4MB');
+
+        // Remove file data from DOM element and clear preview
+        let fileInput = document.querySelector('#file');
+        fileInput.value = '';
+        defaultPreview();
+
+        throw(response.text());
+      }
+      return response.json();
+    })
     .then(state => {
       toggleButtonProgressBar(false);
 
@@ -280,6 +306,11 @@ function uploadCommissionFile(event, commissionID) {
       updateProgressBar(state['current'], state['stepNumber']);
       updateMilestoneSectionVisibilityAndText(state['currentStep']);
       setCircleCallbacks(state['stepNumber'], state['current']);
+    })
+    .catch(error => {
+      toggleButtonProgressBar(false);
+
+      console.error('Error:', error);
     });
   })
   .catch(error => {
