@@ -20,6 +20,7 @@
   use Ramsey\Uuid\Uuid;
   require_once('database_request.php');
   require_once('email.php');
+  require_once('util.php');
 
   $preview = serialize($_POST["preview"]);
   $file = serialize($_POST["file"]);
@@ -29,6 +30,11 @@
   $size = $_POST["size"];
   $uuid = Uuid::uuid4();
   $id = $uuid->toString();
+
+  if(fileTooLarge($file)) {
+    http_response_code(413);
+    die('FAILURE: File too large');
+  }
 
   $db = getDatabaseObject();
 

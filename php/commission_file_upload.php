@@ -14,6 +14,11 @@
   $preview = serialize($_POST["preview"]);
   $file = serialize($_POST["file"]);
 
+  if(fileTooLarge($file)) {
+    http_response_code(413);
+    die('FAILURE: File too large');
+  }
+
   $db = getDatabaseObject();
 
   $commissionStatement = $db->prepare('SELECT current, email, steps FROM commissions WHERE id=:id');
