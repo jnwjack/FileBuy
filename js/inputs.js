@@ -17,7 +17,7 @@ function priceInputCallback(event) {
 
     //Replace with single decimal
     if(event.srcElement.value.endsWith('..')) {
-      console.log('aw');
+      alert('oajwefiojaf');
       event.srcElement.value = event.srcElement.value.replace('\.+', '.');
     }
     return;
