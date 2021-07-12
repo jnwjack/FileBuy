@@ -36,6 +36,11 @@
     die('FAILURE: File too large');
   }
 
+  if(priceTooLarge($price)) {
+    http_response_code(418);
+    die('FAILURE: Price too large');
+  }
+
   $db = getDatabaseObject();
 
   $statement = $db->prepare("INSERT INTO listings(preview,email,price,id,name,size)

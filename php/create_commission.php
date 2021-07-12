@@ -12,6 +12,7 @@
   use Ramsey\Uuid\Uuid;
   require_once('database_request.php');
   require_once('email.php');
+  require_once('util.php');
 
   function deleteCommissionAndSteps($dbObj, $commission) {
     $statement = $dbObj->prepare("DELETE FROM commissions WHERE id=:id");
@@ -50,6 +51,11 @@
     $title = $postData['steps'][$i-1]['title'];
     $description = $postData['steps'][$i-1]['description'];
     $price = round($postData['steps'][$i-1]['price'], 2);
+    if(priceTooLarge($price)) {
+      deleteCommissionAndSteps($db, $id);
+      http_response_code(418);
+      die('FAILURE: Price too large');
+    }
     $stepStatement = $db->prepare("INSERT INTO steps(commission_id,sequence_number,price,title,description)
                       VALUES(:commission_id,:sequence_number,:price,:title,:description);");
     $stepStatement->bindValue(":commission_id",$id,PDO::PARAM_STR);
