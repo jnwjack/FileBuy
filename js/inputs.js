@@ -14,6 +14,12 @@ function priceInputCallback(event) {
     event.srcElement.valueAsNumber = 1000;
   } else if (event.srcElement.value.endsWith('.') && !event.srcElement.value.endsWith('..')) {
     // Fix issue where decimal point can't be inputted on mobile
+
+    //Replace with single decimal
+    if(event.srcElement.value.endsWith('..')) {
+      console.log('aw');
+      event.srcElement.value = event.srcElement.value.replace('\.+', '.');
+    }
     return;
   } else {
     event.srcElement.valueAsNumber = formatPrice(event.srcElement.valueAsNumber);
