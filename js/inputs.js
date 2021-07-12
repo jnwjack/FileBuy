@@ -12,6 +12,9 @@ function toggleButtonProgressBar(active) {
 function priceInputCallback(event) {
   if(event.srcElement.valueAsNumber > 1000) {
     event.srcElement.valueAsNumber = 1000;
+  } else if (event.srcElement.value.endsWith('.')) {
+    // Fix issue where decimal point can't be inputted on mobile
+    return;
   } else {
     event.srcElement.valueAsNumber = formatPrice(event.srcElement.valueAsNumber);
   }
