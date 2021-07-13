@@ -42,7 +42,6 @@ function activateCard(cardID) {
 */
 function disableCard(cardID) {
   let card = document.getElementById(cardID);
-  console.log(card);
   card.className = 'card disabled';
 
   let content = document.getElementById('main');

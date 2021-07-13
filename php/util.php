@@ -5,6 +5,8 @@
 
   $maxFileSize = 4000000;
 
+  $maxPrice = 1000;
+
   function priceWithFee(float $price) {
     global $feeRate, $baseFee;
 
@@ -15,6 +17,12 @@
     global $maxFileSize;
     
     return strlen(base64_decode($file)) > $maxFileSize;
+  }
+
+  function priceTooLarge(float $price) {
+    global $maxPrice;
+
+    return $price > $maxPrice;
   }
 
 ?>

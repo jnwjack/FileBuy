@@ -30,7 +30,7 @@ function createCommission(event) {
     let description = document.getElementById(`step${i}-description`).value;
     steps.push({
       title: title,
-      price: price,
+      price: 15000,
       description: description,
     });
   }
@@ -51,10 +51,18 @@ function createCommission(event) {
       'Content-Type': 'application/json'
     }
   })
-  .then(response => response.text())
+  .then(response => {
+    if(response.status >= 400) {
+      // Reset form values
+      let form = document.querySelector('#main');
+      form.reset();
+
+      throw(response.text());
+    }
+  })
   .then(result => {
     let commissionID = removeQuotes(result);
-    let form = document.querySelector('.content');
+    let form = document.querySelector('#main');
     form.reset();
 
     // Reset slider and hide milestone fields
@@ -120,7 +128,7 @@ function createListing(event) {
 
     let formData = new FormData();
     formData.append('email', email);
-    formData.append('price', price);
+    formData.append('price', 15000);
     formData.append('preview', previewb64);
     formData.append('file', fileData);
     formData.append('name', name);
@@ -134,7 +142,9 @@ function createListing(event) {
       // If file is too big
       if(response.status == 413) {
         alert('The file is too big. The maximum file size is 4MB');
-
+      }
+      // Catch all other errors
+      if(response.status >= 400) {
         // Reset form values and clear preview
         let form = document.getElementById('main');
         form.reset();

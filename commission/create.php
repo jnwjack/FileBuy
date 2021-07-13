@@ -55,7 +55,7 @@
       <label for="step1">Milestone One</label>
       <input type="text" name="step1" placeholder="Title of Milestone" />
       <div class="price-wrapper">
-        <input type="number" id="step1-price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <input type="number" id="step1-price" min="0" max="1000" step="0.01" placeholder="5.00" oninput="priceInputCallback(event)">
         <i>$</i>
       </div>
       <textarea id="step1-description" placeholder="Enter a description for the file that will be uploaded for this milestone."></textarea>
@@ -64,7 +64,7 @@
       <label for="step2">Milestone Two</label>
       <input type="text" name="step2" placeholder="Title of Milestone" />
       <div class="price-wrapper">
-        <input type="number" id="step2-price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <input type="number" id="step2-price" min="0" max="1000" step="0.01" placeholder="5.00" oninput="priceInputCallback(event)">
         <i>$</i>
       </div>
       <textarea id="step2-description" placeholder="Enter a description for the file that will be uploaded for this milestone."></textarea>
@@ -73,7 +73,7 @@
       <label for="step3">Milestone Three</label>
       <input type="text" name="step3" placeholder="Title of Milestone" />
       <div class="price-wrapper">
-        <input type="number" id="step3-price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <input type="number" id="step3-price" min="0" max="1000" step="0.01" placeholder="5.00" oninput="priceInputCallback(event)">
         <i>$</i>
       </div>
       <textarea id="step3-description" placeholder="Enter a description for the file that will be uploaded for this milestone."></textarea>
@@ -82,7 +82,7 @@
       <label for="step4">Milestone Four</label>
       <input type="text" name="step4" placeholder="Title of Milestone" />
       <div class="price-wrapper">
-        <input type="number" id="step4-price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <input type="number" id="step4-price" min="0" max="1000" step="0.01" placeholder="5.00" oninput="priceInputCallback(event)">
         <i>$</i>
       </div>
       <textarea id="step4-description" placeholder="Enter a description for the file that will be uploaded for this milestone."></textarea>
