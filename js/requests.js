@@ -30,7 +30,7 @@ function createCommission(event) {
     let description = document.getElementById(`step${i}-description`).value;
     steps.push({
       title: title,
-      price: 15000,
+      price: price,
       description: description,
     });
   }
@@ -59,6 +59,7 @@ function createCommission(event) {
 
       throw(response.text());
     }
+    return response.text();
   })
   .then(result => {
     let commissionID = removeQuotes(result);
@@ -128,7 +129,7 @@ function createListing(event) {
 
     let formData = new FormData();
     formData.append('email', email);
-    formData.append('price', 15000);
+    formData.append('price', price);
     formData.append('preview', previewb64);
     formData.append('file', fileData);
     formData.append('name', name);
