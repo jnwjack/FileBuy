@@ -49,7 +49,7 @@
     </div>
     <div class="content-part">
       <div class="price-wrapper">
-        <input type="number" id="price" min="0" max="10000" step="0.01" placeholder="5.00">
+        <input type="number" id="price" min="0" max="1000" step="0.01" placeholder="5.00" oninput="priceInputCallback(event)">
         <i>$</i>
       </div>
       <input id="email" type="email" placeholder="PayPal Email" />
