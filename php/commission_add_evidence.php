@@ -8,11 +8,11 @@
   */
 
   require_once('database_request.php');
-  require_once('paypal_request.php');
   require_once('util.php');
 
   $commission_id = $_POST['commission'];
-  $file = serialize($_POST["file"]);
+  $file = serialize($_POST['file']);
+  $description = $_POST['description'];
 
   if(fileTooLarge($file)) {
     http_response_code(413);
@@ -59,6 +59,19 @@
   if(!$fileWriteSuccessful) {
     http_response_code(500);
     die('FAILURE: Could not write file');
+  }
+
+  // Add new entry to evidence table
+  $evidenceStatement = $db->prepare('INSERT INTO evidence(index, description, commission_id, step_number)
+                        VALUES(:evidence_number, :description, :commission_id, :step_number');
+  $evidenceStatement->bindValue(':evidence_number', $newEvidenceCount, PDO::PARAM_INT);
+  $evidenceStatement->bindValue(':description', $description, PDO::PARAM_LOB);
+  $evidenceStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
+  $evidenceStatement->bindValue(':step_number', $currentStepNumber, PDO::PARAM_INT);
+  $successful = $evidenceStatement->execute();
+  if(!$successful) {
+    http_response_code(500);
+    die('FAILURE: Could not add entry to evidence table');
   }
 
   // Update evidence count

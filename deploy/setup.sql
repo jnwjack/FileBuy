@@ -42,3 +42,10 @@ CREATE TABLE IF NOT EXISTS steps (
   order_id char(17) DEFAULT NULL,
   evidence_count TINYINT(1) NOT NULL DEFAULT 0
 );
+
+CREATE TABLE IF NOT EXISTS evidence (
+  evidence_number TINYINT(1) NOT NULL,
+  description TEXT NULL,
+  commission_id VARCHAR(36),
+  step_number TINYINT(1) NOT NULL
+);
