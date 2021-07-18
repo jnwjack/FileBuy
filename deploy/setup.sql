@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS steps (
 
 CREATE TABLE IF NOT EXISTS evidence (
   evidence_number TINYINT(1) NOT NULL,
+  id VARCHAR(36),
   description TEXT NULL,
   commission_id VARCHAR(36),
   step_number TINYINT(1) NOT NULL
