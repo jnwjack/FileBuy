@@ -199,6 +199,16 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
 
   updateMilestoneSectionVisibilityAndText(currentStep);
 
+  // Load evidence
+  const evidenceBox = document.querySelector('.evidence-box');
+  for(let i = 0; i < 3; i++) {
+    let evidenceButton = document.createElement('button');
+    evidenceButton.type = 'button';
+    evidenceButton.dataset.index = i + 1;
+    evidenceButton.textContent = 'Add Evidence'
+    evidenceBox.appendChild(evidenceButton);
+  }
+
   // Check if payment made
   if(status < 2) {
     paypal.Buttons({
