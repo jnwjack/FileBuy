@@ -114,7 +114,8 @@
     'current' => $currentStepNumber,
     'commission' => $commissionID,
     'evidenceCount' => $newEvidenceCount,
-    'newEvidence' => $file
+    'newEvidence' => $file,
+    'description' => $description
   );
   $jsonData = json_encode($returnData);
 

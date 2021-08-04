@@ -118,6 +118,11 @@
       <div id="paypal-button-container"></div>
     </div>
     <p id="paypal-section-complete" class="content-part text-complete invisible">Buyer: Pay - Complete</p>
+    <div class="content-part">
+      <p>Add Evidence</p>
+      <div class="evidence-box">
+      </div>
+    </div>
   </div>
 
   <script src="../dist/commission_index.js"></script>
