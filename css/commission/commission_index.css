@@ -74,13 +74,53 @@
   flex-direction: column;
   align-items: center;
   background-color: purple;
+  padding: 0 !important;
 }
 
-.evidence-box > button {
-  width: 60%;
+.evidence-slot-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 20rem;
+}
+
+.evidence-slot {
+  width: 16rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   height: 2rem;
+  background-color: #3C9AA3;
+  border-radius: 8px;
+  border-style: dashed;
+  border-width: 4px;
+  border-color: #4D68B2;
+
+  /* Background extends only to inner edge of border */
+  background-clip: padding-box;
+}
+
+.evidence-button {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: fixed;
+	z-index: -1;
+}
+
+.evidence-button + label {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.75rem;
+  border-color: #4D68B2;
+  border-width: 2px;
+  color: #4D68B2;
+  background-color: #ffffff;
+  text-align: center;
+  display: inline-block;
+  line-height: 1.5rem;
+  vertical-align: middle;
 }
 
 @keyframes expand {
