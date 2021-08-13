@@ -18,7 +18,7 @@ const configs = [
   {
     name: 'CommissionIndex',
     js: ['../js/util.js', '../js/card.js', '../js/preview.js', '../js/commission.js', '../js/requests.js', '../js/inputs.js'],
-    css: ['../css/common.css', '../css/commission/commission_index.css'],
+    css: ['../css/common.css', '../css/commission/commission_index.css', '../css/file_upload.css'],
     outputDir: '../dist',
     outputJS: 'commission_index.js',
     outputCSS: 'commission_index.css',
