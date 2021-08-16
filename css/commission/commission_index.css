@@ -121,6 +121,8 @@
   display: inline-block;
   line-height: 1.5rem;
   vertical-align: middle;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 @keyframes expand {
