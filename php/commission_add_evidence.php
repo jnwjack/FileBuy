@@ -79,7 +79,7 @@
   $uuid = Uuid::uuid4();
   $evidenceID = $uuid->toString();
   $newEvidenceCount = $currentStepEvidenceCount + 1;
-  $fileWriteSuccessful = file_put_contents("/opt/data/${commission_id}-${currentStepNumber}-${evidenceID}", $file);
+  $fileWriteSuccessful = file_put_contents("/opt/data/${commissionID}-${currentStepNumber}-${evidenceID}", $file);
   if(!$fileWriteSuccessful) {
     http_response_code(500);
     die('FAILURE: Could not write file');
@@ -87,7 +87,7 @@
 
   // Add new entry to evidence table
   $evidenceStatement = $db->prepare('INSERT INTO evidence(evidence_number, id, description, commission_id, step_number)
-                        VALUES(:evidence_number, :id :description, :commission_id, :step_number');
+                        VALUES(:evidence_number, :id, :description, :commission_id, :step_number);');
   $evidenceStatement->bindValue(':evidence_number', $newEvidenceCount, PDO::PARAM_INT);
   $evidenceStatement->bindValue(':id', $evidenceID, PDO::PARAM_STR);
   $evidenceStatement->bindValue(':description', $description, PDO::PARAM_LOB);

@@ -178,6 +178,53 @@ function setCircleCallbacks(currentStepNumber, maxStepNumber) {
   }
 }
 
+/* updateEvidence(evidenceState)
+
+  Accepts evidence state JSON object and fills out evidence table
+
+*/
+function updateEvidence(evidenceState) {
+  console.log(evidenceState);
+  return;
+
+  const evidenceBox = document.querySelector('.evidence-box');
+  for(let i = 0; i < 3; i++) {
+    let evidenceSlotContainer = document.createElement('div');
+    evidenceSlotContainer.classList.toggle('evidence-slot-container', true);
+
+    let evidenceSlot = document.createElement('div');
+    evidenceSlot.classList.toggle('evidence-slot', true);
+
+    evidenceSlot.dataset.index = i + 1;
+
+    let evidenceButtonContainer = document.createElement('div');
+    evidenceButtonContainer.classList.toggle('evidence-button-container');
+
+    let evidenceButton = document.createElement('input');
+    evidenceButton.type = 'file';
+    evidenceButton.classList.toggle('evidence-button', true);
+    evidenceButton.id = `e-file${evidenceSlot.dataset.index}`;
+    evidenceButton.accept = 'image/*';
+    console.log(evidenceButton);
+    // evidenceButton.onchange = "alert('what')";
+
+    let evidenceButtonLabel = document.createElement('label');
+    evidenceButtonLabel.setAttribute('for', `e-file${evidenceSlot.dataset.index}`);
+    evidenceButtonLabel.textContent = '+';
+
+    evidenceButtonContainer.append(evidenceButton);
+    evidenceButtonContainer.append(evidenceButtonLabel);
+
+    evidenceSlotContainer.appendChild(evidenceSlot);
+    evidenceSlotContainer.appendChild(evidenceButtonContainer);
+
+    evidenceBox.appendChild(evidenceSlotContainer);
+
+    evidenceButton.setAttribute('onchange', `uploadEvidence(this, "${commissionID}")`);
+    //vevidenceBox.appendChild(evidenceButtonLabel);
+  }
+}
+
 function displayMilestone(current, numSteps, complete, currentStep, commissionID) {
   // Set download callback
   const downloadButton = document.querySelector('#download-button');
@@ -200,41 +247,8 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
   updateMilestoneSectionVisibilityAndText(currentStep);
 
   // Load evidence
-  const evidenceBox = document.querySelector('.evidence-box');
-  for(let i = 0; i < 3; i++) {
-    let evidenceSlotContainer = document.createElement('div');
-    evidenceSlotContainer.classList.toggle('evidence-slot-container', true);
-
-    let evidenceSlot = document.createElement('div');
-    evidenceSlot.classList.toggle('evidence-slot', true);
-
-    evidenceSlot.dataset.index = i + 1;
-
-    let evidenceButtonContainer = document.createElement('div');
-    evidenceButtonContainer.classList.toggle('evidence-button-container');
-
-    let evidenceButton = document.createElement('input');
-    evidenceButton.type = 'file';
-    evidenceButton.classList.toggle('evidence-button', true);
-    evidenceButton.id = `e-file${evidenceSlot.dataset.index}`;
-    evidenceButton.onchange = 'selectHandler(this)';
-    evidenceButton.accept = 'image/*';
-    // evidenceButton.onchange = "alert('what')";
-
-    let evidenceButtonLabel = document.createElement('label');
-    evidenceButtonLabel.setAttribute('for', `e-file${evidenceSlot.dataset.index}`);
-    evidenceButtonLabel.textContent = '+';
-    console.log(evidenceButtonLabel);
-
-    evidenceButtonContainer.append(evidenceButton);
-    evidenceButtonContainer.append(evidenceButtonLabel);
-
-    evidenceSlotContainer.appendChild(evidenceSlot);
-    evidenceSlotContainer.appendChild(evidenceButtonContainer);
-
-    evidenceBox.appendChild(evidenceSlotContainer);
-    //vevidenceBox.appendChild(evidenceButtonLabel);
-  }
+  console.log(currentStep)
+  updateEvidence(currentStep['evidence']);
 
   // Check if payment made
   if(status < 2) {

@@ -336,7 +336,6 @@ function uploadCommissionFile(event, commissionID) {
   Send message to site owner via Contact page
 
 */
-
 function sendMessage(event) {
   event.preventDefault();
 
@@ -401,4 +400,45 @@ async function fetchCommissionStep(commission, step) {
       console.error('Error', error);
     })
   });
+}
+
+/* uploadEvidence(element)
+
+  Get file from input element and upload add it to the
+  commission for the specified evidence slot
+
+*/
+function uploadEvidence(element, commissionID) {
+  console.log(element);
+  let file = element.files[0];
+  if(!file) {
+    console.error('Error: Invalid file');
+    return false;
+  }
+
+  let readerPromise = new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.onload = function() {
+      resolve(reader.result);
+    }
+    reader.readAsDataURL(file);
+  });
+
+  readerPromise.then(function(fileData) {
+    let formData = new FormData();
+    formData.append('file', fileData);
+    formData.append('commission', commissionID);
+    formData.append('description', 'Temporary Description');
+
+    fetch('../php/commission_add_evidence.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(state => {
+      console.log(state);
+    })
+  })
 }
