@@ -44,11 +44,11 @@
       die();
     }
 
-    $db = getDatabaseObject();
+    $currentStepNumber = $commission['current'];
 
     $currentStepStatement = $db->prepare('SELECT preview, name, title, description, price, status FROM steps WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
     $currentStepStatement->bindValue(':commission_id', "$commission_id", PDO::PARAM_STR);
-    $currentStepStatement->bindValue(':sequence_number', $commission['current'], PDO::PARAM_INT);
+    $currentStepStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
     $currentStepStatement->execute();
     $currentStep = $currentStepStatement->fetch(PDO::FETCH_ASSOC);
 
@@ -60,7 +60,7 @@
     // Fetch evidence for this step
     $evidenceStatement = $db->prepare('SELECT * FROM evidence WHERE commission_id=:commission_id AND step_number=:step_number');
     $evidenceStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
-    $evidenceStatement->bindValue(':sequence_number', $commission['current'], PDO::PARAM_INT);
+    $evidenceStatement->bindValue(':step_number', $currentStepNumber, PDO::PARAM_INT);
     $successful = $evidenceStatement->execute();
     if(!$successful) {
       http_response_code(500);
@@ -71,7 +71,7 @@
     $evidenceArray = array();
     foreach ($evidenceStatementRows as $evidence) {
       $evidenceID = $evidence['id'];
-      $evidenceFile = unserialize(file_get_contents("/opt/data/${commissionID}-${currentStepNumber}-${evidenceID}"));
+      $evidenceFile = unserialize(file_get_contents("/opt/data/${commission_id}-${currentStepNumber}-${evidenceID}"));
       $evidenceObject = array(
         'evidenceNumber' => $evidence['evidence_number'],
         'description' => $evidence['description'],

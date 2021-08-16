@@ -178,15 +178,12 @@ function setCircleCallbacks(currentStepNumber, maxStepNumber) {
   }
 }
 
-/* updateEvidence(evidenceState)
+/* createEvidenceSlots()
 
-  Accepts evidence state JSON object and fills out evidence table
+  Create DOM elements that we'll use for evidence
 
 */
-function updateEvidence(evidenceState) {
-  console.log(evidenceState);
-  return;
-
+function createEvidenceSlots() {
   const evidenceBox = document.querySelector('.evidence-box');
   for(let i = 0; i < 3; i++) {
     let evidenceSlotContainer = document.createElement('div');
@@ -205,15 +202,14 @@ function updateEvidence(evidenceState) {
     evidenceButton.classList.toggle('evidence-button', true);
     evidenceButton.id = `e-file${evidenceSlot.dataset.index}`;
     evidenceButton.accept = 'image/*';
-    console.log(evidenceButton);
     // evidenceButton.onchange = "alert('what')";
 
     let evidenceButtonLabel = document.createElement('label');
     evidenceButtonLabel.setAttribute('for', `e-file${evidenceSlot.dataset.index}`);
-    evidenceButtonLabel.textContent = '+';
 
     evidenceButtonContainer.append(evidenceButton);
     evidenceButtonContainer.append(evidenceButtonLabel);
+    evidenceButtonContainer.classList.toggle('invisible', true)
 
     evidenceSlotContainer.appendChild(evidenceSlot);
     evidenceSlotContainer.appendChild(evidenceButtonContainer);
@@ -221,7 +217,36 @@ function updateEvidence(evidenceState) {
     evidenceBox.appendChild(evidenceSlotContainer);
 
     evidenceButton.setAttribute('onchange', `uploadEvidence(this, "${commissionID}")`);
-    //vevidenceBox.appendChild(evidenceButtonLabel);
+  }
+}
+
+function updateEvidence(stepStatus, evidenceArray) {
+  evidenceArray.forEach(evidence => {
+    let index = evidence['evidenceNumber'];
+    let slot = document.querySelector(`.evidence-slot[data-index='${index}']`);
+    slot.textContent = 'HAS FILE';
+
+    // Hide button if we can no longer edit evidence because payment has been made
+    let evidenceButtonContainer = document.querySelector(`.evidence-slot[data-index='${index}] + .evidence-button-container`);
+    if(stepStatus > 1) {
+      evidenceButtonContainer.classList.toggle('invisible', true);
+      let evidenceButton = document.querySelector(`#e-file${index}`);
+      let evidenceButtonLabel = document.querySelector(`#e-file${index} + label`);
+
+      evidenceButtonLabel.textContent = '-';
+      evidenceButton.setAttribute('onchange', `alert('what!')`);
+    } else {
+      evidenceButtonContainer.classList.toggle('invisible', false);
+    }
+  });
+
+  // Get lowest-index empty evidence slot, add '+' button
+  const lowestEmptyIndex = evidenceArray.length + 1;
+  const lowestEmptySlot = document.querySelector(`.evidence-slot[data-index='${lowestEmptyIndex}']`);
+  lowestEmptySlot.textContent = 'ADD EVIDENCE';
+  const lowestEmptyButtonContainer = document.querySelector(`.evidence-slot[data-index='${lowestEmptyIndex}'] + .evidence-button-container`);
+  if(stepStatus > 1) {
+    // LEFT OFF HERE
   }
 }
 
@@ -248,7 +273,8 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
 
   // Load evidence
   console.log(currentStep)
-  updateEvidence(currentStep['evidence']);
+  createEvidenceSlots();
+  updateEvidence(currentStep['status'], currentStep['evidence']);
 
   // Check if payment made
   if(status < 2) {

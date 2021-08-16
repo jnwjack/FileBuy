@@ -49,7 +49,7 @@
   // Fetch evidence for this step
   $evidenceStatement = $db->prepare('SELECT * FROM evidence WHERE commission_id=:commission_id AND step_number=:step_number');
   $evidenceStatement->bindValue(':commission_id', $commissionID, PDO::PARAM_STR);
-  $evidenceStatement->bindValue(':sequence_number', $queryStepNumber, PDO::PARAM_INT);
+  $evidenceStatement->bindValue(':step_number', $queryStepNumber, PDO::PARAM_INT);
   $successful = $evidenceStatement->execute();
   if(!$successful) {
     http_response_code(500);
