@@ -125,6 +125,22 @@
   cursor: pointer;
 }
 
+.evidence-remove {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.75rem;
+  border-color: #ffffff;
+  border-width: 2px;
+  color: #ffffff;
+  background-color: #4D68B2;
+  text-align: center;
+  display: inline-block;
+  line-height: 1.5rem;
+  vertical-align: middle;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 @keyframes expand {
   0% { width: 0% }
   100% { width: 100% }
