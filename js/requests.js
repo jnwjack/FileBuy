@@ -408,7 +408,7 @@ async function fetchCommissionStep(commission, step) {
   commission for the specified evidence slot
 
 */
-function uploadEvidence(element, commissionID) {
+function uploadEvidence(element, commissionID, stepStatus) {
   console.log(element);
   let file = element.files[0];
   if(!file) {
@@ -438,7 +438,8 @@ function uploadEvidence(element, commissionID) {
       return response.json();
     })
     .then(state => {
-      console.log(state);
+      addEvidenceToSlot(state['evidenceCount'], stepStatus);
+      setEvidenceSlotAsLowestEmpty(state['evidenceCount'] + 1, stepStatus);
     })
   })
 }
