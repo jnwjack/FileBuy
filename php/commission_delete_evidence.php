@@ -21,8 +21,8 @@
 
   $fetchStatement = $db->prepare('
         SELECT 
-          steps.sequence_number AS sequence_number
-          steps.evidence_count as evidence_count
+          steps.sequence_number AS sequence_number,
+          steps.evidence_count AS evidence_count,
           evidence.id AS evidence_id
         FROM commissions
         INNER JOIN steps ON 

@@ -409,7 +409,6 @@ async function fetchCommissionStep(commission, step) {
 
 */
 function uploadEvidence(element, commissionID, stepStatus) {
-  console.log(element);
   let file = element.files[0];
   if(!file) {
     console.error('Error: Invalid file');
@@ -435,11 +434,42 @@ function uploadEvidence(element, commissionID, stepStatus) {
       body: formData
     })
     .then(response => {
+      // If file is too big
+      if(response.status == 413) {
+        alert('The file is too big. The maximum file size is 4MB');
+      }
       return response.json();
     })
     .then(state => {
       addEvidenceToSlot(state['evidenceCount'], stepStatus);
       setEvidenceSlotAsLowestEmpty(state['evidenceCount'] + 1, stepStatus);
     })
+    .catch(error => {
+      console.error('Error', error);
+    });
   })
+}
+
+/* removeEvidence(index, commissionID, stepStatus)
+
+  Remove evidence located at given slot index and recreate
+  evidence slots
+
+*/
+function removeEvidence(index, commissionID, stepStatus) {
+  let formData = new FormData();
+  formData.append('commission', commissionID);
+  formData.append('evidence', index);
+
+  fetch('../php/commission_delete_evidence.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(array => {
+    updateEvidence(stepStatus, array);
+  })
+  .catch(error => {
+    console.error('Error', error);
+  });
 }

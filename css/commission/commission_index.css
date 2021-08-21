@@ -109,14 +109,10 @@
 	z-index: -1;
 }
 
-.evidence-button + label {
+.evidence-button + label, .evidence-remove {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 0.75rem;
-  border-color: #4D68B2;
-  border-width: 2px;
-  color: #4D68B2;
-  background-color: #ffffff;
   text-align: center;
   display: inline-block;
   line-height: 1.5rem;
@@ -125,20 +121,17 @@
   cursor: pointer;
 }
 
-.evidence-remove {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 0.75rem;
-  border-color: #ffffff;
+.evidence-button + label {
   border-width: 2px;
+  color: #4D68B2;
+  background-color: #ffffff;
+}
+
+.evidence-remove {
+  border-width: 0 !important;
   color: #ffffff;
   background-color: #4D68B2;
-  text-align: center;
-  display: inline-block;
-  line-height: 1.5rem;
-  vertical-align: middle;
-  font-weight: 700;
-  cursor: pointer;
+  font-size: 20px;
 }
 
 @keyframes expand {
