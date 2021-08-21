@@ -100,8 +100,10 @@
   }
 
   // Update evidence count
-  $updateStatement = $db->prepare('UPDATE steps SET evidence_count=:evidence_count');
+  $updateStatement = $db->prepare('UPDATE steps SET evidence_count=:evidence_count WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
   $updateStatement->bindValue(':evidence_count', $newEvidenceCount, PDO::PARAM_INT);
+  $updateStatement->bindValue(':commission_id', $commissionID, PDO::PARAM_STR);
+  $updateStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
   $successful = $updateStatement->execute();
   if(!$successful) {
     http_response_code(500);

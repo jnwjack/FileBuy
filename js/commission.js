@@ -183,7 +183,7 @@ function setCircleCallbacks(currentStepNumber, maxStepNumber) {
   Create DOM elements that we'll use for evidence
 
 */
-function createEvidenceSlots(commissionID) {
+function createEvidenceSlots(commissionID, status) {
   const evidenceBox = document.querySelector('.evidence-box');
   // Create 3 slots
   for(let i = 0; i < 3; i++) {
@@ -203,7 +203,7 @@ function createEvidenceSlots(commissionID) {
     evidenceButton.classList.toggle('evidence-button', true);
     evidenceButton.id = `e-file${evidenceSlotContainer.dataset.index}`;
     evidenceButton.accept = 'image/*';
-    evidenceButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}')`);
+    evidenceButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', '${status}')`);
 
     let evidenceButtonLabel = document.createElement('label');
     evidenceButtonLabel.textContent = '+';
@@ -218,7 +218,7 @@ function createEvidenceSlots(commissionID) {
     evidenceRemove.type = 'button';
     evidenceRemove.textContent = '-';
     evidenceRemove.classList.toggle('evidence-remove', true);
-    evidenceRemove.setAttribute('onclick', 'alert("what!")');
+    evidenceRemove.setAttribute('onclick', `removeEvidence(${evidenceSlotContainer.dataset.index}, '${commissionID}', ${status})`);
 
     evidenceSlotContainer.appendChild(evidenceSlot);
     evidenceSlotContainer.appendChild(evidenceButtonContainer);
@@ -302,7 +302,7 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
   updateMilestoneSectionVisibilityAndText(currentStep);
 
   // Load evidence
-  createEvidenceSlots(commissionID);
+  createEvidenceSlots(commissionID, currentStep['status']);
   updateEvidence(currentStep['status'], currentStep['evidence']);
 
   // Check if payment made
