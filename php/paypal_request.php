@@ -26,7 +26,7 @@
     $client_sec_file = fopen($client_sec_filename, 'r');
     $client_sec = fread($client_sec_file, filesize($client_sec_filename));
 
-    $ch = curl_init('https://api.paypal.com/v1/oauth2/token');
+    $ch = curl_init('https://api-m.sandbox.paypal.com/v1/oauth2/token');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -44,6 +44,7 @@
       return false;
     }
 
+    // error_log(print_r($decoded_data, TRUE));
     $_SESSION['paypal_token'] = $decoded_data->access_token;
   }
 
@@ -54,8 +55,7 @@
 
   */
   function makePayPalCall($ch) {
-    error_log(print_r('does it work?', TRUE));
-    if(!array_key_exists('access_token', $_SESSION)) {
+    if(!array_key_exists('paypal_token', $_SESSION)) {
       error_log(print_r('missing key', TRUE));
       fetchPayPalToken();
     }
@@ -69,12 +69,15 @@
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     // check if token is expired/invalid, fetch token again if it is.
     if($httpcode === 401) {
+      // Sleep for 5 seconds to avoid 429 response from PayPal
+      sleep(5);
       fetchPayPalToken();
       makePayPalCall($ch);
     } else if($httpcode >= 300) {
       return false;
     }
     
+    error_log(print_r($response, TRUE));
     $decoded_data = json_decode($response);
 
     return $decoded_data;
