@@ -34,7 +34,7 @@
   }
   // Otherwise, fetch an ID from PayPal
   else {  
-    $ch = curl_init('https://api.paypal.com/v2/checkout/orders');
+    $ch = curl_init('https://api-m.sandbox.paypal.com/v2/checkout/orders');
     $curl_data = array('intent' => 'CAPTURE', 'purchase_units' => array(array('amount' => array('currency_code' => 'USD', 'value' => "$price"))));
     $json_curl_data = json_encode($curl_data);
     curl_setopt($ch, CURLOPT_POST, 1);
