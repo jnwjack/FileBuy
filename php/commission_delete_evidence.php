@@ -23,6 +23,7 @@
         SELECT 
           steps.sequence_number AS sequence_number,
           steps.evidence_count AS evidence_count,
+          steps.status AS step_status,
           evidence.id AS evidence_id
         FROM commissions
         INNER JOIN steps ON 
@@ -44,6 +45,7 @@
   $fetchStatementRow = $fetchStatement->fetch(PDO::FETCH_ASSOC);
   $evidenceID = $fetchStatementRow['evidence_id'];
   $currentStepNumber = $fetchStatementRow['sequence_number'];
+  $currentStepStatus = $fetchStatementRow['step_status'];
   $evidenceCount = $fetchStatementRow['evidence_count'];
 
   if($evidenceCount > 3 || $evidenceCount < 1) {
@@ -51,11 +53,36 @@
     die('FAILURE: Current evidence count out of range');
   }
 
+  // If payment has been made, can't edit evidence
+  if($currentStepStatus > 1) {
+    http_response_code(500);
+    die('FAILURE: Payment already made for this milestone');
+  }
+
+  // If file has been uploaded for this step, remove it
+  if($currentStepStatus == 1) {
+    // Delete file for that step and reset status to 'no payment, no file'
+    $filename = "/opt/data/${commissionID}-${currentStepNumber}";
+    if(!file_exists($filename) || !unlink($filename)) {
+      http_response_code(500);
+      die('FAILURE: Could not delete file for milestone');
+    }
+
+    $updateStatement = $db->prepare('UPDATE steps SET status=0, preview=NULL WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+    $updateStatement->bindValue(':commission_id', $commissionID, PDO::PARAM_STR);
+    $updateStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
+    $successful = $updateStatement->execute();
+    if(!$successful) {
+      http_response_code(500);
+      die('FAILURE: Could not edit milestone status');
+    }
+  }
+
   // Delete file
   $filename = "/opt/data/${commissionID}-${currentStepNumber}-${evidenceID}";
   if(!file_exists($filename) || !unlink($filename)) {
     http_response_code(500);
-    die('FAILURE: Could not delete file for milestone');
+    die('FAILURE: Could not delete evidence file');
   }
 
   // Delete entry in evidence table

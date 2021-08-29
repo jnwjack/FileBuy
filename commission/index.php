@@ -144,7 +144,7 @@
     </div>
     <p id="paypal-section-complete" class="content-part text-complete invisible">Buyer: Pay - Complete</p>
     <div class="content-part">
-      <p>Add Evidence</p>
+      <p>Evidence</p>
       <div class="evidence-box">
       </div>
     </div>
@@ -152,7 +152,6 @@
 
   <script src="../dist/commission_index.js"></script>
   <script src="https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ"></script>
-  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ&currency=USD" data-sdk-integration-source="button-factory"></script> -->
   <script>
     /*
 

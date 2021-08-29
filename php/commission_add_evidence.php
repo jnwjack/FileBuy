@@ -57,14 +57,14 @@
   }
 
   if($currentStepStatus == 1) {
-    // Delete file for that step and reset status to no 'payment, no file'
-    $filename = "/opt/data/${commission_id}-${currentStepNumber}";
+    // Delete file for that step and reset status to 'no payment, no file'
+    $filename = "/opt/data/${commissionID}-${currentStepNumber}";
     if(!file_exists($filename) || !unlink($filename)) {
       http_response_code(500);
       die('FAILURE: Could not delete file for milestone');
     }
 
-    $updateStatement = $db->prepare('UPDATE steps SET status=0 WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
+    $updateStatement = $db->prepare('UPDATE steps SET status=0, preview=NULL WHERE commission_id=:commission_id AND sequence_number=:sequence_number');
     $updateStatement->bindValue(':commission_id', $commissionID, PDO::PARAM_STR);
     $updateStatement->bindValue(':sequence_number', $currentStepNumber, PDO::PARAM_INT);
     $successful = $updateStatement->execute();

@@ -40,6 +40,28 @@ function stepsBarCircle(isCurrent) {
   return stepsBarCircleWrapper;
 }
 
+function updatePreview(status, preview=null) {
+    // Check if file is uploaded
+    let previewSection = document.querySelector('#preview-section');
+    let fileUpload = document.querySelector('#file-upload-section');
+    if(status % 2 !== 0) {
+      // file is uploaded
+      previewSection.classList.toggle('invisible', false);
+      fileUpload.classList.toggle('invisible', true);
+      if(preview) {
+        // Set canvas data to preview
+        setCanvasImageFromBase64(preview, 'uploaded-file');
+      } else {
+        // Default preview
+        generatePreview(null);
+      }
+    } else {
+      // file is not uploaded
+      previewSection.classList.toggle('invisible', true);
+      fileUpload.classList.toggle('invisible', false);
+    }
+}
+
 function updateMilestoneSectionVisibilityAndText(currentStep) {
   const title = currentStep['title'];
   const price = currentStep['price'];
@@ -59,24 +81,7 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
   */
 
   // Check if file is uploaded
-  let previewSection = document.querySelector('#preview-section');
-  let fileUpload = document.querySelector('#file-upload-section');
-  if(status % 2 !== 0) {
-    // file is uploaded
-    previewSection.classList.toggle('invisible', false);
-    fileUpload.classList.toggle('invisible', true);
-    if(preview) {
-      // Set canvas data to preview
-      setCanvasImageFromBase64(preview, 'uploaded-file');
-    } else {
-      // Default preview
-      generatePreview(null);
-    }
-  } else {
-    // file is not uploaded
-    previewSection.classList.toggle('invisible', true);
-    fileUpload.classList.toggle('invisible', false);
-  }
+  updatePreview(status, preview);
 
   // If payment has not been made
   if(status < 2) {
@@ -157,6 +162,7 @@ function circleCallback(index, current, maxStep) {
     let jsonData = await fetchCommissionStep(commissionID, index + 1);
     setCircleAsCurrent(jsonData['stepNumber']);
     updateMilestoneSectionVisibilityAndText(jsonData['step']);
+    updateEvidence(jsonData['step']['status'], jsonData['step']['evidence']);
 
     // Set download button callback
     const downloadButton = document.querySelector('#download-button');
@@ -330,6 +336,14 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
               updateProgressBar(state['current'], state['stepNumber']);
               updateMilestoneSectionVisibilityAndText(state['currentStep']);
               setCircleCallbacks(state['stepNumber'], state['current']);
+
+              // If payment made, remove evidence buttons
+              if(state['currentStep']['status'] > 1) {
+                const evidenceButtons = document.querySelectorAll('.evidence-slot-container > .evidence-remove, .evidence-slot-container > .evidence-button-container');
+                evidenceButtons.forEach(button => {
+                  button.classList.toggle('invisible', true);
+                })
+              }
 
               // If the current milestone is greater than the milestone we were just working on (stepNumber),
               // then request a download of the file, since the milestone should be complete
