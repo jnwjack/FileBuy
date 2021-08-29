@@ -443,6 +443,8 @@ function uploadEvidence(element, commissionID, stepStatus) {
     .then(state => {
       addEvidenceToSlot(state['evidenceCount'], stepStatus);
       setEvidenceSlotAsLowestEmpty(state['evidenceCount'] + 1, stepStatus);
+      // Clear preview
+      updatePreview(0);
     })
     .catch(error => {
       console.error('Error', error);
@@ -468,6 +470,8 @@ function removeEvidence(index, commissionID, stepStatus) {
   .then(response => response.json())
   .then(array => {
     updateEvidence(stepStatus, array);
+    // Clear preview
+    updatePreview(0);
   })
   .catch(error => {
     console.error('Error', error);
