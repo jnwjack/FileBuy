@@ -441,7 +441,7 @@ function uploadEvidence(element, commissionID, stepStatus) {
       return response.json();
     })
     .then(state => {
-      addEvidenceToSlot(state['evidenceCount'], stepStatus);
+      addEvidenceToSlot(state['evidenceCount'], stepStatus, state['newEvidence']);
       setEvidenceSlotAsLowestEmpty(state['evidenceCount'] + 1, stepStatus);
       // Clear preview
       updatePreview(0);

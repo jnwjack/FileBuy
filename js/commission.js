@@ -234,7 +234,7 @@ function createEvidenceSlots(commissionID, status) {
   }
 }
 
-function addEvidenceToSlot(index, stepStatus) {
+function addEvidenceToSlot(index, stepStatus, file) {
   const evidenceRemove = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-remove`);
   const evidenceButtonContainer = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container`);
   // Hide 'add evidence' button because evidence has been added
@@ -248,6 +248,7 @@ function addEvidenceToSlot(index, stepStatus) {
 
   const slot = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-slot`);
   slot.textContent = 'HAS FILE';
+  slot.setAttribute('onclick', `console.log('${file}')`)
 }
 
 function setEvidenceSlotAsLowestEmpty(index, stepStatus) {
@@ -257,6 +258,7 @@ function setEvidenceSlotAsLowestEmpty(index, stepStatus) {
   }
   const lowestEmptySlot = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-slot`);
   lowestEmptySlot.textContent = 'ADD EVIDENCE';
+  lowestEmptySlot.setAttribute('onclick', undefined);
   const lowestEmptyButtonContainer = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container`);
   const lowestEmptyRemove = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-remove`);
   // Hide 'remove' button, because there is no evidence
@@ -270,7 +272,7 @@ function setEvidenceSlotAsLowestEmpty(index, stepStatus) {
 
 function updateEvidence(stepStatus, evidenceArray) {
   evidenceArray.forEach(evidence => {
-    addEvidenceToSlot(evidence['evidenceNumber'], stepStatus);
+    addEvidenceToSlot(evidence['evidenceNumber'], stepStatus, evidence['file']);
   });
 
   // Get lowest-index empty evidence slot, add '+' button
@@ -283,6 +285,8 @@ function updateEvidence(stepStatus, evidenceArray) {
     let evidenceRemove = document.querySelector(`.evidence-slot-container[data-index='${i}'] > .evidence-remove`);
     evidenceButtonContainer.classList.toggle('invisible', true);
     evidenceRemove.classList.toggle('invisible', true);
+    let evidenceSlot = document.querySelector(`.evidence-slot-container[data-index='${i}'] > .evidence-slot`);
+    evidenceSlot.setAttribute('onchange', undefined);
   }
 }
 
