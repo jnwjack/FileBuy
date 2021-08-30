@@ -98,6 +98,7 @@
   border-style: solid;
   border-width: 4px;
   border-color: #4D68B2;
+  cursor: pointer;
 
   /* Background extends only to inner edge of border */
   background-clip: padding-box;
