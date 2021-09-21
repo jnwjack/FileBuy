@@ -62,6 +62,13 @@ const configs = [
     outputJS: 'explain_card.js',
   },
   {
+    name: 'EvidenceCard',
+    js: ['../js/card.js'],
+    css: [],
+    outputDir: '../dist',
+    outputJS: 'evidence_card.js',
+  },
+  {
     name: 'SideMenu',
     js: ['../js/burger.js'],
     css: [],

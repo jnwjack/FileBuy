@@ -21,6 +21,7 @@
     include_once('../php/view/side_menu.php');
     include_once('../php/view/preview_card.php');
     include_once('../php/view/explain_card.php');
+    include_once('../php/view/evidence_card.php');
 
     /* commission.php
 
