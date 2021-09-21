@@ -248,7 +248,7 @@ function addEvidenceToSlot(index, stepStatus, file) {
 
   const slot = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-slot`);
   slot.textContent = 'HAS FILE';
-  slot.setAttribute('onclick', `console.log('${file}')`)
+  slot.setAttribute('onclick', `activateEvidenceCard('${file}')`);
 }
 
 function setEvidenceSlotAsLowestEmpty(index, stepStatus) {

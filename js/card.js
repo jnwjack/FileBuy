@@ -88,3 +88,16 @@ async function copyLink() {
   const button = document.getElementById('copy-button');
   button.innerText = 'Copied!';
 }
+
+/* activateEvidenceCard(evidence)
+
+  Take the data for the specific piece of evidence and
+  set it as the <img> element's src attribute. Then,
+  activate the card
+
+*/
+function activateEvidenceCard(evidence) {
+  const img = document.querySelector('#evidence-card img');
+  img.src = evidence;
+  activateCard('evidence-card');
+}
