@@ -241,7 +241,9 @@ function addEvidenceToSlot(index, stepStatus, file) {
   evidenceButtonContainer.classList.toggle('invisible', true);
   if(stepStatus > 1) {
     // Hide button if we can no longer edit evidence because payment has been made
-    evidenceRemove.classList.toggle('invisible', true);
+    evidenceRemove.classList.toggle('disabled', true);
+    // Get rid of onclick callback
+    evidenceRemove.setAttribute('onclick', undefined);
   } else {
     evidenceRemove.classList.toggle('invisible', false);
   }
@@ -264,7 +266,11 @@ function setEvidenceSlotAsLowestEmpty(index, stepStatus) {
   // Hide 'remove' button, because there is no evidence
   lowestEmptyRemove.classList.toggle('invisible', true);
   if(stepStatus > 1) {
-    lowestEmptyButtonContainer.classList.toggle('invisible', true);
+    const lowestEmptyEvidenceLabel = lowestEmptyButtonContainer.getElementsByTagName('label')[0];
+    lowestEmptyEvidenceLabel.classList.toggle('disabled', true);
+    // Get rid of onclick callback
+    const lowestEmptyEvidenceButton = lowestEmptyButtonContainer.getElementsByTagName('input')[0];
+    lowestEmptyEvidenceButton.setAttribute('onclick', undefined);
   } else {
     lowestEmptyButtonContainer.classList.toggle('invisible', false);
   }
@@ -279,7 +285,7 @@ function updateEvidence(stepStatus, evidenceArray) {
   const lowestEmptyIndex = evidenceArray.length + 1;
   setEvidenceSlotAsLowestEmpty(lowestEmptyIndex, stepStatus);
 
-  // For all higher-index slots, disable button
+  // For all higher-index slots, make all buttons invisible
   for(let i = lowestEmptyIndex + 1; i <= 3; i++) {
     let evidenceButtonContainer = document.querySelector(`.evidence-slot-container[data-index='${i}'] > .evidence-button-container`);
     let evidenceRemove = document.querySelector(`.evidence-slot-container[data-index='${i}'] > .evidence-remove`);
@@ -341,11 +347,19 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
               updateMilestoneSectionVisibilityAndText(state['currentStep']);
               setCircleCallbacks(state['stepNumber'], state['current']);
 
-              // If payment made, remove evidence buttons
+              // If payment made, disable evidence buttons
               if(state['currentStep']['status'] > 1) {
-                const evidenceButtons = document.querySelectorAll('.evidence-slot-container > .evidence-remove, .evidence-slot-container > .evidence-button-container');
+                const addEvidenceButtonContainers = document.querySelectorAll('.evidence-slot-container > .evidence-button-container');
+                addEvidenceButtonContainers.forEach(container => {
+                  const label = container.getElementsByTagName('label')[0];
+                  label.classList.toggle('disabled', true);
+                  const button = container.getElementsByTagName('button')[0];
+                  button.setAttribute('onclick', undefined);
+                })
+                const removeEvidenceButtons = document.querySelectorAll('.evidence-slot-container > .evidence-remove');
                 evidenceButtons.forEach(button => {
-                  button.classList.toggle('invisible', true);
+                  button.classList.toggle('disabled', true);
+                  button.setAttribute('onclick', undefined);
                 })
               }
 
