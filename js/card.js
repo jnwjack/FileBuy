@@ -14,7 +14,10 @@ function activateCard(cardID) {
 
   let inputs = Array.from(document.getElementsByTagName('input'));
   let buttons = Array.from(document.getElementsByTagName('button'));
-  let elementArray = inputs.concat(buttons);
+  let circles = Array.from(document.getElementsByClassName('steps-bar-circle'));
+  let paypalButtons = Array.from(document.getElementsByClassName('paypal-button'));
+  let headerLinks = Array.from(document.getElementsByTagName('a'));
+  // LEFT OFF HERE
   elementArray.forEach((input) => {
     if(input.className.indexOf('card-button') === -1) {
       input.disabled = true;

@@ -261,12 +261,6 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus,
   transition: opacity 0.6s;
 }
 
-#evidence-card {
-  top: 50%;
-  transform: translateY(-50%);
-  transition: opacity 0.6s;
-}
-
 #preview-card.disabled, #explain-card.disabled, #evidence-card.disabled {
   visibility: hidden;
   opacity: 0;
