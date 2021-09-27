@@ -14,15 +14,20 @@ function activateCard(cardID) {
 
   let inputs = Array.from(document.getElementsByTagName('input'));
   let buttons = Array.from(document.getElementsByTagName('button'));
-  let circles = Array.from(document.getElementsByClassName('steps-bar-circle'));
-  let paypalButtons = Array.from(document.getElementsByClassName('paypal-button'));
-  let headerLinks = Array.from(document.getElementsByTagName('a'));
-  // LEFT OFF HERE
-  elementArray.forEach((input) => {
+  let inputArray = inputs.concat(buttons);
+  inputArray.forEach((input) => {
     if(input.className.indexOf('card-button') === -1) {
       input.disabled = true;
     }
   });
+
+  // Disabled circles and anchors in nav
+  let circles = Array.from(document.getElementsByClassName('steps-bar-circle'));
+  let headerLinks = Array.from(document.getElementsByTagName('a'));
+  let elementArray = circles.concat(headerLinks);
+  elementArray.forEach((element) => {
+    element.classList.toggle('disabled', true);
+  })
 
   // Disable clickable header SVGs
   let clickableRects = document.getElementsByClassName('clickable-rect');
@@ -52,10 +57,18 @@ function disableCard(cardID) {
 
   let inputs = Array.from(document.getElementsByTagName('input'));
   let buttons = Array.from(document.getElementsByTagName('button'));
-  let elementArray = inputs.concat(buttons);
-  elementArray.forEach((input) => {
+  let inputArray = inputs.concat(buttons);
+  inputArray.forEach((input) => {
     input.disabled = false;
   });
+
+  // Re-enable circles and anchors in nav
+  let circles = Array.from(document.getElementsByClassName('steps-bar-circle'));
+  let headerLinks = Array.from(document.getElementsByTagName('a'));
+  let elementArray = circles.concat(headerLinks);
+  elementArray.forEach((element) => {
+    element.classList.toggle('disabled', false);
+  })
 
   // Re-enable clickable header SVGS
   let clickableRects = document.getElementsByClassName('clickable-rect');
