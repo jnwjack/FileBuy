@@ -441,7 +441,7 @@ function uploadEvidence(element, commissionID, stepStatus) {
       return response.json();
     })
     .then(state => {
-      addEvidenceToSlot(state['evidenceCount'], stepStatus, state['newEvidence']);
+      addEvidenceToSlot(state['evidenceCount'], stepStatus, state['newEvidence'], commissionID);
       setEvidenceSlotAsLowestEmpty(state['evidenceCount'] + 1, stepStatus);
       // Clear preview
       updatePreview(0);
@@ -469,7 +469,7 @@ function removeEvidence(index, commissionID, stepStatus) {
   })
   .then(response => response.json())
   .then(array => {
-    updateEvidence(stepStatus, array);
+    updateEvidence(stepStatus, array, commissionID);
     // Clear preview
     updatePreview(0);
   })

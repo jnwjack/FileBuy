@@ -60,7 +60,7 @@
   $evidenceArray = array();
   foreach ($evidenceStatementRows as $evidence) {
     $evidenceID = $evidence['id'];
-    $evidenceFile = unserialize(file_get_contents("/opt/data/${commissionID}-${currentStepNumber}-${evidenceID}"));
+    $evidenceFile = unserialize(file_get_contents("/opt/data/${commissionID}-${queryStepNumber}-${evidenceID}"));
     $evidenceObject = array(
       'evidenceNumber' => $evidence['evidence_number'],
       'description' => $evidence['description'],

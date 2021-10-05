@@ -50,6 +50,7 @@ a {
 a.disabled, div.disabled {
   /* Prevent click from leading to link */
   pointer-events: none;
+  cursor: default;
 }
 
 body {
