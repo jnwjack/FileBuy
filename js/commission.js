@@ -190,7 +190,7 @@ function setCircleCallbacks(currentStepNumber, maxStepNumber) {
   Create DOM elements that we'll use for evidence
 
 */
-function createEvidenceSlots(commissionID, status) {
+function createEvidenceSlots() {
   const evidenceBox = document.querySelector('.evidence-box');
   // Create 3 slots
   for(let i = 0; i < 3; i++) {
@@ -210,8 +210,8 @@ function createEvidenceSlots(commissionID, status) {
     evidenceButton.classList.toggle('evidence-button', true);
     evidenceButton.id = `e-file${evidenceSlotContainer.dataset.index}`;
     evidenceButton.accept = 'image/*';
-    evidenceButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', '${status}')`);
-    console.log(`uploadEvidence(this, '${commissionID}', '${status}')`);
+    //evidenceButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', '${status}')`);
+    //console.log(`uploadEvidence(this, '${commissionID}', '${status}')`);
 
     let evidenceButtonLabel = document.createElement('label');
     evidenceButtonLabel.textContent = '+';
@@ -226,7 +226,7 @@ function createEvidenceSlots(commissionID, status) {
     evidenceRemove.type = 'button';
     evidenceRemove.textContent = '-';
     evidenceRemove.classList.toggle('evidence-remove', true);
-    evidenceRemove.setAttribute('onclick', `removeEvidence(${evidenceSlotContainer.dataset.index}, '${commissionID}', ${status})`);
+    //evidenceRemove.setAttribute('onclick', `removeEvidence(${evidenceSlotContainer.dataset.index}, '${commissionID}', ${status})`);
 
     evidenceSlotContainer.appendChild(evidenceSlot);
     evidenceSlotContainer.appendChild(evidenceButtonContainer);
@@ -303,20 +303,27 @@ function createEvidenceSlots(commissionID, status) {
 // }
 
 // New functions
-function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus) {
+function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commissionID) {
   // Disable/enable buttons
   toggleEvidenceButtonsDisabled(index, stepStatus);
   
   // Button visibility
+  const addButton = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-button-container > input`);
   if(stepStatus == 3) {
     // If step is complete, all buttons should be invisible
     toggleEvidenceButtonsVisibility(index, false, false);
   } else if(imageData) {
     // Slot is filled, remove button should be visible
     toggleEvidenceButtonsVisibility(index, false, true);
+    // Set remove button callback
+    const removeButton = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-remove`);
+    removeButton.setAttribute('onclick', `removeEvidence(${index}, '${commissionID}', ${stepStatus})`);
   } else if(index == numFilledSlots + 1) {
     // Slot is the lowest empty slot, add button should be visible
     toggleEvidenceButtonsVisibility(index, true, false);
+    // Set add button callbacm
+    const addButton = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-button-container > input`);
+    addButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', ${stepStatus})`);
   } else {
     // Slot is a non-lowest empty slot, all buttons invisible
     toggleEvidenceButtonsVisibility(index, false, false);
@@ -331,9 +338,6 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus) {
     slot.setAttribute('onclick', undefined);
     slot.classList.toggle('disabled', true);
   }
-
-  // LEFT OFF HERE: Use this function to set onclick for buttons, take out that functionality in createEvidenceSlots
-  // This function will need to accept a commission id
 }
 
 function toggleEvidenceButtonsVisibility(index, addIsVisible, removeIsVisible) {
@@ -389,12 +393,22 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
   updateMilestoneSectionVisibilityAndText(currentStep);
 
   // Load evidence
-  createEvidenceSlots(commissionID, currentStep['status']);
+  createEvidenceSlots();
+  console.log(currentStep['evidence']);
   updateEvidence(currentStep['status'], currentStep['evidence'], commissionID);
-  for
+  evidenceArray = currentStep['evidence'];
+  for(let i = 0; i < 3; i++) {
+    if(i >= evidenceArray.length) {
+      // There is no evidence for this slot
+      updateEvidenceSlot(null, i, evidenceArray.length, currentStep['status'], commissionID);
+    } else {
+      // The slot for this index is filled
+      updateEvidenceSlot(evidence['file'], evidence['evidenceNumber'], evidence.length, currentStep['status'], commissionID);
+    }
+  }
 
   // Check if payment made
-  if(status < 2) {
+  if(currentStep['status'] < 2) {
     paypal.Buttons({
       createOrder: async function(data, actions) {
         // This function sets up the details of the transaction, including the amount and line item details.
