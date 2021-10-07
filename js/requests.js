@@ -441,8 +441,16 @@ function uploadEvidence(element, commissionID, stepStatus) {
       return response.json();
     })
     .then(state => {
-      addEvidenceToSlot(state['evidenceCount'], stepStatus, state['newEvidence'], commissionID);
-      setEvidenceSlotAsLowestEmpty(state['evidenceCount'] + 1, stepStatus);
+      // addEvidenceToSlot(state['evidenceCount'], stepStatus, state['newEvidence'], commissionID);
+      // setEvidenceSlotAsLowestEmpty(state['evidenceCount'] + 1, stepStatus);
+      // Starting at the index of the slot we just updated, iterate through slots and update them
+      const updatedIndex = state['evidenceCount'];
+      // We get rid of uploaded file on evidence change, so step status is 0
+      updateEvidenceSlot(state['newEvidence'], updatedIndex, updatedIndex, 0, state['commission']);
+      for(let i = updatedIndex; i < 3; i++) {
+        // all higher slots are empty (no image data)
+        updateEvidenceSlot(null, i + 1, updatedIndex, 0, state['commission']);
+      }
       // Clear preview
       updatePreview(0);
     })
@@ -469,7 +477,15 @@ function removeEvidence(index, commissionID, stepStatus) {
   })
   .then(response => response.json())
   .then(array => {
-    updateEvidence(stepStatus, array, commissionID);
+    console.log('result of remove evidence: ', array);
+    //updateEvidence(stepStatus, array, commissionID);
+    // update all evidence slots
+    for(let i = 0; i < 3; i++) {
+      // Image data is null if the evidence slot is empty
+      let imageData = i < array.length ? array[i]['file'] : null;
+      // We made a change to evidence, so step status is 0
+      updateEvidenceSlot(imageData, i + 1, array.length, 0, commissionID);
+    }
     // Clear preview
     updatePreview(0);
   })
