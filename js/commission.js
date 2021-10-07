@@ -162,8 +162,16 @@ function circleCallback(index, current, maxStep) {
     let jsonData = await fetchCommissionStep(commissionID, index + 1);
     setCircleAsCurrent(jsonData['stepNumber']);
     updateMilestoneSectionVisibilityAndText(jsonData['step']);
-    updateEvidence(jsonData['step']['status'], jsonData['step']['evidence'], jsonData['commission']);
+    //updateEvidence(jsonData['step']['status'], jsonData['step']['evidence'], jsonData['commission']);
     console.log(jsonData);
+
+    // Update evidence slots
+    const evidenceArray = jsonData['step']['evidence'];
+    for(let i = 0; i < 3; i++) {
+      // Image data is null if the evidence slot is empty
+      let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
+      updateEvidenceSlot(imageData, i + 1, evidenceArray.length, currentStep['status'], commissionID);
+    }
 
     // Set download button callback
     const downloadButton = document.querySelector('#download-button');
@@ -308,7 +316,7 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
   toggleEvidenceButtonsDisabled(index, stepStatus);
   
   // Button visibility
-  const addButton = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-button-container > input`);
+  const addButton = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container > input`);
   if(stepStatus == 3) {
     // If step is complete, all buttons should be invisible
     toggleEvidenceButtonsVisibility(index, false, false);
@@ -316,13 +324,13 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
     // Slot is filled, remove button should be visible
     toggleEvidenceButtonsVisibility(index, false, true);
     // Set remove button callback
-    const removeButton = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-remove`);
+    const removeButton = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-remove`);
     removeButton.setAttribute('onclick', `removeEvidence(${index}, '${commissionID}', ${stepStatus})`);
   } else if(index == numFilledSlots + 1) {
     // Slot is the lowest empty slot, add button should be visible
     toggleEvidenceButtonsVisibility(index, true, false);
     // Set add button callbacm
-    const addButton = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-button-container > input`);
+    const addButton = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container > input`);
     addButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', ${stepStatus})`);
   } else {
     // Slot is a non-lowest empty slot, all buttons invisible
@@ -330,7 +338,7 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
   }
 
   // Slot click behavior
-  const slot = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-slot`); 
+  const slot = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-slot`); 
   if(imageData) {
     slot.setAttribute('onclick', `activateEvidenceCard('${imageData}')`);
     slot.classList.toggle('disabled', false);
@@ -341,7 +349,7 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
 }
 
 function toggleEvidenceButtonsVisibility(index, addIsVisible, removeIsVisible) {
-  const addButtonContainer = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-button-container`);
+  const addButtonContainer = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container`);
   const removeButton = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-remove`);
 
   if(addIsVisible) {
@@ -358,7 +366,7 @@ function toggleEvidenceButtonsVisibility(index, addIsVisible, removeIsVisible) {
 }
 
 function toggleEvidenceButtonsDisabled(index, stepStatus) {
-  const addButtonLabel = document.querySelector(`.evidence-slot-container[data-index=${index}] > .evidence-button-container > label`);
+  const addButtonLabel = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container > label`);
   const removeButton = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-remove`);
 
   // If there's a payment, but no file upload, buttons should be disabled
@@ -395,16 +403,12 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
   // Load evidence
   createEvidenceSlots();
   console.log(currentStep['evidence']);
-  updateEvidence(currentStep['status'], currentStep['evidence'], commissionID);
+  //updateEvidence(currentStep['status'], currentStep['evidence'], commissionID);
   evidenceArray = currentStep['evidence'];
   for(let i = 0; i < 3; i++) {
-    if(i >= evidenceArray.length) {
-      // There is no evidence for this slot
-      updateEvidenceSlot(null, i, evidenceArray.length, currentStep['status'], commissionID);
-    } else {
-      // The slot for this index is filled
-      updateEvidenceSlot(evidence['file'], evidence['evidenceNumber'], evidence.length, currentStep['status'], commissionID);
-    }
+    // Image data is null if the evidence slot is empty
+    let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
+    updateEvidenceSlot(imageData, i + 1, evidenceArray.length, currentStep['status'], commissionID);
   }
 
   // Check if payment made
