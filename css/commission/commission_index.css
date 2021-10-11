@@ -129,6 +129,7 @@
   background-color: #636868 !important;
   color: #ccc8bb !important;
   cursor: default !important;
+  pointer-events: none;
 }
 
 .evidence-button + label {

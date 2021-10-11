@@ -317,6 +317,17 @@ function uploadCommissionFile(event, commissionID) {
       updateProgressBar(state['current'], state['stepNumber']);
       updateMilestoneSectionVisibilityAndText(state['currentStep']);
       setCircleCallbacks(state['stepNumber'], state['current']);
+
+      // We only need to update evidence slots if the step has changed (because it has been completed)
+      if(state['current'] !== state['stepNumber']) {
+        // Update evidence
+        const evidenceArray = state['currentStep']['evidence'];
+        for(let i = 0; i < 3; i++) {
+          // Image data is null if the evidence slot is empty
+          let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
+          updateEvidenceSlot(imageData, i + 1, evidenceArray.length, state['currentStep']['status'], state['commission']);
+        }
+      }
     })
     .catch(error => {
       toggleButtonProgressBar(false);
@@ -477,7 +488,6 @@ function removeEvidence(index, commissionID, stepStatus) {
   })
   .then(response => response.json())
   .then(array => {
-    console.log('result of remove evidence: ', array);
     //updateEvidence(stepStatus, array, commissionID);
     // update all evidence slots
     for(let i = 0; i < 3; i++) {
