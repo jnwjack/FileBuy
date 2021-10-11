@@ -81,6 +81,31 @@
     die('FAILURE: Could not update milestone');
   }
 
+  // Fetch evidence for this step
+  $evidenceStatement = $db->prepare('SELECT * FROM evidence WHERE commission_id=:commission_id AND step_number=:step_number');
+  $evidenceStatement->bindValue(':commission_id', $commission_id, PDO::PARAM_STR);
+  $evidenceStatement->bindValue(':step_number', $currentStepNumber, PDO::PARAM_INT);
+  $successful = $evidenceStatement->execute();
+  if(!$successful) {
+    http_response_code(500);
+    die('FAILURE: Could not fetch evidence for milestone');
+  }
+  $evidenceStatementRows = $evidenceStatement->fetchAll(PDO::FETCH_ASSOC);
+
+  $evidenceArray = array();
+  foreach ($evidenceStatementRows as $evidence) {
+    $evidenceID = $evidence['id'];
+    $evidenceFile = unserialize(file_get_contents("/opt/data/${commission_id}-${currentStepNumber}-${evidenceID}"));
+    $evidenceObject = array(
+      'evidenceNumber' => $evidence['evidence_number'],
+      'description' => $evidence['description'],
+      'file' => $evidenceFile
+    );
+
+    // Add evidence to array
+    $evidenceArray[] = $evidenceObject;
+  }
+
   $returnData = array(
     'stepNumber' => $currentStepNumber,
     'current' => $currentStepNumber,
@@ -90,7 +115,8 @@
       'title' => $currentStepTitle,
       'status' => $newStatusCode,
       'price' => $currentStepPriceWithFee,
-      'description' => $currentStepDescription
+      'description' => $currentStepDescription,
+      'evidence' => $evidenceArray
     )
   );
 

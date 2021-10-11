@@ -104,17 +104,11 @@ function updateMilestoneSectionVisibilityAndText(currentStep) {
 
 function updateProgressBar(currentStep, selectedStep) {
   // Remove the currently completed fragment bars because we want these bars and the new one to be synced
-  //const enabledFragments = document.querySelectorAll('.steps-bar-fragment');
   const numSteps = document.querySelectorAll('.steps-bar-circle').length;
   const stepsBar = document.querySelector('#steps-bar');
   while(stepsBar.firstElementChild) {
     stepsBar.firstElementChild.remove();
   }
-
-  // Enable all the older fragments, along with the newer, rightmost one.
-  // for(let i = 0;i <= currentStep - 1; i++) {
-  //   enabledFragments[i].classList.toggle('completed', true);
-  // }
 
   stepsBar.appendChild(stepsBarFragment(true));
 
@@ -127,10 +121,6 @@ function updateProgressBar(currentStep, selectedStep) {
   // Set onclick functions for circles. Must be done dynamically and updated with any change in the
   // state of the commission. This is because the callbacks are dependent upon the current step number
   setCircleCallbacks(current, current);
-
-  // Get the fragment the rightmost fragment that should be marked as completed.
-  // const currentFragment = document.querySelectorAll('.steps-bar-fragment')[currentStep - 1];
-  // currentFragment.classList.toggle('completed', true);
 
   const circles = document.querySelectorAll('.steps-bar-circle');
   // Get the circle that should be marked as current
@@ -162,15 +152,13 @@ function circleCallback(index, current, maxStep) {
     let jsonData = await fetchCommissionStep(commissionID, index + 1);
     setCircleAsCurrent(jsonData['stepNumber']);
     updateMilestoneSectionVisibilityAndText(jsonData['step']);
-    //updateEvidence(jsonData['step']['status'], jsonData['step']['evidence'], jsonData['commission']);
-    console.log(jsonData);
 
     // Update evidence slots
     const evidenceArray = jsonData['step']['evidence'];
     for(let i = 0; i < 3; i++) {
       // Image data is null if the evidence slot is empty
       let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
-      updateEvidenceSlot(imageData, i + 1, evidenceArray.length, currentStep['status'], commissionID);
+      updateEvidenceSlot(imageData, i + 1, evidenceArray.length, jsonData['step']['status'], commissionID);
     }
 
     // Set download button callback
@@ -218,8 +206,6 @@ function createEvidenceSlots() {
     evidenceButton.classList.toggle('evidence-button', true);
     evidenceButton.id = `e-file${evidenceSlotContainer.dataset.index}`;
     evidenceButton.accept = 'image/*';
-    //evidenceButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', '${status}')`);
-    //console.log(`uploadEvidence(this, '${commissionID}', '${status}')`);
 
     let evidenceButtonLabel = document.createElement('label');
     evidenceButtonLabel.textContent = '+';
@@ -244,72 +230,6 @@ function createEvidenceSlots() {
   }
 }
 
-// function addEvidenceToSlot(index, stepStatus, file, commission) {
-//   const evidenceRemove = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-remove`);
-//   const evidenceButtonContainer = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container`);
-//   // Hide 'add evidence' button because evidence has been added
-//   evidenceButtonContainer.classList.toggle('invisible', true);
-//   if(stepStatus > 1) {
-//     // Hide button if we can no longer edit evidence because payment has been made
-//     evidenceRemove.classList.toggle('disabled', true);
-//     // Get rid of onclick callback
-//     evidenceRemove.setAttribute('onclick', undefined);
-//   } else {
-//     // Button should be enabled and visible
-//     evidenceRemove.classList.toggle('invisible', false);
-//     evidenceRemove.classList.toggle('disabled', false);
-//     evidenceRemove.setAttribute('onclick', `removeEvidence(${index}, '${commission}', ${stepStatus})`);
-//   }
-
-//   const slot = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-slot`);
-//   slot.textContent = 'HAS FILE';
-//   slot.setAttribute('onclick', `activateEvidenceCard('${file}')`);
-// }
-
-// function setEvidenceSlotAsLowestEmpty(index, stepStatus) {
-//   // Check if index is not out of range
-//   if(index > 3) {
-//     return;
-//   }
-//   const lowestEmptySlot = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-slot`);
-//   lowestEmptySlot.textContent = 'ADD EVIDENCE';
-//   lowestEmptySlot.setAttribute('onclick', undefined);
-//   const lowestEmptyButtonContainer = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container`);
-//   const lowestEmptyRemove = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-remove`);
-//   // Hide 'remove' button, because there is no evidence
-//   lowestEmptyRemove.classList.toggle('invisible', true);
-//   const lowestEmptyEvidenceLabel = lowestEmptyButtonContainer.getElementsByTagName('label')[0];
-//   if(stepStatus > 1) {
-//     lowestEmptyEvidenceLabel.classList.toggle('disabled', true);
-//     // Get rid of onclick callback
-//     const lowestEmptyEvidenceButton = lowestEmptyButtonContainer.getElementsByTagName('input')[0];
-//     lowestEmptyEvidenceButton.setAttribute('onclick', undefined);
-//   } else {
-//     lowestEmptyButtonContainer.classList.toggle('invisible', false);
-//     lowestEmptyEvidenceLabel.classList.toggle('disabled', false);
-//   }
-// }
-
-// function updateEvidence(stepStatus, evidenceArray, commission) {
-//   evidenceArray.forEach(evidence => {
-//     addEvidenceToSlot(evidence['evidenceNumber'], stepStatus, evidence['file'], commission);
-//   });
-
-//   // Get lowest-index empty evidence slot, add '+' button
-//   const lowestEmptyIndex = evidenceArray.length + 1;
-//   setEvidenceSlotAsLowestEmpty(lowestEmptyIndex, stepStatus);
-
-//   // For all higher-index slots, make all buttons invisible
-//   for(let i = lowestEmptyIndex + 1; i <= 3; i++) {
-//     let evidenceButtonContainer = document.querySelector(`.evidence-slot-container[data-index='${i}'] > .evidence-button-container`);
-//     let evidenceRemove = document.querySelector(`.evidence-slot-container[data-index='${i}'] > .evidence-remove`);
-//     evidenceButtonContainer.classList.toggle('invisible', true);
-//     evidenceRemove.classList.toggle('invisible', true);
-//     let evidenceSlot = document.querySelector(`.evidence-slot-container[data-index='${i}'] > .evidence-slot`);
-//     evidenceSlot.setAttribute('onchange', undefined);
-//   }
-// }
-
 // New functions
 function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commissionID) {
   // Disable/enable buttons
@@ -329,7 +249,7 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
   } else if(index == numFilledSlots + 1) {
     // Slot is the lowest empty slot, add button should be visible
     toggleEvidenceButtonsVisibility(index, true, false);
-    // Set add button callbacm
+    // Set add button callback
     const addButton = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container > input`);
     addButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', ${stepStatus})`);
   } else {
@@ -402,7 +322,6 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
 
   // Load evidence
   createEvidenceSlots();
-  console.log(currentStep['evidence']);
   //updateEvidence(currentStep['status'], currentStep['evidence'], commissionID);
   evidenceArray = currentStep['evidence'];
   for(let i = 0; i < 3; i++) {
@@ -437,20 +356,12 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
               updateMilestoneSectionVisibilityAndText(state['currentStep']);
               setCircleCallbacks(state['stepNumber'], state['current']);
 
-              // If payment made, disable evidence buttons
-              if(state['currentStep']['status'] > 1) {
-                const addEvidenceButtonContainers = document.querySelectorAll('.evidence-slot-container > .evidence-button-container');
-                addEvidenceButtonContainers.forEach(container => {
-                  const label = container.getElementsByTagName('label')[0];
-                  label.classList.toggle('disabled', true);
-                  const button = container.getElementsByTagName('button')[0];
-                  button.setAttribute('onclick', undefined);
-                })
-                const removeEvidenceButtons = document.querySelectorAll('.evidence-slot-container > .evidence-remove');
-                evidenceButtons.forEach(button => {
-                  button.classList.toggle('disabled', true);
-                  button.setAttribute('onclick', undefined);
-                })
+              // Update evidence
+              const evidenceArray = state['currentStep']['evidence'];
+              for(let i = 0; i < 3; i++) {
+                // Image data is null if the evidence slot is empty
+                let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
+                updateEvidenceSlot(imageData, i + 1, evidenceArray.length, state['currentStep']['status'], commissionID);
               }
 
               // If the current milestone is greater than the milestone we were just working on (stepNumber),
