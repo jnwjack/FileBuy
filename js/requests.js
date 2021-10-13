@@ -325,7 +325,8 @@ function uploadCommissionFile(event, commissionID) {
         for(let i = 0; i < 3; i++) {
           // Image data is null if the evidence slot is empty
           let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
-          updateEvidenceSlot(imageData, i + 1, evidenceArray.length, state['currentStep']['status'], state['commission']);
+          let description = i < evidenceArray.length ? evidenceArray[i]['description'] : null;
+          updateEvidenceSlot(imageData, i + 1, evidenceArray.length, state['currentStep']['status'], state['commission'], description);
         }
       }
     })
@@ -457,10 +458,10 @@ function uploadEvidence(element, commissionID, stepStatus) {
       // Starting at the index of the slot we just updated, iterate through slots and update them
       const updatedIndex = state['evidenceCount'];
       // We get rid of uploaded file on evidence change, so step status is 0
-      updateEvidenceSlot(state['newEvidence'], updatedIndex, updatedIndex, 0, state['commission']);
+      updateEvidenceSlot(state['newEvidence'], updatedIndex, updatedIndex, 0, state['commission'], state['description']);
       for(let i = updatedIndex; i < 3; i++) {
         // all higher slots are empty (no image data)
-        updateEvidenceSlot(null, i + 1, updatedIndex, 0, state['commission']);
+        updateEvidenceSlot(null, i + 1, updatedIndex, 0, state['commission'], null);
       }
       // Clear preview
       updatePreview(0);
@@ -493,8 +494,9 @@ function removeEvidence(index, commissionID, stepStatus) {
     for(let i = 0; i < 3; i++) {
       // Image data is null if the evidence slot is empty
       let imageData = i < array.length ? array[i]['file'] : null;
+      let description = i < array.length ? array[i]['description'] : null;
       // We made a change to evidence, so step status is 0
-      updateEvidenceSlot(imageData, i + 1, array.length, 0, commissionID);
+      updateEvidenceSlot(imageData, i + 1, array.length, 0, commissionID, description);
     }
     // Clear preview
     updatePreview(0);

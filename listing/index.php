@@ -90,9 +90,9 @@
     setCanvasImageFromBase64(listingData['preview'], 'preview');
 
     //document.getElementById('price').textContent += listingData['price'];
-    document.getElementById('seller-email').textContent += `Listed By: ${truncateString(listingData['email'])}`;
+    document.getElementById('seller-email').textContent += `Listed By: ${truncateString(listingData['email'], 15)}`;
     //document.getElementById('filename').textContent = listingData['name'];
-    document.getElementById('file-header').textContent = `${truncateString(listingData['name'])} - $${formatPrice(listingData['price'])}`;
+    document.getElementById('file-header').textContent = `${truncateString(listingData['name'], 15)} - $${formatPrice(listingData['price'])}`;
     document.getElementById('size').textContent = `File Size: ${formatBytes(listingData['size'])}`;
 
     if(!listingData['complete']) {

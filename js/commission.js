@@ -158,7 +158,8 @@ function circleCallback(index, current, maxStep) {
     for(let i = 0; i < 3; i++) {
       // Image data is null if the evidence slot is empty
       let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
-      updateEvidenceSlot(imageData, i + 1, evidenceArray.length, jsonData['step']['status'], commissionID);
+      let description = i < evidenceArray.length ? evidenceArray[i]['description'] : null;
+      updateEvidenceSlot(imageData, i + 1, evidenceArray.length, jsonData['step']['status'], commissionID, description);
     }
 
     // Set download button callback
@@ -196,6 +197,10 @@ function createEvidenceSlots() {
     let evidenceSlot = document.createElement('div');
     evidenceSlot.classList.toggle('evidence-slot', true);
 
+    // Create text container that we'll use when deciding whether or not to truncate string
+    let evidenceTextContainer = document.createElement('span');
+    evidenceSlot.append(evidenceTextContainer);
+
     evidenceSlotContainer.dataset.index = i + 1;
 
     let evidenceButtonContainer = document.createElement('div');
@@ -230,8 +235,7 @@ function createEvidenceSlots() {
   }
 }
 
-// New functions
-function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commissionID) {
+function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commissionID, description) {
   // Disable/enable buttons
   toggleEvidenceButtonsDisabled(index, stepStatus);
   
@@ -259,12 +263,20 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
 
   // Slot click behavior
   const slot = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-slot`); 
+  const textContainer = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-slot > span`);
   if(imageData) {
     slot.setAttribute('onclick', `activateEvidenceCard('${imageData}')`);
     slot.classList.toggle('disabled', false);
+    textContainer.textContent = description;
+    // Check if we need to truncate text because it is too long
+    if(textContainer.offsetWidth > slot.clientWidth) {
+      // Hacky way of having max number of characters vary based on slot width when appending ellipses.
+      textContainer.textContent = truncateString(description, slot.clientWidth / 20);
+    }
   } else {
     slot.setAttribute('onclick', undefined);
     slot.classList.toggle('disabled', true);
+    textContainer.textContent = undefined;
   }
 }
 
@@ -327,7 +339,8 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
   for(let i = 0; i < 3; i++) {
     // Image data is null if the evidence slot is empty
     let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
-    updateEvidenceSlot(imageData, i + 1, evidenceArray.length, currentStep['status'], commissionID);
+    let description = i < evidenceArray.length ? evidenceArray[i]['description'] : null;
+    updateEvidenceSlot(imageData, i + 1, evidenceArray.length, currentStep['status'], commissionID, description);
   }
 
   // Check if payment made
@@ -361,7 +374,8 @@ function displayMilestone(current, numSteps, complete, currentStep, commissionID
               for(let i = 0; i < 3; i++) {
                 // Image data is null if the evidence slot is empty
                 let imageData = i < evidenceArray.length ? evidenceArray[i]['file'] : null;
-                updateEvidenceSlot(imageData, i + 1, evidenceArray.length, state['currentStep']['status'], commissionID);
+                let description = i < evidenceArray.length ? evidenceArray[i]['description'] : null;
+                updateEvidenceSlot(imageData, i + 1, evidenceArray.length, state['currentStep']['status'], commissionID, description);
               }
 
               // If the current milestone is greater than the milestone we were just working on (stepNumber),
