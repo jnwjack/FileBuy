@@ -54,8 +54,7 @@ function formatPrice(number) {
   An ellipsis if there is truncation.
 
 */
-function truncateString(string) {
-  const maxLength = 15;
+function truncateString(string, maxLength) {
   if(string.length > maxLength) {
     return string.substring(0, maxLength) + '...';
   } else {

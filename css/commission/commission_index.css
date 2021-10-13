@@ -92,7 +92,7 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   height: 2rem;
-  background-color: #3C9AA3;
+  background-color: #FFFFFF;
   border-radius: 8px;
   border-style: solid;
   border-width: 4px;
@@ -101,6 +101,19 @@
 
   /* Background extends only to inner edge of border */
   background-clip: padding-box;
+
+  /* Align text to be in center */
+  text-align: center;
+  /* -8px to line-height due to border width */
+  line-height: calc(2rem - 8px);
+
+  overflow-x: hidden;
+  /* Prevent text from wrapping onto new line (problem on mobile) */
+  white-space: nowrap;
+}
+
+.evidence-slot.disabled {
+  background-color: #3C9AA3;
 }
 
 .evidence-button {
