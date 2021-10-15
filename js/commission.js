@@ -197,6 +197,12 @@ function createEvidenceSlots() {
     let evidenceSlot = document.createElement('div');
     evidenceSlot.classList.toggle('evidence-slot', true);
 
+    // Create text field for description for new pieces of evidence
+    let descriptionEntry = document.createElement('input');
+    descriptionEntry.setAttribute('type', 'text');
+    descriptionEntry.setAttribute('placeholder', 'Enter a short description');
+    descriptionEntry.classList.toggle('evidence-description', true);
+
     // Create text container that we'll use when deciding whether or not to truncate string
     let evidenceTextContainer = document.createElement('span');
     evidenceSlot.append(evidenceTextContainer);
@@ -228,6 +234,7 @@ function createEvidenceSlots() {
     //evidenceRemove.setAttribute('onclick', `removeEvidence(${evidenceSlotContainer.dataset.index}, '${commissionID}', ${status})`);
 
     evidenceSlotContainer.appendChild(evidenceSlot);
+    evidenceSlotContainer.appendChild(descriptionEntry);
     evidenceSlotContainer.appendChild(evidenceButtonContainer);
     evidenceSlotContainer.appendChild(evidenceRemove);
 
@@ -240,7 +247,6 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
   toggleEvidenceButtonsDisabled(index, stepStatus);
   
   // Button visibility
-  const addButton = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container > input`);
   if(stepStatus == 3) {
     // If step is complete, all buttons should be invisible
     toggleEvidenceButtonsVisibility(index, false, false);
@@ -255,7 +261,7 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
     toggleEvidenceButtonsVisibility(index, true, false);
     // Set add button callback
     const addButton = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-button-container > input`);
-    addButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', ${stepStatus})`);
+    addButton.setAttribute('onchange', `uploadEvidence(this, '${commissionID}', '${index}')`);
   } else {
     // Slot is a non-lowest empty slot, all buttons invisible
     toggleEvidenceButtonsVisibility(index, false, false);
@@ -271,12 +277,23 @@ function updateEvidenceSlot(imageData, index, numFilledSlots, stepStatus, commis
     // Check if we need to truncate text because it is too long
     if(textContainer.offsetWidth > slot.clientWidth) {
       // Hacky way of having max number of characters vary based on slot width when appending ellipses.
-      textContainer.textContent = truncateString(description, slot.clientWidth / 20);
+      textContainer.textContent = truncateString(description, slot.clientWidth / 15);
     }
   } else {
     slot.setAttribute('onclick', undefined);
     slot.classList.toggle('disabled', true);
     textContainer.textContent = undefined;
+  }
+
+  // Slot/description entry visibility
+  const descriptionEntry = document.querySelector(`.evidence-slot-container[data-index='${index}'] > .evidence-description`);
+  if(stepStatus < 2 && index == numFilledSlots + 1) {
+    // If no payment has been made and this is the lowest empty slot
+    descriptionEntry.classList.toggle('invisible', false);
+    slot.classList.toggle('invisible', true);
+  } else {
+    descriptionEntry.classList.toggle('invisible', true);
+    slot.classList.toggle('invisible', false);
   }
 }
 

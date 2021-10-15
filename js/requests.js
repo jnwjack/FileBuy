@@ -420,7 +420,7 @@ async function fetchCommissionStep(commission, step) {
   commission for the specified evidence slot
 
 */
-function uploadEvidence(element, commissionID, stepStatus) {
+function uploadEvidence(element, commissionID, slotIndex) {
   let file = element.files[0];
   if(!file) {
     console.error('Error: Invalid file');
@@ -436,10 +436,12 @@ function uploadEvidence(element, commissionID, stepStatus) {
   });
 
   readerPromise.then(function(fileData) {
+    const description = document.querySelector(`.evidence-slot-container[data-index='${slotIndex}'] > input`).value;
+
     let formData = new FormData();
     formData.append('file', fileData);
     formData.append('commission', commissionID);
-    formData.append('description', 'Temporary Description');
+    formData.append('description', description);
 
     fetch('../php/commission_add_evidence.php', {
       method: 'POST',

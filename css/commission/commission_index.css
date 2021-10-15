@@ -87,16 +87,21 @@
   width: 100%;
 }
 
+.evidence-description {
+  width: 60%;
+}
+
 .evidence-slot {
   width: 60%;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   height: 2rem;
-  background-color: #FFFFFF;
+  background-color: #4D68B2;
+  color: #FFFFFF;
   border-radius: 8px;
   border-style: solid;
   border-width: 4px;
-  border-color: #4D68B2;
+  border-color: #3C9AA3;
   cursor: pointer;
 
   /* Background extends only to inner edge of border */
@@ -113,7 +118,7 @@
 }
 
 .evidence-slot.disabled {
-  background-color: #3C9AA3;
+  background-color: #FFFFFF;
 }
 
 .evidence-button {
