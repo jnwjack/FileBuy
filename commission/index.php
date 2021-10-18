@@ -152,7 +152,7 @@
   </div>
 
   <script src="../dist/commission_index.js"></script>
-  <script src="https://www.paypal.com/sdk/js?client-id=AZA0KXJEtn8DBgcuU-2Ls_PwgiF18ihnbgIm1y9IQJ8_hOTNlqtEDo_95gSDTcsVeYtY9mC6_vUVimPJ"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AWN4WQzmmUyUccqa8ZVYp1EmW3HP3AHCHZT3OnXzsiiqT87e2RAQTO7_EAkx-GeDgrHSK_iyDNfQK2sV"></script>
   <script>
     /*
 
