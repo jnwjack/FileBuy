@@ -35,7 +35,9 @@ function createCommission(event) {
     });
   }
 
-  toggleButtonProgressBar(true);
+  const submitButton = document.querySelector('button[type="submit"]');
+  toggleProgressBar(submitButton, true);
+  //toggleButtonProgressBar(true);
 
   const commissionObject = {
     numSteps: numSteps,
@@ -74,12 +76,14 @@ function createCommission(event) {
     let currentUrlRoot = extractURLRoot(document.location.href);
     let linkString = `${currentUrlRoot}/commission/${commissionID}`;
 
-    toggleButtonProgressBar(false);
+    toggleProgressBar(submitButton, false);
+    //toggleButtonProgressBar(false);
 
     activateResultCard(linkString);
   })
   .catch(error => {
-    toggleButtonProgressBar(false);
+    toggleProgressBar(submitButton, false);
+    //toggleButtonProgressBar(false);
 
     console.error('Error:', error);
   })
@@ -114,7 +118,9 @@ function createListing(event) {
   let size = file.size;
 
   // Handle Progress Bar Animation
-  toggleButtonProgressBar(true);
+  const submitButton = document.querySelector('button[type="submit"]');
+  //toggleButtonProgressBar(submitButton, true);
+  toggleProgressBar(submitButton, true);
 
   let readerPromise = new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -163,7 +169,8 @@ function createListing(event) {
       form.reset();
 
       // Turn off progress bar
-      toggleButtonProgressBar(false);
+      toggleProgressBar(submitButton, false);
+      //toggleButtonProgressBar(false);
 
       defaultPreview();
       activateResultCard(linkString);
@@ -172,7 +179,8 @@ function createListing(event) {
       console.error('Error:', error);
 
       // Turn off progress bar
-      toggleButtonProgressBar(false);
+      //toggleButtonProgressBar(false);
+      toggleProgressBar(submitButton, false);
     });
 
     }, function(err) {
@@ -272,7 +280,10 @@ function uploadCommissionFile(event, commissionID) {
     return false;
   }
 
-  toggleButtonProgressBar(true);
+  // Activate progress bar animation
+  const submitButton = document.querySelector('button[type="submit"]');
+  //toggleButtonProgressBar(true);
+  toggleProgressBar(submitButton, true);
 
   let readerPromise = new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -309,7 +320,9 @@ function uploadCommissionFile(event, commissionID) {
       return response.json();
     })
     .then(state => {
-      toggleButtonProgressBar(false);
+      // Deactivate progress bar animation
+      //toggleButtonProgressBar(false);
+      toggleProgressBar(submitButton, false);
 
       // Clear preview card
       defaultPreview();
@@ -331,13 +344,17 @@ function uploadCommissionFile(event, commissionID) {
       }
     })
     .catch(error => {
-      toggleButtonProgressBar(false);
+      // Deactivate progress bar animation
+      //toggleButtonProgressBar(false);
+      toggleProgressBar(submitButton, false);
 
       console.error('Error:', error);
     });
   })
   .catch(error => {
-    toggleButtonProgressBar(false);
+    // Deactivate progress bar animation
+    //toggleButtonProgressBar(false);
+    toggleProgressBar(submitButton, false);
 
     console.error('Error:', error);
   })
@@ -364,7 +381,10 @@ function sendMessage(event) {
     return false;
   }
 
-  toggleButtonProgressBar(true);
+  // Start button progress bar animation
+  const submitButton = document.querySelector('button[type="submit"]');
+  //toggleButtonProgressBar(true);
+  toggleProgressBar(submitButton, true);
 
   let formData = new FormData();
   formData.append('email', email);
@@ -380,10 +400,14 @@ function sendMessage(event) {
   .then(response => {
     let form = document.querySelector('#main');
     form.reset();
-    toggleButtonProgressBar(false);
+    // Stop button progress bar animation
+    //toggleButtonProgressBar(false);
+    toggleProgressBar(submitButton, false);
   })
   .error(error => {
-    toggleButtonProgressBar(false);
+    // Stop button progress bar animation
+    //toggleButtonProgressBar(false);
+    toggleProgressBar(submitButton, false);
     
     console.error('Error: ', error);
   })
@@ -426,6 +450,10 @@ function uploadEvidence(element, commissionID, slotIndex) {
     console.error('Error: Invalid file');
     return false;
   }
+  
+  // Start progress animation
+  const slotContainer = document.querySelector(`.evidence-slot-container[data-index='${slotIndex}']`);
+  toggleProgressBar(slotContainer, true);
 
   let readerPromise = new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -436,7 +464,7 @@ function uploadEvidence(element, commissionID, slotIndex) {
   });
 
   readerPromise.then(function(fileData) {
-    const description = document.querySelector(`.evidence-slot-container[data-index='${slotIndex}'] > input`).value;
+    const description = slotContainer.querySelector('input').value;
 
     let formData = new FormData();
     formData.append('file', fileData);
@@ -450,11 +478,16 @@ function uploadEvidence(element, commissionID, slotIndex) {
     .then(response => {
       // If file is too big
       if(response.status == 413) {
+        // Stop progress animation
+        toggleProgressBar(descriptionField. false);
+
         alert('The file is too big. The maximum file size is 4MB');
       }
       return response.json();
     })
     .then(state => {
+      // Stop progress animation
+      toggleProgressBar(slotContainer, false);
       // addEvidenceToSlot(state['evidenceCount'], stepStatus, state['newEvidence'], commissionID);
       // setEvidenceSlotAsLowestEmpty(state['evidenceCount'] + 1, stepStatus);
       // Starting at the index of the slot we just updated, iterate through slots and update them
@@ -469,6 +502,9 @@ function uploadEvidence(element, commissionID, slotIndex) {
       updatePreview(0);
     })
     .catch(error => {
+      // Stop progress animation
+      toggleProgressBar(slotContainer, false);
+
       console.error('Error', error);
     });
   })
