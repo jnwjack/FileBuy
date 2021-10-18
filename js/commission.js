@@ -202,6 +202,7 @@ function createEvidenceSlots() {
     descriptionEntry.setAttribute('type', 'text');
     descriptionEntry.setAttribute('placeholder', 'Enter a short description');
     descriptionEntry.classList.toggle('evidence-description', true);
+    descriptionEntry.classList.toggle('submit-button-text', true);
 
     // Create text container that we'll use when deciding whether or not to truncate string
     let evidenceTextContainer = document.createElement('span');

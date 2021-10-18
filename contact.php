@@ -26,10 +26,10 @@
     </div>
     <div class="content-part">
       <button type="submit" class="form-button">
-        <div id="submit-button-text">
+        <div class="submit-button-text">
           Send
         </div>
-        <div id="progress-bar" class="invisible"></div>
+        <div class="progress-bar invisible"></div>
       </button>
     </div>
   </form>
