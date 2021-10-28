@@ -22,7 +22,7 @@
   require_once('email.php');
   require_once('util.php');
 
-  $preview = serialize($_POST["preview"]);
+  $preview = $_POST["preview"] != "null" ? serialize($_POST["preview"]) : NULL;
   $file = serialize($_POST["file"]);
   $email = $_POST["email"];
   $price = round($_POST["price"], 2);

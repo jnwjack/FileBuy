@@ -3,8 +3,8 @@
   Generates black and white checkerboard pattern inside the preview box.
 
 */
-function defaultPreview() {
-  let canvas = document.getElementById('preview');
+function defaultPreview(canvasID) {
+  let canvas = document.getElementById(canvasID);
   let context = canvas.getContext('2d');
 
   canvas.className = '';
@@ -30,8 +30,8 @@ function defaultPreview() {
   Inserts the image into the preview box and blurs the image.
 
 */
-function generatePreview(file) {
-  defaultPreview();
+function generatePreview(file, canvas) {
+  defaultPreview(canvas);
   if(file) {
     let reader = new FileReader();
     let image = new Image();
@@ -39,7 +39,7 @@ function generatePreview(file) {
       image.src = reader.result;
     }
 
-    let canvas = document.getElementById("preview");
+    let canvas = document.getElementById(canvas);
     let context = canvas.getContext("2d");
     image.onload = function () {
       if(isImage(file)) {

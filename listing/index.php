@@ -87,7 +87,11 @@
     */
   
     const listingData = <?php echo $json ?>;
-    setCanvasImageFromBase64(listingData['preview'], 'preview');
+    if(listingData['preview']) {
+      setCanvasImageFromBase64(listingData['preview'], 'preview');
+    } else {
+      defaultPreview('preview');
+    }
 
     //document.getElementById('price').textContent += listingData['price'];
     document.getElementById('seller-email').textContent += `Listed By: ${truncateString(listingData['email'], 15)}`;

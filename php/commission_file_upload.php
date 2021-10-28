@@ -11,7 +11,7 @@
   require_once('util.php');
 
   $commission_id = $_POST['commission'];
-  $preview = serialize($_POST["preview"]);
+  $preview = $_POST["preview"] != "null" ? serialize($_POST["preview"]) : NULL;
   $file = serialize($_POST["file"]);
 
   if(fileTooLarge($file)) {
