@@ -15,7 +15,7 @@
   <link rel='icon' href='favicon.ico?' type='image/x-icon'>
 </head>
 
-<body onload="defaultPreview()">
+<body onload="defaultPreview('preview')">
   <!--Add side menu and header -->
   <?php
     include_once('../php/view/header.php');

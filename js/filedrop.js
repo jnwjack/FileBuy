@@ -17,7 +17,7 @@ function dropHandler(ev) {
     } else {
       let fileElement = document.getElementById("file");
       fileElement.files = ev.dataTransfer.files;
-      generatePreview(ev.dataTransfer.files[0]);
+      generatePreview(ev.dataTransfer.files[0], 'preview');
     }
   }
 }
@@ -60,7 +60,7 @@ function dragLeaveHandler(ev) {
 */
 function selectHandler(element) {
   let file = element.files[0];
-  generatePreview(file);
+  generatePreview(file, 'preview');
   if(!file) {
     return false;
   }

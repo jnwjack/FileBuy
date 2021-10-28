@@ -53,7 +53,7 @@ function updatePreview(status, preview=null) {
         setCanvasImageFromBase64(preview, 'uploaded-file');
       } else {
         // Default preview
-        generatePreview(null);
+        defaultPreview('uploaded-file');
       }
     } else {
       // file is not uploaded

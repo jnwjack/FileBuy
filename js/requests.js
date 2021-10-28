@@ -131,7 +131,11 @@ function createListing(event) {
   });
 
   readerPromise.then(function(fileData) {
-    let previewb64 = savePreviewAsBase64();
+    let previewb64 = null;
+    // Preview should be null for non-image file types
+    if(isImage(file)) {
+      previewb64 = savePreviewAsBase64();
+    }
 
     let formData = new FormData();
     formData.append('email', email);
@@ -155,7 +159,7 @@ function createListing(event) {
         // Reset form values and clear preview
         let form = document.getElementById('main');
         form.reset();
-        defaultPreview();
+        defaultPreview('preview');
 
         throw(response.text());
       }
@@ -172,7 +176,7 @@ function createListing(event) {
       toggleProgressBar(submitButton, false);
       //toggleButtonProgressBar(false);
 
-      defaultPreview();
+      defaultPreview('preview');
       activateResultCard(linkString);
     })
     .catch(error => {
@@ -294,7 +298,11 @@ function uploadCommissionFile(event, commissionID) {
   });
 
   readerPromise.then(function(fileData) {
-    let previewb64 = savePreviewAsBase64();
+    let previewb64 = null;
+    // If file is not an image, we don't create a datastring
+    if(isImage(file)) {
+      previewb64 = savePreviewAsBase64();
+    }
 
     let formData = new FormData();
     formData.append('preview', previewb64);
@@ -313,7 +321,7 @@ function uploadCommissionFile(event, commissionID) {
         // Remove file data from DOM element and clear preview
         let fileInput = document.querySelector('#file');
         fileInput.value = '';
-        defaultPreview();
+        defaultPreview('uploaded-file');
 
         throw(response.text());
       }
@@ -325,7 +333,7 @@ function uploadCommissionFile(event, commissionID) {
       toggleProgressBar(submitButton, false);
 
       // Clear preview card
-      defaultPreview();
+      defaultPreview('uploaded-file');
       
       updateProgressBar(state['current'], state['stepNumber']);
       updateMilestoneSectionVisibilityAndText(state['currentStep']);

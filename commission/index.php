@@ -14,7 +14,7 @@
   <link rel='icon' href='../favicon.ico?' type='image/x-icon'>
 </head>
 
-<body onload="defaultPreview()">
+<body onload="defaultPreview('preview')">
   <?php
     // Add side menu and header
     include_once('../php/view/header.php');
@@ -83,6 +83,7 @@
       $evidenceArray[] = $evidenceObject;
     }
 
+    error_log(print_r($currentStep['preview'] == NULL ? "true" : "false", TRUE));
     $convertedArray = array(
       'commission_id' => $_GET['commission'],
       'steps' => $commission['steps'],
