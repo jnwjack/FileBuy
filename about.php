@@ -33,6 +33,10 @@
     <p class="content-part">
       For each transaction, File Buy charges a fee of $0.60 USD plus 8% of the price given by the seller. PayPal fees are included in this amount.  File Buy is much cheaper than alternatives. For example, Fiverr charges 20% for the same service.
     </p>
+    <h2 class="content-part">Refund Policy</h2>
+    <p class="content-part">
+      To inquire about a refund for a transaction, please send us a message describing your situation along with the associated commission ID or listing ID.  If you are doing a commission, adding descriptive evidence will help make a refund more likely.  In most cases, if the preview adequately matches the uploaded file, a refund will not be given.
+    </p>
   </div>
 </body>
 
