@@ -20,6 +20,9 @@
 
   <form id="main" class="content" onsubmit="sendMessage(event)">
     <h2 class="content-part">Have a question? Contact us!</h2>
+    <p class="content-part">
+      If you are contacting us about a refund, please take a moment and read the relevant section on the "About" page first.
+    </p>
     <div class="content-part">
       <input id="email" type="email" placeholder="Email">
       <textarea id="message" placeholder="Message"></textarea>
