@@ -18,20 +18,22 @@ html {
 
 button {
   text-align: center;
-  background-color: #ffffff;
-  border-color: #4D68B2;
-  border-width: 3px;
+  background-color: #4d68b2;
+  border-width: 0px;
   border-style: solid;
   border-radius: 8px;
-  color: #1B3888;
+  color: #ffffff;
   font-weight: 800;
   padding: 0;
   outline: none;
   cursor: pointer;
 }
 
-button:focus {
-  border-color: #4D68B2;
+button.secondary {
+  color: #4d68b2;
+  background-color: #ffffff;
+  border-color: #4d68b2;
+  border-width: 3px;
 }
 
 p {

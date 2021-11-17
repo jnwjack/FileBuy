@@ -129,7 +129,7 @@
         include_once('../php/view/file_upload.php');
       ?>
       <div class="button-row">
-        <button class="form-button" onclick="activateCard('preview-card')">
+        <button class="form-button secondary" onclick="activateCard('preview-card')">
           Show Preview
         </button>
         <button type="submit" class="form-button">

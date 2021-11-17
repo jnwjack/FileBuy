@@ -12,7 +12,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
   <link rel="stylesheet" type="text/css" href="../dist/listing_create.css">
 
-  <link rel='icon' href='favicon.ico?' type='image/x-icon'>
+  <link rel='icon' href='../favicon.ico?' type='image/x-icon'>
 </head>
 
 <body onload="defaultPreview('preview')">
@@ -28,11 +28,11 @@
     </p>
     <p id="result-card-text"></p>
     <div class="button-row">
+      <button type="button" class="card-button secondary" onclick="disableCard('result-card')">
+        Close
+      </button>
       <button id="copy-button" class="card-button" type="button" onclick="copyLink()">
         Copy
-      </button>
-      <button type="button" class="card-button" onclick="disableCard('result-card')">
-        Close
       </button>
     </div>
   </div>
@@ -57,7 +57,7 @@
     </div>
     <div class="content-part">
       <div class="button-row">
-        <button type="button" class="form-button" onclick="activateCard('preview-card')">
+        <button type="button" class="form-button secondary" onclick="activateCard('preview-card')">
           Show Preview
         </button>
         <button type="submit" class="form-button">
