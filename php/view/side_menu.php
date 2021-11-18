@@ -1,4 +1,4 @@
-<div id="burger-menu-wrapper">
+<div id="burger-menu-wrapper" class="disabled">
   <div id="burger-header">
     <h1>
       What's Up?
@@ -10,7 +10,7 @@
       <rect x="0" y="0" width="100" height="100" class="clickable-rect" fill-opacity="0" onclick="toggleBurgerMenu()"></rect>
     </svg>
   </div>
-  <div id="burger-menu" class="disabled">
+  <div id="burger-menu">
     <div class="burger-content">
       <a class="content-part" href="/listing/create">
         List a File

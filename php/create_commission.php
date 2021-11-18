@@ -24,15 +24,22 @@
     $statement->execute();
   }
 
+  $db = getDatabaseObject();
+
   $postData = json_decode(file_get_contents('php://input'), true);
 
   $numSteps = $postData['numSteps'];
   $email = $postData['email'];
+
+  if(tooManyPostings($db, $email)) {
+    // 460 = Too many postings
+    http_response_code(460);
+    die('This email has too many active postings');
+  }
+
   $uuid = Uuid::uuid4();
   $id = $uuid->toString();
   $current = 1;
-
-  $db = getDatabaseObject();
 
   $statement = $db->prepare("INSERT INTO commissions(id,steps,email,current)
                 VALUES(:id,:steps,:email,:current);");

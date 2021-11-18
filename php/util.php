@@ -1,4 +1,5 @@
 <?php
+  require_once('database_request.php');
 
   $feeRate = 0.08;
   $baseFee = 0.60;
@@ -6,6 +7,8 @@
   $maxFileSize = 4000000;
 
   $maxPrice = 1000;
+
+  $maxPostings = 5;
 
   function priceWithFee(float $price) {
     global $feeRate, $baseFee;
@@ -23,6 +26,26 @@
     global $maxPrice;
 
     return $price > $maxPrice;
+  }
+
+  function tooManyPostings(PDO $db, string $email) {
+    global $maxPostings;
+
+    // x is a dummy variable required by mysql syntax
+    $statement = $db->prepare('
+          SELECT COUNT(*) FROM 
+          (
+            SELECT NULL FROM listings WHERE email=:email 
+            UNION ALL 
+            SELECT NULL FROM commissions WHERE email=:email
+          )x');
+    $statement->bindValue(':email', $email, PDO::PARAM_STR);
+    $successful = $fetchStatement->execute();
+    if(!$successful) {
+      return true;
+    }
+    $numPostings = $statement->fetchColumn();
+    return $numPostings >= $maxPostings;
   }
 
 ?>

@@ -43,6 +43,12 @@
 
   $db = getDatabaseObject();
 
+  if(tooManyPostings($db, $email)) {
+    // 460 = Too many postings
+    http_response_code(460);
+    die('This email has too many active postings');
+  }
+
   $statement = $db->prepare("INSERT INTO listings(preview,email,price,id,name,size)
               VALUES(:preview,:email,:price,:id,:name,:size);");
 
