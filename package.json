@@ -25,6 +25,7 @@
   "dependencies": {
     "fs.promises": "^0.1.2",
     "minify": "^7.0.2",
+    "npm": "^8.1.4",
     "try-to-catch": "^3.0.0"
   }
 }
