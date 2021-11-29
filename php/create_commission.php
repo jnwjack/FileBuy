@@ -32,8 +32,8 @@
   $email = $postData['email'];
 
   if(tooManyPostings($db, $email)) {
-    // 460 = Too many postings
-    http_response_code(460);
+    // 409 = Too many postings
+    http_response_code(409);
     die('This email has too many active postings');
   }
 
