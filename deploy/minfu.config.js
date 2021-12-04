@@ -89,7 +89,7 @@ const configs = [
   },
   {
     name: '404',
-    css: ['../css/common.css'],
+    css: ['../css/common.css', '../css/404.css'],
     outputDir:'../dist',
     outputCSS: '404.css',
   }
