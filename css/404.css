@@ -1,0 +1,22 @@
+#notfound {
+  height: 14rem;
+}
+
+.content > div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  text-align: start;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.content img {
+  margin-bottom: 1rem;
+}
+
+.content p {
+  width: 60%;
+}
