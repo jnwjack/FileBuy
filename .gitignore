@@ -1,6 +1,7 @@
 *.jpg
 *.jpeg
 *.gif
+*.xcf
 info
 .gitsecret/keys/random_seed
 !*.secret
