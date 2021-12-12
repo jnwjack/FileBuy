@@ -54,6 +54,9 @@ function createCommission(event) {
     }
   })
   .then(response => {
+    if(response.status == 409) {
+      alert('This email address has too many active postings. Contact us if you would like to close an active posting.');
+    }
     if(response.status >= 400) {
       // Reset form values
       let form = document.querySelector('#main');
@@ -153,6 +156,8 @@ function createListing(event) {
       // If file is too big
       if(response.status == 413) {
         alert('The file is too big. The maximum file size is 4MB');
+      } else if(response.status == 409) {
+        alert('This email address has too many active postings. Contact us if you would like to close an active posting.');
       }
       // Catch all other errors
       if(response.status >= 400) {

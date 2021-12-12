@@ -35,12 +35,13 @@
     $statement = $db->prepare('
           SELECT COUNT(*) FROM 
           (
-            SELECT NULL FROM listings WHERE email=:email 
+            SELECT NULL FROM listings WHERE email=:emailone 
             UNION ALL 
-            SELECT NULL FROM commissions WHERE email=:email
+            SELECT NULL FROM commissions WHERE email=:emailtwo
           )x');
-    $statement->bindValue(':email', $email, PDO::PARAM_STR);
-    $successful = $fetchStatement->execute();
+    $statement->bindValue(':emailone', $email, PDO::PARAM_STR);
+    $statement->bindValue(':emailtwo', $email, PDO::PARAM_STR);
+    $successful = $statement->execute();
     if(!$successful) {
       return true;
     }
