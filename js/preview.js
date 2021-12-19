@@ -30,8 +30,8 @@ function defaultPreview(canvasID) {
   Inserts the image into the preview box and blurs the image.
 
 */
-function generatePreview(file, canvas) {
-  defaultPreview(canvas);
+function generatePreview(file, canvasID) {
+  defaultPreview(canvasID);
   if(file) {
     let reader = new FileReader();
     let image = new Image();
@@ -39,7 +39,7 @@ function generatePreview(file, canvas) {
       image.src = reader.result;
     }
 
-    let canvas = document.getElementById(canvas);
+    let canvas = document.getElementById(canvasID);
     let context = canvas.getContext("2d");
     image.onload = function () {
       if(isImage(file)) {
