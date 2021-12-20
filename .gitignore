@@ -1,6 +1,7 @@
 *.jpg
 *.jpeg
 *.gif
+*.xcf
 info
 .gitsecret/keys/random_seed
 !*.secret
@@ -14,6 +15,8 @@ keys/*
 *.phar
 *.env
 *.pem
+*.key
+sshkey.pem
 sshconnect.sh
 
 
