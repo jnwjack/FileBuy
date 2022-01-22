@@ -41,7 +41,7 @@
     $commission = $commissionStatement->fetch(PDO::FETCH_ASSOC);
 
     if(!$commission) {
-      header('Location: /error');
+      header('Location: ../404.php');
       die();
     }
 
@@ -54,7 +54,7 @@
     $currentStep = $currentStepStatement->fetch(PDO::FETCH_ASSOC);
 
     if(!$currentStep) {
-      header('Location: /error');
+      header('Location: ../404.php');
       die();
     }
 
