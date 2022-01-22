@@ -2,7 +2,7 @@
   require_once('database_request.php');
 
   $feeRate = 0.08;
-  $baseFee = 0.60;
+  $baseFee = 1.00;
 
   $maxFileSize = 4000000;
 
