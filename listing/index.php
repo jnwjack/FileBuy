@@ -61,7 +61,7 @@
 
     if(!$row) {
       // must be changed to actual url root later
-      header('Location: /error');
+      header('Location: ../404.php');
       die();
     }
 

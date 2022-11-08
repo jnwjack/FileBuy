@@ -111,7 +111,7 @@
     // If order is complete
     if($currentStepStatus == 2) {
       // Pay seller
-      $ch = curl_init('https://api-m.sandbox.paypal.com/v1/payments/payouts');
+      $ch = curl_init('https://api-m.paypal.com/v1/payments/payouts');
       $curl_data = array(
         'sender_batch_header' => array('email_subject' => 'A milestone has been completed!', 'email_message' => '<3'),
         'items' => array(array(
