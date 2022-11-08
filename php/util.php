@@ -1,8 +1,13 @@
 <?php
   require_once('database_request.php');
 
-  $feeRate = 0.08;
-  $baseFee = 1.00;
+  // Old rate
+  //$feeRate = 0.08;
+  //$baseFee = 1.00;
+
+  // Current rate (free)
+  $feeRate = 0.0;
+  $baseFee = 0.0;
 
   $maxFileSize = 4000000;
 

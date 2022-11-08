@@ -31,7 +31,7 @@
     </p>
     <h2 class="content-part">How much does it cost?</h2>
     <p class="content-part">
-      For each transaction, File Buy charges a fee of $1.00 USD plus 8% of the price given by the seller. PayPal fees are included in this amount.  File Buy is much cheaper than alternatives. For example, Fiverr charges 20% for the same service.
+      File Buy is 100% free. We cover PayPal's fees. If you list something at five dollars, your buyer will pay five dollars. If enough people use this, we'll likely set up a donation link so users who have the means can help us continue to offer this service for free.
     </p>
     <h2 class="content-part">How long do postings stay active?</h2>
     <p class="content-part">
