@@ -36,10 +36,10 @@
 
       // Initialize email with sendgrid
       $this->sendgridEmail = new \SendGrid\Mail\Mail(); 
-      $this->sendgridEmail->setFrom("noreply@em5875.filebuy.app", "File Buy");
+      $this->sendgridEmail->setFrom("noreply@em1878.filebuy.app", "File Buy");
 
       // Add template
-      $this->sendgridEmail->setTemplateId('d-3f64de4b270f4aaeae55ac4521df719d');
+      $this->sendgridEmail->setTemplateId('d-a3002d4f019e4cd09b93a7e8d66d9a83');
     }
 
     public function setMessage(string $newMessage) {
