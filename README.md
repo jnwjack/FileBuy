@@ -1,4 +1,4 @@
-# FileBuy - Work In Progress
+# FileBuy
 
 The web app is a simple way for artists to sell files. A user uploads an image and receives a link to the listing for that file.  They can then share the link with someone else, who can go to the link and pay for it (via Paypal) and then download the file. Files stay listed for 6 hours, and once they have been paid for anyone with the link can download it. 
 
